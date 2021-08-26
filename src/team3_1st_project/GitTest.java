@@ -7,7 +7,8 @@ public class GitTest {
 		
 		System.out.println("자고싶다");
 		System.out.println("테스트테스트~~");
-
-	}
+		
+		System.out.println("테스트합니다~ -소희");	
+		}
 
 }
