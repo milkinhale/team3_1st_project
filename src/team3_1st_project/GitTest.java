@@ -9,7 +9,7 @@ public class GitTest {
 		System.out.println("테스트테스트~~");
 		
 		System.out.println("테스트합니다~");	
-
+		System.out.println("두번째 테스트~");
 		System.out.println("쉬는시간~~");
 	}
 
