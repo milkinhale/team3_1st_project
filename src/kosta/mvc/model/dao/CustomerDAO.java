@@ -2,6 +2,8 @@ package kosta.mvc.model.dao;
 
 import java.sql.SQLException;
 
+import kosta.mvc.model.dto.Customer;
+
 public interface CustomerDAO {
 
 /**
@@ -11,7 +13,7 @@ public interface CustomerDAO {
 /**
  * 로그인하기
  **/
-   customerLogin(String customerId, String customerwd)throws SQLException;
+   Customer customerLogin(String customerId, String customerpwd)throws SQLException;
 
 /**
  * 	회원정보찾기(아이디)
@@ -21,12 +23,12 @@ public interface CustomerDAO {
 /**
  * 	 회원정보찾기(비번) 
  **/
-	String findcusomerPwd (String customerId, String eamil) throws SQLException;
+	String findcusomerPwd (String customerId, String email) throws SQLException;
 	
 /**
  * 	회원정보수정(이메일)
  **/
-	int updatecustomerEmail (String customerId) throws SQLException;
+	int updatecustomerEmail (String customerId, String email) throws SQLException;
 	
 /**
  *  회원정보수정(비번)
