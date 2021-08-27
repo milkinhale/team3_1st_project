@@ -17,13 +17,15 @@ public class CustomerService {
    * 로그인
    * */
 	public Customer login(String userId, String userPwd)throws NotFoundException , SQLException{
-		Customer customer=customerDao.login(userId, userPwd);
+		Customer customer=customerDao.customerLogin(userId, userPwd);
 		if(customer==null) {
 			throw new NotFoundException("정보를 다시 확안해주세요.");
 		}
 		
+		String seller = customer.getSeller();
+		
 		//로그인 된 정보 저장하기
-		Session session = new Session(userId);
+		Session session = new Session(userId, seller);
 		
 		
 		SessionSet sessionSet = SessionSet.getInstance();
@@ -31,4 +33,5 @@ public class CustomerService {
 		
 		return customer;
 	}
+
 }
