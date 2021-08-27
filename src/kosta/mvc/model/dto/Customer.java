@@ -15,6 +15,19 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Customer(String customerId, String pwd, String customerName, String birth, String email, String addr,
+			String contact, String signDate) {
+		super();
+		this.customerId = customerId;
+		this.pwd = pwd;
+		this.customerName = customerName;
+		this.birth = birth;
+		this.email = email;
+		this.addr = addr;
+		this.contact = contact;
+		this.signDate = signDate;
+	}
+
 	public String getCustomerId() {
 		return customerId;
 	}
