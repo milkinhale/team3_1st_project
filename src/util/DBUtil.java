@@ -33,6 +33,7 @@ public class DBUtil {
 	static {
 		try {
 			proFile.load(new FileInputStream("resources/dbInfo.properties"));
+			proFile.load(new FileInputStream("resources/sql.properties"));
 		
 			Class.forName(proFile.getProperty("driverName")); // 오라클 드라이버를 찾는다.
 		} catch (Exception e) {

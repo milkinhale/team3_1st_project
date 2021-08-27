@@ -63,5 +63,7 @@ VALUES(ORDER_DETAIL_SEQ.NEXTVAL, 2, 2, 2, 0);
 INSERT INTO ORDER_DETAIL
 (ORDER_DETAIL_NO, LIQUOR_NO, ORDER_NO, COUNT, ORDER_PRICE)
 VALUES(ORDER_DETAIL_SEQ.NEXTVAL, 3, 3, 2, 0);
-                                                                                          
+
+
 SELECT * FROM ORDER_DETAIL
+
