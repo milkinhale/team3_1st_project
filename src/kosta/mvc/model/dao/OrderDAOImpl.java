@@ -142,11 +142,7 @@ public class OrderDAOImpl implements OrderDAO {
 		return 0;
 	}
 
-	@Override
-	public int insertOrder(Orders order) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	/**
 	 * 주문번호에 해당하는 주문상세 가져오기
@@ -172,6 +168,55 @@ public class OrderDAOImpl implements OrderDAO {
     }
 		return list;
 		
+	}
+	
+	@Override
+	public int insertOrder(Orders order) throws SQLException {
+		Connection con=null;
+		  PreparedStatement ps=null;
+		  String sql="INSERT INTO ORDERS(ORDER_ID, ORDER_DATE,USER_ID, ADDRESS, TOTAL_AMOUNT)" + 
+		  		"  VALUES(ORDER_ID_SEQ.NEXTVAL ,sysdate,?,?, ?)";
+		  int result=0;
+		 try {
+			
+		   con = DBUtil.getConnection();
+		   con.setAutoCommit(false);  //오토 커밋 해제!!
+		   
+		   ps = con.prepareStatement(sql);
+//		   ps.setString(1, order.getUserId());
+//		   ps.setString(2, order.getAddress());
+//		   ps.setInt(3, this.getTotalAmount(order));//총구매금액구하는 메소드 호출
+		   
+		   result = ps.executeUpdate();
+		   if(result==0) {
+			   con.rollback();
+			   throw new SQLException("주문 실패...");
+		   }
+		   else {
+			   int re [] = orderDetailInsert(con, order); //주문상세 등록하기 
+			   ////////////i찍어보기/////////////
+			   for(int i : re) {
+				   System.out.println(i); 
+			   }
+			   //////////////////////////////////
+			   for(int i : re) {
+				   if(i != 1) {//12c 이상: 성공1/실패0    11g: 성공-2/실패0
+					   con.rollback();
+					   throw new SQLException("주문 할수 없습니다....");
+				   }
+			   }
+			   
+			   //주문수량만큼 재고량 감소하기
+			   decrementStock(con, order.getOrderDetailList());
+			   con.commit();
+		   }
+		   
+		    }finally {
+		  	  con.commit();
+		  	  	DBUtil.dbClose(con, ps , null);
+		    }
+		
+		return result;
 	}
 	
 	/**
@@ -204,5 +249,30 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		return result;
 		
+	}
+	
+	/**
+	 * 상품으로 재고량 감소시키키
+	 * */
+	public int[] decrementStock(Connection con , List<OrderDetail> orderLineList)throws SQLException {
+		 PreparedStatement ps=null;
+		  String sql="update goods set stock = stock-? where goods_id=?";
+		  int result [] =null;
+		 try {
+		  ps = con.prepareStatement(sql);
+		  for( OrderDetail orderDetail : orderLineList ) {
+//			   ps.setInt(1, orderDetail.getQty());
+//			   ps.setString(2, orderDetail.getGoodsId());
+			   
+			   ps.addBatch(); //일괄처리할 작업에 추가
+			   ps.clearParameters();
+		  }
+		  
+		  result = ps.executeBatch();//일괄처리
+		 }finally {
+			 DBUtil.dbClose(null, ps, null);
+		 }
+		
+		return result;
 	}
 }
