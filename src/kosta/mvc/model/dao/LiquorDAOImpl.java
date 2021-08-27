@@ -5,7 +5,7 @@ import java.util.List;
 
 import kosta.mvc.model.dto.Liquor;
 
-public class GoodsDAOImpl implements GoodsDAO {
+public class LiquorDAOImpl implements LiquorDAO {
 
 	@Override
 	public List<Liquor> goodsSelectByGoodsCost() throws SQLException {

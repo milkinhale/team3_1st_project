@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import kosta.mvc.model.dto.Liquor;
 
-public interface GoodsDAO {
+public interface LiquorDAO {
 	/*
 		전체검색 
 		List<Liquor> goodsSelect() throws SQLException;
