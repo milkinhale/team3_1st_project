@@ -14,13 +14,13 @@ public class LiquorDAOImpl implements LiquorDAO {
 	}
 
 	@Override
-	public List<Liquor> goodsSelectByGoodsKind() throws SQLException {
+	public List<Liquor> goodsSelectByGoodsKind(String liqourType) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Liquor goodsSelectByGoodsName(String goodsName) throws SQLException {
+	public Liquor goodsSelectByGoodsName(String liqourName) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
