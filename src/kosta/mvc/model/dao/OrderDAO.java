@@ -1,5 +1,7 @@
 package kosta.mvc.model.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,13 +19,13 @@ public interface OrderDAO {
 	 * 회원별 주문내역보기
 	 * 		구매자 주문내역 보기랑 판매자 주문 검색에서 사용함
 	 * */
-	List<Orders> orderSelectByCustomerNo(String customerId)throws SQLException;
+	List<Orders> orderSelectByCustomerId(String customerId)throws SQLException;
 	
 	/**
 	 * 주문 수정
 	 * 		판매자가 주문상태 수정할때 사용함.
 	 * */
-	int updateOrder(Orders order)throws SQLException;
+	int updateOrder(Orders order, String orderStatusMessage)throws SQLException;
 	
 	/**
 	 * 주문 삭제
@@ -44,5 +46,10 @@ public interface OrderDAO {
 	   * 
 	   * */
 	int insertOrder(Orders order)throws SQLException;
+	
+	/**
+	 * 주문상세 등록하기 
+	 * */
+	int[] orderDetailInsert(Connection con  , Orders order) throws SQLException;
 	
 }

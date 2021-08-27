@@ -29,11 +29,11 @@ public class Orders {
 		this.finalPrice = finalPrice;
 	}
 
-	public List<OrderDetail> getOrderLineList() {
+	public List<OrderDetail> getOrderDetailList() {
 		return orderDetailList;
 	}
 
-	public void setOrderLineList(List<OrderDetail> orderDetailList) {
+	public void setOrderDetailList(List<OrderDetail> orderDetailList) {
 		this.orderDetailList = orderDetailList;
 	}
 

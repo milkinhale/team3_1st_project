@@ -20,14 +20,27 @@ public class OrderDAOImpl implements OrderDAO {
 		OrderDAOImpl dao = new OrderDAOImpl();
 		
 		
+//		try {
+//			List<Orders> list = dao.orderSelectByCustomerId("KIM");
+//			for(Orders o : list) {
+//				System.out.println(o);
+//				int i = dao.updateOrder(o, "TESTING");
+//				System.out.println(i);
+//				System.out.println(o);
+//				
+//			}
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+		
 		try {
-			List<Orders> list = dao.orderSelectAll();
+			List<Orders> list = dao.orderSelectByCustomerId("KIM");
 			for(Orders o : list) {
 				System.out.println(o);
 			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -51,7 +64,7 @@ public class OrderDAOImpl implements OrderDAO {
 	        	//주문번호에 해당하는 상세정보 가져오기
 	        	List<OrderDetail> orderDetailList = selectOrderDetail(orders.getOrderNo());//메소드 호출
 	        	
-	        	orders.setOrderLineList(orderDetailList);
+	        	orders.setOrderDetailList(orderDetailList);
 	        	list.add(orders);
 	        }
 		  }finally {
@@ -61,15 +74,66 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public List<Orders> orderSelectByCustomerNo(String customerId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Orders> orderSelectByCustomerId(String CustomerId) throws SQLException {
+		Connection con=null;
+		  PreparedStatement ps=null;
+		  ResultSet rs=null;
+		  List<Orders> list = new ArrayList<>();
+		 try {
+		   con = DBUtil.getConnection();
+		   ps= con.prepareStatement(profile.getProperty("order.selectByCustomerNo"));
+		   ps.setString(1, CustomerId);
+	       rs = ps.executeQuery(); 
+	        
+	        while(rs.next()) {
+	        	Orders orders  = new Orders(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+	        	
+	        	//주문번호에 해당하는 상세정보 가져오기
+	        	List<OrderDetail> orderDetailList = selectOrderDetail(orders.getOrderNo());//메소드 호출
+	        	
+	        	orders.setOrderDetailList(orderDetailList);
+	        	list.add(orders);
+	        }
+		  }finally {
+			  DBUtil.dbClose(con, ps, rs);
+		  }
+		return list;
 	}
 
 	@Override
-	public int updateOrder(Orders order) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateOrder(Orders order, String orderStatusMessage) throws SQLException {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		int orderNo = order.getOrderNo();
+		
+		String sql = profile.getProperty("order.update");
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, orderStatusMessage);
+			ps.setInt(2, orderNo);
+			
+			result = ps.executeUpdate();
+			
+//			if(result == 0) {
+//				System.out.println("FAILED");
+//			}else {
+//				System.out.println("SUCCESS");
+//			}
+			
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			DBUtil.dbClose(con, ps);
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -107,6 +171,38 @@ public class OrderDAOImpl implements OrderDAO {
     	DBUtil.dbClose(con, ps, rs);
     }
 		return list;
+		
+	}
+	
+	/**
+	 * 주문상세 등록하기 
+	 * */
+	public int[] orderDetailInsert(Connection con  , Orders order) throws SQLException{
+		
+		  PreparedStatement ps=null;
+		  String sql=profile.getProperty("orderDetail.insert");
+		  int result [] =null;
+		 try {
+			 ps = con.prepareStatement(sql);
+		  for( OrderDetail orderDetail : order.getOrderDetailList() ) {
+//			 Goods goods = goodsDao.goodsSelectBygoodsId(orderline.getGoodsId());
+//			  
+//			   ps.setString(1, orderline.getGoodsId());
+//			   ps.setInt(2, goods.getGoodsPrice());//가격
+//			   ps.setInt(3, orderline.getQty());//총구매금액
+//			   ps.setInt(4,  goods.getGoodsPrice()*orderline.getQty());//총구매금액
+//			   ps.addBatch(); //일괄처리할 작업에 추가
+//			   ps.clearParameters();
+			   
+		  }
+		  result = ps.executeBatch();//일괄처리
+		  
+		   
+    }finally {
+    	DBUtil.dbClose(null, ps , null);
+    }
+		
+		return result;
 		
 	}
 }
