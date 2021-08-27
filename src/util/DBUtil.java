@@ -12,14 +12,14 @@ import java.util.Properties;
  * DB연동을 위한 로드, 연결, 닫기
  */
 public class DBUtil {
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 	    try {
 		    Connection con = getConnection();
 		    System.out.println("연결 완료 = " + con);
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	    }
-    }*/
+    }
 	
 	private static Properties proFile = new Properties();
 	

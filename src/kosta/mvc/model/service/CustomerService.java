@@ -1,8 +1,11 @@
 package kosta.mvc.model.service;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import kosta.mvc.exception.NotFoundException;
+import kosta.mvc.model.dao.CouponDAO;
+import kosta.mvc.model.dao.CouponDAOImpl;
 import kosta.mvc.model.dao.CustomerDAO;
 import kosta.mvc.model.dao.CustomerDAOImpl;
 import kosta.mvc.model.dto.Customer;
@@ -11,6 +14,7 @@ import kosta.mvc.session.SessionSet;
 
 public class CustomerService {
 	CustomerDAO customerDao = new CustomerDAOImpl();
+	CouponDAO coupon = new CouponDAOImpl();
 	
 	
   /**
@@ -38,8 +42,22 @@ public class CustomerService {
 	 * 회원가입
 	 * */
 	public void register(Customer customer) throws SQLException{
-		int result =  customerDao.insertcustomer(customer);
-		if(result==0)throw new SQLException("회원가입에 실패하였습니다.");
+		LocalDate now = LocalDate.now();
+		String [] birth = customer.getBirth().split("/");
+		int age = now.getYear() - Integer.parseInt(birth[0]);
+		if(Integer.parseInt(birth[1]) > now.getMonthValue()) {
+			age--;
+		} else if(Integer.parseInt(birth[2]) >= now.getDayOfMonth()) {
+			age--;
+		}
+		if(age >= 19) {
+		    int result =  customerDao.insertcustomer(customer);
+		    if(result==0)throw new SQLException("회원가입에 실패하였습니다.");
+		    coupon.insertCoupon(15);
+		} else {
+			throw new SQLException("애들은 가라");
+		}
+		
 	}
 
 }
