@@ -14,6 +14,25 @@ import util.DBUtil;
 
 public class OrderDAOImpl implements OrderDAO {
 	private Properties profile = DBUtil.getProFile();
+	
+	/////////////////Test//////////////////////////
+	public static void main(String[] args) {
+		OrderDAOImpl dao = new OrderDAOImpl();
+		
+		
+		try {
+			List<Orders> list = dao.orderSelectAll();
+			for(Orders o : list) {
+				System.out.println(o);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	/////////////////Test//////////////////////////
+	
 
 	@Override
 	public List<Orders> orderSelectAll() throws SQLException {
@@ -23,16 +42,16 @@ public class OrderDAOImpl implements OrderDAO {
 		  List<Orders> list = new ArrayList<>();
 		 try {
 		   con = DBUtil.getConnection();
-		   ps= con.prepareStatement("select * from orders");
+		   ps= con.prepareStatement(profile.getProperty("order.selectAll"));
 	       rs = ps.executeQuery(); 
 	        
 	        while(rs.next()) {
 	        	Orders orders  = new Orders(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
 	        	
 	        	//주문번호에 해당하는 상세정보 가져오기
-	        	List<OrderDetail> orderLineList = selectOrderLine(orders.getOrderId());//메소드 호출
+	        	List<OrderDetail> orderDetailList = selectOrderDetail(orders.getOrderNo());//메소드 호출
 	        	
-	        	orders.setOrderLineList(orderLineList);
+	        	orders.setOrderLineList(orderDetailList);
 	        	list.add(orders);
 	        }
 		  }finally {
@@ -65,4 +84,29 @@ public class OrderDAOImpl implements OrderDAO {
 		return 0;
 	}
 
+	/**
+	 * 주문번호에 해당하는 주문상세 가져오기
+	 * */
+	public List<OrderDetail> selectOrderDetail(int orderNo)throws SQLException{
+		  Connection con=null;
+		  PreparedStatement ps=null;
+		  ResultSet rs=null;
+		  List<OrderDetail> list = new ArrayList<>();
+		 try {
+		   con = DBUtil.getConnection();
+		   ps= con.prepareStatement(profile.getProperty("orderDetail.selectByOrderNo"));
+		   ps.setInt(1, orderNo);
+	       rs = ps.executeQuery(); 
+	        
+	        while(rs.next()) {
+	        	OrderDetail orderDetail  = new OrderDetail(rs.getInt(1), rs.getInt(2), 
+	        			rs.getInt(3), rs.getInt(4), rs.getInt(5));
+	        	list.add(orderDetail);
+	        }
+    }finally {
+    	DBUtil.dbClose(con, ps, rs);
+    }
+		return list;
+		
+	}
 }

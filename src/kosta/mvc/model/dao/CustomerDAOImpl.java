@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import kosta.mvc.model.dto.Customer;
-import kosta.mvc.util.DbUtil;
 
 public class CustomerDAOImpl implements CustomerDAO {
 

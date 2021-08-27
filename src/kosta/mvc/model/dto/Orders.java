@@ -1,5 +1,8 @@
 package kosta.mvc.model.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Orders {
 	private int orderNo;
 	private String customerId;
@@ -7,6 +10,8 @@ public class Orders {
 	private String orderAddr;
 	private String orderStatus;
 	private int finalPrice;
+	
+	private List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
 	
 	public Orders() {
 		super();
@@ -22,6 +27,14 @@ public class Orders {
 		this.orderAddr = orderAddr;
 		this.orderStatus = orderStatus;
 		this.finalPrice = finalPrice;
+	}
+
+	public List<OrderDetail> getOrderLineList() {
+		return orderDetailList;
+	}
+
+	public void setOrderLineList(List<OrderDetail> orderDetailList) {
+		this.orderDetailList = orderDetailList;
 	}
 
 	public int getOrderNo() {
@@ -87,9 +100,11 @@ public class Orders {
 		builder.append(orderStatus);
 		builder.append(", finalPrice=");
 		builder.append(finalPrice);
+		builder.append(", orderDetailList=");
+		builder.append(orderDetailList);
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 	
 }
