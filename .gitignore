@@ -165,3 +165,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 # End of https://www.gitignore.io/api/git,java,maven,eclipse,windows
+.classpath
+bin/team3_1st_project/GitTest.class
+bin/team3_1st_project/GitTest.class
