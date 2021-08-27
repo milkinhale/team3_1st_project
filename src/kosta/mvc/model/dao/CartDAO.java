@@ -1,7 +1,9 @@
-package kosta.mvc.model.dto;
+package kosta.mvc.model.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import kosta.mvc.model.dto.Cart;
 
 public interface CartDAO {
 	/**
