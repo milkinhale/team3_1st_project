@@ -11,13 +11,17 @@ import java.util.Map;
  * */
 public class Session {
 	private String sessionId;
+	private String seller;
 	
 	
 	public Session() {}
 	public Session(String sessionId) {
 		this.sessionId = sessionId;
 	}
-	
+	public Session(String sessionId, String seller) {
+		this(sessionId);
+		this.seller = seller;
+	}
 	
 	public String getSessionId() {
 		return sessionId;
@@ -27,15 +31,23 @@ public class Session {
 		this.sessionId = sessionId;
 	}
 	
+	public String getSeller() {
+		return seller;
+	}
+	public void setSeller(String seller) {
+		this.seller = seller;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Session [sessionId=");
 		builder.append(sessionId);
+		builder.append(", seller=");
+		builder.append(seller);
 		builder.append("]");
 		return builder.toString();
 	}
-	
 	/**
 	 * 동일한 session이 동시에 로그인되지 않도록 확인한다. */
 	@Override
