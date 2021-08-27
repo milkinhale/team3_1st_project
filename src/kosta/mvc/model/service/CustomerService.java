@@ -34,4 +34,12 @@ public class CustomerService {
 		return customer;
 	}
 
+	/**
+	 * 회원가입
+	 * */
+	public void register(Customer customer) throws SQLException{
+		int result =  customerDao.insertcustomer(customer);
+		if(result==0)throw new SQLException("회원가입에 실패하였습니다.");
+	}
+
 }

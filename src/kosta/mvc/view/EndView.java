@@ -1,28 +1,17 @@
 package kosta.mvc.view;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-import kosta.mvc.controller.OrderController;
-import kosta.mvc.model.dto.Goods;
-import kosta.mvc.model.dto.OrderLine;
-import kosta.mvc.model.dto.Orders;
-import kosta.mvc.session.Session;
-import kosta.mvc.session.SessionSet;
-
 public class EndView {
   /**
    * 상품 전체 출력
    * */
-	public static void printGoodsList(List<Goods> list) {
+	/*public static void printGoodsList(List<Goods> list) {
 		System.out.println("-----상품 "+ list.size() +"개 -------------");
 		for(Goods goods : list) {
 			System.out.println(goods);
 		}
 		
 		System.out.println();
-	}
+	}*/
 	
 	
 	
@@ -33,7 +22,7 @@ public class EndView {
 	/**
 	 * 장바구니 보기
 	 * */
-	public static void printViewCart(String id , Map<Goods,Integer> cart) {
+	/*public static void printViewCart(String id , Map<Goods,Integer> cart) {
 		System.out.println("장바구니내용....");
 		
 		for(Goods goods: cart.keySet()) { //모든 Key를 꺼낸다 
@@ -78,12 +67,12 @@ public class EndView {
 		
 		//System.out.println(id);
 	
-	}
+	}*/
  
 	/**
 	 * 주문 상세보기
 	 * */
-	public static void printOrderByUserId(List<Orders> orderList) {
+	/*public static void printOrderByUserId(List<Orders> orderList) {
 	   for(Orders order : orderList) {
 		   System.out.println(order.getOrderId()+ " | " + order.getOrderDate() +" | " + order.getTotalAmount() +" | " + order.getAddress());
 		   for(OrderLine orderLine : order.getOrderLineList()) {
@@ -92,7 +81,7 @@ public class EndView {
 		   System.out.println();
 	   }
 		
-	}
+	}*/
 }
 
 

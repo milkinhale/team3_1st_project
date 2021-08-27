@@ -7,8 +7,7 @@ import kosta.mvc.controller.CartController;
 import kosta.mvc.controller.CustomerController;
 import kosta.mvc.controller.GoodsController;
 import kosta.mvc.controller.OrderController;
-import kosta.mvc.model.dto.OrderLine;
-import kosta.mvc.model.dto.Orders;
+import kosta.mvc.model.dto.Customer;
 import kosta.mvc.session.Session;
 import kosta.mvc.session.SessionSet;
 
@@ -24,7 +23,7 @@ public class MenuView {
 			int menu = Integer.parseInt(sc.nextLine());
 			switch(menu) {
 			case 1 :
-				//MenuView.register(); // 가입
+				MenuView.register(); // 가입
 				break;
 			case 2 :
 				MenuView.login();// 로그인
@@ -37,7 +36,8 @@ public class MenuView {
 
 	}
 	
-	
+
+
 	public static void printMenu() {
 		System.out.println("=== Heejung Shopping Mall ===");
 		System.out.println("1. 가입   |   2. 로그인   |  9. 종료");
@@ -51,7 +51,7 @@ public class MenuView {
 			System.out.println("-----" +userId+ " 로그인 중 -----");
 			System.out.println(" 1.로그아웃 |  2.상품보기  |  3.주문하기  | 4. 주문내역보기  |  5.장바구니담기  |  6.장바구니보기 ");
 			int menu =Integer.parseInt( sc.nextLine());
-			switch(menu) {
+			/*switch(menu) {
 				case 1 :
 					logout(userId);// 
 					return;
@@ -73,7 +73,7 @@ public class MenuView {
 				case 6 : 
 					viewCart(userId);
 					break;
-				}
+				}*/
 		}
 		
 	}
@@ -86,6 +86,35 @@ public class MenuView {
 		System.out.println("-- 관리자 메뉴 --");
 		System.out.println("1. ID로 검색   |  2.이름으로 검색  | 3.전체 검색  |  9. 나가기");
 		
+	}
+	
+	/**
+	 * 회원가입
+	 * */
+	public static void register() {
+		System.out.print("아이디 : ");
+		 String cutomerId = sc.nextLine();
+		 
+		 System.out.print("비번 : ");
+		 String Pwd = sc.nextLine();
+		 
+		 System.out.print("이름 : ");
+		 String cutomerName = sc.nextLine();
+		 
+		 System.out.print("생일 : ");
+		 String birth = sc.nextLine();
+		 
+		 System.out.print("이메일 : ");
+		 String email = sc.nextLine();
+		 
+		 System.out.print("주소 : ");
+		 String addr = sc.nextLine();
+		 
+		 System.out.print("연락처 : ");
+		 String contact = sc.nextLine();
+		 
+		 Customer customer = new Customer(cutomerId, Pwd, cutomerName, birth, email, addr, contact, addr, contact);
+		 CustomerController.register(customer);
 	}
 	
 	/**
@@ -125,12 +154,12 @@ public class MenuView {
 		 String address = sc.nextLine();
 		 
 			 
-		 Orders orders = new Orders(0, null, userId, address, 0);
+		 /*Orders orders = new Orders(0, null, userId, address, 0);
 		 OrderLine orderLine = new OrderLine(0, 0, goodsId, 0, qty, 0);
 		 
 		 orders.getOrderLineList().add(orderLine);
 		 
-		 OrderController.insertOrders(orders);	 
+		 OrderController.insertOrders(orders);*/	 
     }
     
     /**
@@ -152,7 +181,7 @@ public class MenuView {
      * 장바구니 보기
      * */
 	public static void viewCart(String id) {
-		CartController.viewCart(id);
+		//CartController.viewCart(id);
 		
 		
 		

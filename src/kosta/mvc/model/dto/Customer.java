@@ -17,7 +17,7 @@ public class Customer {
 	}
 
 	public Customer(String customerId, String pwd, String customerName, String birth, String email, String addr,
-			String contact, String signDate, String seller) {
+			String contact) {
 		super();
 		this.customerId = customerId;
 		this.pwd = pwd;
@@ -26,6 +26,11 @@ public class Customer {
 		this.email = email;
 		this.addr = addr;
 		this.contact = contact;
+	}
+
+	public Customer(String customerId, String pwd, String customerName, String birth, String email, String addr,
+			String contact, String signDate, String seller) {
+		this(customerId, pwd, customerName, birth, email, addr, contact);
 		this.signDate = signDate;
 		this.seller = seller;
 	}

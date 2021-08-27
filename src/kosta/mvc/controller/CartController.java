@@ -1,24 +1,13 @@
 package kosta.mvc.controller;
 
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
-
-
-import kosta.mvc.model.dto.Goods;
 import kosta.mvc.model.service.GoodsService;
-import kosta.mvc.session.Session;
-import kosta.mvc.session.SessionSet;
-import kosta.mvc.view.EndView;
-import kosta.mvc.view.FailView;
 
 public class CartController {
   private static GoodsService goodsService = new GoodsService();
   
    public static void putCart(String id, String goodsId, int quantity) {
 		
-		try {
+		/*try {
 			//상품번호에 해당 상품찾기
 			Goods goods = goodsService.goodsSelectBygoodsId(goodsId);
 			//A01	새우깡	1500	4	20/09/04
@@ -51,12 +40,12 @@ public class CartController {
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
 		}
-	}
+	}*/
    
    /**
     * 장바구니 보기
     * */
-   public static void viewCart(String id) {
+   /*public static void viewCart(String id) {
 		SessionSet ss = SessionSet.getInstance();
 		Session session = ss.get(id);
 		
@@ -65,7 +54,7 @@ public class CartController {
 			FailView.errorMessage("장바구니가 비었습니다");
 		}else {
 			EndView.printViewCart(id , cart);
-		}
+		}*/
 	}
 }
 
