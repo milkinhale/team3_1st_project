@@ -1,8 +1,5 @@
 package kosta.mvc.session;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 사용자 객체
  * 
