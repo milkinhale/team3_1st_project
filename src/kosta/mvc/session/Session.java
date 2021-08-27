@@ -3,7 +3,6 @@ package kosta.mvc.session;
 import java.util.HashMap;
 import java.util.Map;
 
-import kosta.mvc.model.dto.Goods;
 /**
  * 사용자 객체
  * 
@@ -12,13 +11,11 @@ import kosta.mvc.model.dto.Goods;
  * */
 public class Session {
 	private String sessionId;
-	private Map<String,Object> attributes; //유저에 대해서 저장해야할 것들(장바구니)
 	
 	
 	public Session() {}
 	public Session(String sessionId) {
 		this.sessionId = sessionId;
-		attributes = new HashMap<>();
 	}
 	
 	
@@ -30,37 +27,14 @@ public class Session {
 		this.sessionId = sessionId;
 	}
 	
-
-	public Map<String, Object> getAttributes() {
-		return attributes;
-	}
-	
-	public void setAttributes(Map<String, Object> attributes) {
-		this.attributes = attributes;
-	}
-	
-	
-	//추가
-	public void setAttribute(String name, Object value) {//cart , Map<Goods, Integer(수량)>
-		attributes.put(name,value); //Map<Goods, Integer(수량)> 에 집어넣는다. 
-	}
-	
-	//조회(Map에 key에 해당하는 value 찾기)
-	public Object getAttribute(String name) {//cart
-		return attributes.get(name);
-	}
-	
-	//제거(장바구니를 비울대 사용한다)
-	public void removeAttribute(String name) {//cart
-		attributes.remove(name);
-	}
-	
-	
 	@Override
 	public String toString() {
-		return "Session [sessionId=" + sessionId + ", attributes=" + attributes + "]"+"\n";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Session [sessionId=");
+		builder.append(sessionId);
+		builder.append("]");
+		return builder.toString();
 	}
-	
 	
 	/**
 	 * 동일한 session이 동시에 로그인되지 않도록 확인한다. */
