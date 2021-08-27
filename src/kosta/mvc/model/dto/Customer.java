@@ -9,6 +9,7 @@ public class Customer {
 	private String addr;
 	private String contact;
 	private String signDate;
+	private String seller;
 	
 	public Customer() {
 		super();
@@ -16,7 +17,7 @@ public class Customer {
 	}
 
 	public Customer(String customerId, String pwd, String customerName, String birth, String email, String addr,
-			String contact, String signDate) {
+			String contact, String signDate, String seller) {
 		super();
 		this.customerId = customerId;
 		this.pwd = pwd;
@@ -26,6 +27,7 @@ public class Customer {
 		this.addr = addr;
 		this.contact = contact;
 		this.signDate = signDate;
+		this.seller = seller;
 	}
 
 	public String getCustomerId() {
@@ -92,6 +94,14 @@ public class Customer {
 		this.signDate = signDate;
 	}
 
+	public String getSeller() {
+		return seller;
+	}
+
+	public void setSeller(String seller) {
+		this.seller = seller;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -111,8 +121,11 @@ public class Customer {
 		builder.append(contact);
 		builder.append(", signDate=");
 		builder.append(signDate);
+		builder.append(", seller=");
+		builder.append(seller);
 		builder.append("]");
 		return builder.toString();
 	}
+
 	
 }
