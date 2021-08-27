@@ -8,7 +8,7 @@ import kosta.mvc.model.dto.Liquor;
 public class LiquorDAOImpl implements LiquorDAO {
 
 	@Override
-	public List<Liquor> goodsSelectByGoodsCost() throws SQLException {
+	public List<Liquor> goodsSelectByGoodsCost(int cost) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
