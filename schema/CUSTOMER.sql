@@ -20,3 +20,35 @@ INSERT INTO CUSTOMER VALUES('KIM', '4444', '김미현','05-12-25',  'DDD444@naver.c
 INSERT INTO CUSTOMER VALUES('HYEON', '5555', '현우정','02-03-28', 'EEE555@naver.com', '전남 목포시 옥암동', '010-5555-5555', SYSDATE);
 
 
+
+--2)성인인증  → 자바에서 성인인증 따로 만드는 걸로 !!  
+--		   성인이 아니다 !! -> DB에 저장 안 됨 (돌아가)
+--		   성인이다 -> DB저장 
+
+
+
+--3) 아이디/비밀번호 찾기 
+--아이디
+SELECT CUSTOMER_ID FROM USER WHERE EMAIL = ?;
+
+--비밀번호
+UPDATE USER SET PWD = ? WHERE ID = CUSTOMER_ID, CUSTOMER_NAME = ? ; 
+
+
+
+
+--4)사용자정보 수정(비밀번호, 주소, 연락처, 이메일)
+--비밀번호만 수정하고 싶을때? 
+UPDATE CUSTOMER SET  PWD = ? WHERE COSTOMER_NO = ? ; 
+
+--주소만 수정하고 싶을 때?
+UPDATE CUSTOMER SET ADDR =? WHERE COSTOMER_NO= ? ;
+
+--이메일만 수정하고 싶을때? 
+UPDATE CUSTOMER SET EMAIL =? WHERE CUSTOMER_NO = ? ;
+
+--3)사용자정보 삭제 (탈퇴)
+DELETE FROM CUSTOMER_ID WHERE CUSTOMER_NO =? ;
+
+
+
