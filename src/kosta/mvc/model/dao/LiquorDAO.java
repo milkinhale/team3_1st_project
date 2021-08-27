@@ -14,7 +14,7 @@ public interface LiquorDAO {
 	/**
 	 * 가격대별 검색 
 	 * */
-	List<Liquor> goodsSelectByGoodsCost(int cost) throws SQLException;
+	List<Liquor> goodsSelectByGoodsPrice(int cost) throws SQLException;
 	
 	/**
 	 * 종류별 검색 
