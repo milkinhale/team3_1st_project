@@ -15,13 +15,13 @@ public interface ReviewDAO {
 	 * 회원별 리뷰 조회
 	 *  판매자용 메뉴에서 사용할 것임
 	 * */
-	List<Review> reviewSelectByCustomerId() throws SQLException;
+	List<Review> reviewSelectByCustomerId(String customerId) throws SQLException;
 	
 	/**
 	 * 양주종류별(양주번호별) 리뷰 조회
 	 *  판매자용 메뉴에서 사용할 것임
 	 * */
-	List<Review> reviewSelectByLiquorNo() throws SQLException;
+	List<Review> reviewSelectByLiquorNo(String liqourtype) throws SQLException;
 	
 	/**
 	 * 리뷰 등록하기
