@@ -14,17 +14,17 @@ public interface LiquorDAO {
 	/**
 	 * 가격대별 검색 
 	 * */
-	List<Liquor> goodsSelectByGoodsCost() throws SQLException;
+	List<Liquor> goodsSelectByGoodsCost(int cost) throws SQLException;
 	
 	/**
 	 * 종류별 검색 
 	 * */
-	List<Liquor> goodsSelectByGoodsKind() throws SQLException;
+	List<Liquor> goodsSelectByGoodsKind(String liqourType) throws SQLException;
 	
 	/**
 	 * 이름에 해당하는 정보 검색
 	 * */
-	Liquor goodsSelectByGoodsName(String goodsName) throws SQLException;
+	Liquor goodsSelectByGoodsName(String liqourName) throws SQLException;
 		
 		
 	/**
