@@ -7,11 +7,17 @@ public class Coupon {
 	private String used;
 	
 	public Coupon() {}
-	public Coupon(int couponNo, int couponTableNo, int salePersent, String used) {
+	public Coupon(int salePersent) {
 		super();
+		this.salePersent = salePersent;
+	}
+	public Coupon(int couponNo, int couponTableNo, int salePersent) {
+		this(salePersent);
 		this.couponNo = couponNo;
 		this.couponTableNo = couponTableNo;
-		this.salePersent = salePersent;
+	}
+	public Coupon(int couponNo, int couponTableNo, int salePersent, String used) {
+		this(couponNo, couponTableNo, salePersent);
 		this.used = used;
 	}
 	

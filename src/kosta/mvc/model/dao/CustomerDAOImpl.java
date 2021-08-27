@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import kosta.mvc.model.dto.Customer;
+import util.DBUtil;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
@@ -40,7 +41,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		  ResultSet rs=null;
 		  Customer customer=null;
 		 try {
-		   con = DbUtil.getConnection();
+		   con = DBUtil.getConnection();
 		   ps= con.prepareStatement("select * from Customer where CUSTOMER_ID=? and pwd=?");
 		   ps.setString(1, customerId);
 		   ps.setString(2, customerpwd);
@@ -51,7 +52,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	        	customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
 	        }
       }finally {
-      	DbUtil.close(con, ps, rs);
+      	DBUtil.dbClose(con, ps, rs);
       }
 		return customer;
 	}
