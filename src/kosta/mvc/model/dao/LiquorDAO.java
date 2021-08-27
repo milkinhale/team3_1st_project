@@ -18,7 +18,7 @@ public interface LiquorDAO {
 	/**
 	 * 종류별 검색 
 	 * */
-	List<Liquor> liquorsSelectByLiquorType(String liqourType) throws SQLException;
+	List<Liquor> liquorsSelectByLiquorType(int liqourTableNo) throws SQLException;
 	
 	
 	/**

@@ -16,21 +16,31 @@ public class LiquorDAOImpl implements LiquorDAO {
 	
 	private Properties profile = DBUtil.getProFile();
 	
+	
+	///////////테스트/////////
 	public static void main(String[] args) {
 		LiquorDAOImpl dao = new LiquorDAOImpl();
-		
-		
 		try {
 			List<Liquor> list = dao.liquorsSelectByLiquorPrice(16000);
 			for(Liquor l : list) {
 				System.out.println(l);
 			}
-			
+			System.out.println("-------------------------------");
+			List<Liquor> list2 = dao.liquorsSelectByLiquorType(1);
+			for(Liquor l : list2) {
+				System.out.println(l);
+			}
+			System.out.println("-------------------------------");
+			Liquor liquor1 = dao.liquorSelectByLiquorNo(1);
+			System.out.println(liquor1);
+			System.out.println("-------------------------------");
+			//insert into liquor values(liquor_no, ?, ?, ?, default, ?)
+			System.out.println("-------------------------------");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+	///////////테스트////////////
 	
 	@Override
 	public List<Liquor> liquorsSelectByLiquorPrice(int price) throws SQLException {
@@ -57,7 +67,7 @@ public class LiquorDAOImpl implements LiquorDAO {
 
 	
 	@Override
-	public List<Liquor> liquorsSelectByLiquorType(String liquorType) throws SQLException {
+	public List<Liquor> liquorsSelectByLiquorType(int liquorTableNo) throws SQLException {
 		Connection con=null;
 		  PreparedStatement ps=null;
 		  ResultSet rs=null;
@@ -65,7 +75,7 @@ public class LiquorDAOImpl implements LiquorDAO {
 		 try {
 		   con = DBUtil.getConnection();
 		   ps= con.prepareStatement(profile.getProperty("liqour.liquorsSelectByLiquorType"));
-		   ps.setString(1, liquorType);
+		   ps.setInt(1, liquorTableNo);
 	       rs = ps.executeQuery(); 
 	        
 	        while(rs.next()) {
@@ -83,15 +93,18 @@ public class LiquorDAOImpl implements LiquorDAO {
 		Connection con=null;
 		  PreparedStatement ps=null;
 		  ResultSet rs=null;
-		  Liquor liquor;
+		  Liquor liquor = null;
 		  
 		 try {
 		   con = DBUtil.getConnection();
 		   ps= con.prepareStatement(profile.getProperty("liquor.liquorSelectByLiquorNo"));
-		   ps.setInt(1, liquorNo);
-	       rs = ps.executeQuery(); 
-	       liquor = new Liquor(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
-	        
+		   ps.setInt(1, liquorNo); 
+	       rs = ps.executeQuery();
+	       
+	       if(rs.next()) {
+	        	liquor = new Liquor(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
+	        }
+	       
 		 }finally {
 			 DBUtil.dbClose(con, ps, rs);
 		 }
