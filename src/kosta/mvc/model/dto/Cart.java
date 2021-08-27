@@ -8,6 +8,11 @@ public class Cart {
 	private String orderStatus;
 	private int finalPrice;
 
+	public Cart() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Cart(int orderNo, String customerId, String orderDate, String orderAddr, String orderStatus,
 			int finalPrice) {
 		super();

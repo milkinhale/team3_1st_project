@@ -7,6 +7,11 @@ public class Review {
 	private String writeDate;
 	private String content;
 	
+	public Review() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Review(String reviewNo, int liquorNo, String customerId, String writeDate, String content) {
 		super();
 		this.reviewNo = reviewNo;
