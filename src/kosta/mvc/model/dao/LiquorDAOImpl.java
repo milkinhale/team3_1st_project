@@ -35,6 +35,8 @@ public class LiquorDAOImpl implements LiquorDAO {
 			System.out.println(liquor1);
 			System.out.println("-------------------------------");
 			//insert into liquor values(liquor_no, ?, ?, ?, default, ?)
+			//Liquor liquor2 = dao.insertLiquor(Liquor liquorDTO)
+			//Liquor liquor2 = new Liquor(int liquorNo, int liquorTableNo, String liquorName, int liquorPrice, int stock, String addDate)
 			System.out.println("-------------------------------");
 		} catch (Exception e) {
 			e.printStackTrace();
