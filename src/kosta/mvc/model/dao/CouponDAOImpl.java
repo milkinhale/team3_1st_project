@@ -2,10 +2,14 @@ package kosta.mvc.model.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
 import kosta.mvc.model.dto.Coupon;
+import util.DBUtil;
 
 public class CouponDAOImpl implements CouponDAO {
+	
+	private Properties proFile = DBUtil.getProFile();
 
 	@Override
 	public List<Coupon> couponSelectAll(int customerId) throws SQLException {
