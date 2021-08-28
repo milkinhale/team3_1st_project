@@ -60,4 +60,9 @@ public class CustomerService {
 		
 	}
 
+/**
+ * 회원정보수정 (이메일)
+ **/
+	
+	
 }

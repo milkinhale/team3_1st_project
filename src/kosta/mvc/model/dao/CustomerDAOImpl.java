@@ -12,6 +12,40 @@ import util.DBUtil;
 public class CustomerDAOImpl implements CustomerDAO {
 	private Properties proFile = DBUtil.getProFile();
 
+/////////////////////TEST용////////////////////////
+public static void main(String[] args) {
+CustomerDAOImpl tmp = new CustomerDAOImpl();
+try {	
+/*
+CustomerDAOImpl da = new customerDAOImpl;
+Connection c = null;
+
+for(customer 
+for(Liquor l : list) {
+System.out.println(l);
+}
+System.out.println("-------------------------------");
+List<Liquor> list2 = dao.liquorsSelectByLiquorType(1);
+for(Liquor l : list2) {
+System.out.println(l);
+}
+System.out.println("-------------------------------");
+Liquor liquor1 = dao.liquorSelectByLiquorNo(1);
+System.out.println(liquor1);
+System.out.println("-------------------------------");
+//insert into liquor values(liquor_no, ?, ?, ?, default, ?)
+//Liquor liquor2 = dao.insertLiquor(Liquor liquorDTO)
+Liquor liquor2 = new Liquor(1, "새 양주이름", 13000, "21-08-23");
+System.out.println(dao.insertLiquor(liquor2));
+System.out.println("-------------------------------");
+Liquor liquor3 = new Liquor(1, "바꾼 양주이름", 200000);
+System.out.println(dao.updateLiquor(liquor3));
+
+System.out.println("-------------------------------");
+System.out.println(dao.deleteLiquor(1));
+*/
+
+
 	@Override
 	public int insertcustomer(Customer customer) throws SQLException {
 		Connection con = null;
@@ -32,13 +66,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 			
 			
 			result = ps.executeUpdate();
+			
 		} finally {
 			DBUtil.dbClose(con, ps);
 		}
 		
 		return result;
 	}
-	/////////////////////TEST용////////////////////////
+/////////////////////TEST용////////////////////////
 /*	public static void main(String[] args) {
 		CustomerDAOImpl tmp = new CustomerDAOImpl();
 		Customer c = null;
@@ -49,13 +84,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 			
 			System.out.println(c.toString());
 		} catch (Exception e) {
-			// TODO: handle exception
+ 
 		}
 	}
-*/	
-	/////////////////////TEST용////////////////////////
+*/
 	
-
+////////////////////////////////////////////
+	//로그인하기
+	
 	@Override
 	public Customer customerLogin(String customerId, String customerpwd) throws SQLException {
 		
@@ -79,6 +115,7 @@ public class CustomerDAOImpl implements CustomerDAO {
       }
 		return customer;
 	}
+	
 /////////////////////////////////////////////////////////////////////
 	//email로  id찾기
 	
@@ -146,10 +183,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 		
 		return pwd;
 	}
-///////////////////////test //////////////////////////////////////	
-/////////////////////test end ////////////////////////////////////////////
-
-	
 	
 /////////////////////////////////////////////////////////////////
 	//회원정보수정 (이메일 수정)
@@ -174,8 +207,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}
 		return result;
 	}
-///////////////////////test ////////////////////////////////
-////////////////////// test end ////////////////////////////
 	
 //////////////////////////////////////////////////////////
 // 회원정보수정 (비밀번호)
@@ -200,9 +231,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}
 		return result;
 	}
-///////////////////////test//////////////////////////
-//////////////////////test end //////////////////////
-	
+
 ///////////////////////////////////////////////////
 //	 회원정보수정 (주소변경)	
 
@@ -226,9 +255,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}
 		return result;
 	}
-////////////////////test //////////////////////
-///////////////////test end ///////////////////
-	
+
 	
 //////////////////////////////////////////////
 // 회원탈퇴	
@@ -252,5 +279,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 			DBUtil.dbClose(con, ps);
 		}
 		return result;
-	}
+	}	
+
 }
