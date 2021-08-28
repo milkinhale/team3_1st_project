@@ -28,6 +28,20 @@ public class Orders {
 		this.orderStatus = orderStatus;
 		this.finalPrice = finalPrice;
 	}
+	
+	
+
+	public Orders(int orderNo, String customerId, String orderDate, String orderAddr, String orderStatus,
+			int finalPrice, List<OrderDetail> orderDetailList) {
+		super();
+		this.orderNo = orderNo;
+		this.customerId = customerId;
+		this.orderDate = orderDate;
+		this.orderAddr = orderAddr;
+		this.orderStatus = orderStatus;
+		this.finalPrice = finalPrice;
+		this.orderDetailList = orderDetailList;
+	}
 
 	public List<OrderDetail> getOrderDetailList() {
 		return orderDetailList;

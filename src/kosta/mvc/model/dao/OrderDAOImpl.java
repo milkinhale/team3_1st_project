@@ -47,18 +47,28 @@ public class OrderDAOImpl implements OrderDAO {
 //			e.printStackTrace();
 //		}
 		
+//		try {
+//
+//			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null, 0);
+//			 OrderDetail orderDetail = new OrderDetail(0, 2, 0, 1, 0);
+//
+//			 orders.getOrderDetailList().add(orderDetail);
+//			 dao.insertOrder(orders);
+//			 
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+		
 		try {
-
-			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null, 0);
-			 OrderDetail orderDetail = new OrderDetail(0, 2, 0, 1, 0);
-
-			 orders.getOrderDetailList().add(orderDetail);
-			 dao.insertOrder(orders);
-			 
+			Orders orders = new Orders(25, null, null, null, null, 0);
+			dao.deleteOrder(orders);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+
 	}
 	/////////////////Test//////////////////////////
 	
@@ -142,23 +152,109 @@ public class OrderDAOImpl implements OrderDAO {
 //				System.out.println("SUCCESS");
 //			}
 			
-		}catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
 		}finally {
 			DBUtil.dbClose(con, ps);
 		}
 		
 		return result;
 	}
-
+	
+	/**
+	 * 주문 삭제
+	 * 		판매자 메뉴에서 삭제하거나, 
+	 * 		구매자가 주문취소에서 삭제
+	 * 		(주문상태에따라 취소 가능 여부 체크!)
+	 * */
 	@Override
 	public int deleteOrder(Orders order) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		int orderNo = order.getOrderNo();
+		
+		Orders orderActual = this.selectOrderByOrderNo(orderNo);
+		String orderStatus = orderActual.getOrderStatus();
+		
+		if(orderStatus.equals("결제확인중")) {
+		
+			String sql = profile.getProperty("order.delete");
+			//System.out.println(sql);
+			
+			try {
+				con = DBUtil.getConnection();
+				ps = con.prepareStatement(sql);
+	
+				ps.setInt(1, orderNo);
+				System.out.println("orderNo : " + orderNo);
+				
+				System.out.println(sql);
+				result = ps.executeUpdate();
+				System.out.println("result: " + result);
+				
+	//			if(result == 0) {
+	//				System.out.println("FAILED");
+	//			}else {
+	//				System.out.println("SUCCESS");
+	//			}
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally {
+				DBUtil.dbClose(con, ps);
+			}
+		}
+		else {
+			System.out.println("결제확인중 아님. 주문 취소 불가.");
+		}
+		return result;
 	}
 
-	
+	 /**
+	  * 주문 번호로 주문 정보 가져오기.
+	  * */
+	 public Orders selectOrderByOrderNo(int orderNo) throws SQLException{
+		 Orders returnVal = null;
+		 
+		 Connection con = null;
+		 PreparedStatement ps = null;
+		 ResultSet rs = null;
+		 
+		 String sql = profile.getProperty("order.selectOrderByOrderNo");
+		 //select customer_id, order_date, order_addr, order_status, final_price from orders where order_no=?
+
+		 
+		 try {
+			 con = DBUtil.getConnection();
+			 ps = con.prepareStatement(sql);
+			 
+			 ps.setInt(1, orderNo);
+			 
+			 rs = ps.executeQuery();
+			 
+			 if(rs.next()) {
+				 System.out.println("true");
+				 String customerId = rs.getString(1);
+				 String orderDate = rs.getString(2);
+				 String orderAddr = rs.getString(3);
+				 String orderStatus = rs.getString(4);
+				 int finalPrice = rs.getInt(5);
+				 List <OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
+				 orderDetailList = this.selectOrderDetail(orderNo) ;
+				 
+				 returnVal = new Orders(orderNo, customerId, orderDate, orderAddr, orderStatus, finalPrice, orderDetailList);
+			 }
+
+			 System.out.println("false");	 
+					 
+		 }finally {
+			 DBUtil.dbClose(con, ps, rs);
+		 }
+		
+		 
+		 return returnVal;
+	 }
 
 	/**
 	 * 주문번호에 해당하는 주문상세 가져오기
