@@ -58,7 +58,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public Customer customerLogin(String customerId, String customerpwd) throws SQLException {
-		// TODO Auto-generated method stub
 		
 		  Connection con=null;
 		  PreparedStatement ps=null;
@@ -66,7 +65,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		  Customer customer=null;
 		 try {
 		   con = DBUtil.getConnection();
-		   ps= con.prepareStatement("select * from Customer where CUSTOMER_ID=? and pwd=?");
+		   ps= con.prepareStatement("select * from Customer where CUSTOMER_ID= ? and pwd=?");
 		   ps.setString(1, customerId);
 		   ps.setString(2, customerpwd);
 		   
@@ -88,11 +87,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select customer_Id from customer where email = ?" ;
+		String eamil = null;
 		
 		try {
 			con = DBUtil.getConnection();
-			ps = con.prepareStatement(sql);
+			ps = con.prepareStatement("SELECT CUSTOMER_ID FROM CUSTOMER WHERE EMAIL = ?") ;
+			ps.setString(1, email);
+			
+			
+			
 		}catch(Exception e) {
 			
 		}finally {
