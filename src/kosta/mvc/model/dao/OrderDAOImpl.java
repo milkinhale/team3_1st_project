@@ -38,14 +38,14 @@ public class OrderDAOImpl implements OrderDAO {
 //			e.printStackTrace();
 //		}
 		
-		try {
-			List<Orders> list = dao.orderSelectByCustomerId("KIM");
-			for(Orders o : list) {
-				System.out.println(o);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			List<Orders> list = dao.orderSelectByCustomerId("KIM");
+//			for(Orders o : list) {
+//				System.out.println(o);
+//			}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 	/////////////////Test//////////////////////////
 	
