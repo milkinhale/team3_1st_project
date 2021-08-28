@@ -23,12 +23,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, customer.getCustomerId());
-			ps.setString(1, customer.getPwd());
-			ps.setString(1, customer.getCustomerName());
-			ps.setString(1, customer.getBirth());
-			ps.setString(1, customer.getEmail());
-			ps.setString(1, customer.getAddr());
-			ps.setString(1, customer.getContact());
+			ps.setString(2, customer.getPwd());
+			ps.setString(3, customer.getCustomerName());
+			ps.setString(4, customer.getBirth());
+			ps.setString(5, customer.getEmail());
+			ps.setString(6, customer.getAddr());
+			ps.setString(7, customer.getContact());
 			
 			
 			result = ps.executeUpdate();
