@@ -106,7 +106,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 ///////////////test /////////////////////
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		CustomerDAOImpl tmp = new CustomerDAOImpl();
 		Customer c = null;
 		
@@ -119,29 +119,43 @@ public class CustomerDAOImpl implements CustomerDAO {
 			// TODO: handle exception
 		}
 	}
-		
+*/
+/////////////////////////////////////////////		
 	
-
+// pwd 찾기  -아이디입력 + 이메일 
 	@Override
 	public String findcusomerPwd(String customerId, String email) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		String pwd = null;
 		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(proFile.getProperty("customer.findCustomerPwd")) ;
+			ps.setString(1, pwd);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				pwd = rs.getString(1);
+			}
+			
+		}finally {
+			DBUtil.dbClose(con, ps ,rs);
+		}
 		
-		
-		
-		
-		
-		
-		
-		
-		return null;
+		return pwd;
 	}
+///////////////////////test //////////////////////////////////////
+	
+/////////////////////////////////////////////////////////////////
 
+	
+	
+/////////////////////////////////////////////////////////////////	
 	@Override
 	public int updatecustomerEmail(String customerId, String email) throws SQLException {
-		// TODO Auto-generated method stub
+		 
 		return 0;
 	}
 
