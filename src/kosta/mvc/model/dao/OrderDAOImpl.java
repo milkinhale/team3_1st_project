@@ -50,10 +50,10 @@ public class OrderDAOImpl implements OrderDAO {
 		try {
 
 			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null, 0);
-			 OrderDetail orderDetail = new OrderDetail(0, 1, 0, 1, 0);
-			 
-			 dao.insertOrder(orders);
+			 OrderDetail orderDetail = new OrderDetail(0, 2, 0, 1, 0);
+
 			 orders.getOrderDetailList().add(orderDetail);
+			 dao.insertOrder(orders);
 			 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -217,15 +217,23 @@ public class OrderDAOImpl implements OrderDAO {
 		   ps.setString(3, order.getCustomerId());
 		   
 		   result = ps.executeUpdate();
+		   
+		   int seq = getSeq(con);
+		   
+		   System.out.println("seq: " + seq);
+		   
 		   if(result==0) {
 			   con.rollback();
 			   throw new SQLException("주문 실패...");
 		   }
 		   else {
-			   int re [] = orderDetailInsert(con, order); //주문상세 등록하기 
+			   //////////////////////////
+			   System.out.println("주문상세 등록하기");
+			   //////////////////////////
+			   int re [] = orderDetailInsert(con, order, seq); //주문상세 등록하기 
 			   ////////////i찍어보기/////////////
-			   for(int i : re) {
-				   System.out.println(i); 
+			   for(int tmp: re) {
+				   System.out.println(tmp); 
 			   }
 			   //////////////////////////////////
 			   for(int i : re) {
@@ -247,42 +255,73 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		return result;
 	}
+	/**
+	 * Connection  입력 받고 현재 시퀀스 번호 가져오기
+	 * 
+	 * */
+	public int getSeq(Connection con) throws SQLException{
+		int seq = -1;
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		String sql=profile.getProperty("order.getSeq");
+		//select ORDER_NO_SEQ.currval from dual
+		
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				seq = rs.getInt(1);
+			}
+			
+		}finally {
+	    	DBUtil.dbClose(null, ps , null);
+		}
+		
+		return seq;
+	}
 	
 	/**
 	 * 주문상세 등록하기 
 	 * */
-	public int[] orderDetailInsert(Connection con  , Orders order) throws SQLException{
+	public int[] orderDetailInsert(Connection con  , Orders order, int seq) throws SQLException{
+
+		 ////////////////////////////
+		 System.out.println("orderNo: "+order.getOrderNo());
+		 //////////////////////////
 		
 		  PreparedStatement ps=null;
 		  String sql=profile.getProperty("orderDetail.insert");
-		  //INSERT INTO ORDER_DETAIL (ORDER_DETAIL_NO, LIQOUR_NO, ORDER_NO, COUNT, ORDER_PRICE) VALUES(ORDER_DETAIL_NO_SEQ.NEXTVAL, ?, ?, ?, ?);
-		  //		LIQOUR_NO, ORDER_NO, COUNT, ORDER_PRICE
-//setString(혹은Int)   1          2        3       4
+		  //orderDetail.insert=INSERT INTO ORDER_DETAIL (ORDER_DETAIL_NO, LIQOUR_NO, ORDER_NO, COUNT, ORDER_PRICE) VALUES(ORDER_DETAIL_SEQ.NEXTVAL, ?, ?, ?, ?)
+		  //		ORDER_DETAIL_NO, LIQOUR_NO, ORDER_NO, COUNT, ORDER_PRICE
+//setString(혹은Int)   얘는 시퀀스        1         2      3        4
 		  int result [] =null;
 		 try {
-			 ps = con.prepareStatement(sql);
-		  for( OrderDetail orderDetail : order.getOrderDetailList() ) {
-			 Liquor liquor = liquorDao.liquorSelectByLiquorNo(orderDetail.getLiquorNo());
+			  ps = con.prepareStatement(sql);
+			  for( OrderDetail orderDetail : order.getOrderDetailList() ) {
+				 Liquor liquor = liquorDao.liquorSelectByLiquorNo(orderDetail.getLiquorNo());
+				  	 
+				   ps.setInt(1, orderDetail.getLiquorNo());//양주 번호
+				   ps.setInt(2,  seq);//주문 번호
+				   ps.setInt(3,  orderDetail.getCount());//총구매금액
+				   ps.setInt(4,  liquor.getLiquorPrice()*orderDetail.getCount());//총구매금액
+				   ps.addBatch(); //일괄처리할 작업에 추가
+				   ps.clearParameters();
+				   
+			  }
 			  
-			 ////////////////////////////
-			 System.out.println("orderNo"+order.getOrderNo());
-			 //////////////////////////
-			 
-			 
-			   ps.setInt(1, orderDetail.getLiquorNo());//양주 번호
-			   ps.setInt(2, order.getOrderNo());//주문 번호
-			   ps.setInt(3,  orderDetail.getCount());//총구매금액
-			   ps.setInt(4,  liquor.getLiquorPrice()*orderDetail.getCount());//총구매금액
-			   ps.addBatch(); //일괄처리할 작업에 추가
-			   ps.clearParameters();
-			   
-		  }
-		  result = ps.executeBatch();//일괄처리
+
+
+			  //////////////////
+			  System.out.println(order.getOrderDetailList().toString());
+			  //////////////////
+			  
+			  
+			  result = ps.executeBatch();//일괄처리
 		  
 		   
-    }finally {
-    	DBUtil.dbClose(null, ps , null);
-    }
+		    }finally {
+		    	DBUtil.dbClose(null, ps , null);
+		    }
 		
 		return result;
 		

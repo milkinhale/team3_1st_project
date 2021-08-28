@@ -50,6 +50,6 @@ public interface OrderDAO {
 	/**
 	 * 주문상세 등록하기 
 	 * */
-	int[] orderDetailInsert(Connection con  , Orders order) throws SQLException;
+	int[] orderDetailInsert(Connection con  , Orders order, int seq) throws SQLException;
 	
 }
