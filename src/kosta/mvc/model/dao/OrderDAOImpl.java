@@ -188,7 +188,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public int insertOrder(Orders order) throws SQLException {
 		Connection con=null;
 		  PreparedStatement ps=null;
-		  String sql=profile.getProperty("orderDetail.insert");
+		  String sql=profile.getProperty("order.insert");
 		  //INSERT INTO ORDER (ORDER_NO, ORDER_DATE, ORDER_ADDR, FINAL_PRICE, CUSTOMER_ID) VALUES(ORDER_NO_SEQ.NEXTVAL, SYSDATE, ?, ?, ?);
 		  //ORDER_ADDR, FINAL_PRICE, CUSTOMER_ID
 //setString   1            2              3
@@ -199,9 +199,9 @@ public class OrderDAOImpl implements OrderDAO {
 		   con.setAutoCommit(false);  //오토 커밋 해제!!
 		   
 		   ps = con.prepareStatement(sql);
-//		   ps.setString(1, order.getAddress());
-//		   ps.setInt(2, this.getTotalAmount(order));//총구매금액구하는 메소드 호출
-//		   ps.setString(3, order.getUserId());
+		   ps.setString(1, order.getOrderAddr());
+		   ps.setInt(2, this.getTotalAmount(order));//총구매금액구하는 메소드 호출
+		   ps.setString(3, order.getCustomerId());
 		   
 		   result = ps.executeUpdate();
 		   if(result==0) {
