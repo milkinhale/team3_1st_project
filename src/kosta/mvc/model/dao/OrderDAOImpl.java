@@ -187,11 +187,11 @@ public class OrderDAOImpl implements OrderDAO {
 				ps = con.prepareStatement(sql);
 	
 				ps.setInt(1, orderNo);
-				System.out.println("orderNo : " + orderNo);
+//				System.out.println("orderNo : " + orderNo);
 				
-				System.out.println(sql);
+//				System.out.println(sql);
 				result = ps.executeUpdate();
-				System.out.println("result: " + result);
+//				System.out.println("result: " + result);
 				
 	//			if(result == 0) {
 	//				System.out.println("FAILED");
@@ -316,7 +316,7 @@ public class OrderDAOImpl implements OrderDAO {
 		   
 		   int seq = getSeq(con);
 		   
-		   System.out.println("seq: " + seq);
+//		   System.out.println("seq: " + seq);
 		   
 		   if(result==0) {
 			   con.rollback();
@@ -324,13 +324,13 @@ public class OrderDAOImpl implements OrderDAO {
 		   }
 		   else {
 			   //////////////////////////
-			   System.out.println("주문상세 등록하기");
+//			   System.out.println("주문상세 등록하기");
 			   //////////////////////////
 			   int re [] = orderDetailInsert(con, order, seq); //주문상세 등록하기 
 			   ////////////i찍어보기/////////////
-			   for(int tmp: re) {
-				   System.out.println(tmp); 
-			   }
+//			   for(int tmp: re) {
+//				   System.out.println(tmp); 
+//			   }
 			   //////////////////////////////////
 			   for(int i : re) {
 				   if(i != 1) {//12c 이상: 성공1/실패0    11g: 성공-2/실패0
@@ -382,7 +382,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public int[] orderDetailInsert(Connection con  , Orders order, int seq) throws SQLException{
 
 		 ////////////////////////////
-		 System.out.println("orderNo: "+order.getOrderNo());
+//		 System.out.println("orderNo: "+order.getOrderNo());
 		 //////////////////////////
 		
 		  PreparedStatement ps=null;
@@ -408,7 +408,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 
 			  //////////////////
-			  System.out.println(order.getOrderDetailList().toString());
+//			  System.out.println(order.getOrderDetailList().toString());
 			  //////////////////
 			  
 			  
