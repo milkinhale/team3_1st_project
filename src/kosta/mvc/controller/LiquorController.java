@@ -1,9 +1,9 @@
 package kosta.mvc.controller;
 
-import kosta.mvc.model.service.GoodsService;
+import kosta.mvc.model.service.LiquorService;
 
-public class GoodsController {
-	static GoodsService goodsService = new GoodsService();
+public class LiquorController {
+	static LiquorService goodsService = new LiquorService();
   /**
    * 전체 상품 조회
    * */
