@@ -39,7 +39,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return result;
 	}
 	/////////////////////TEST용////////////////////////
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		CustomerDAOImpl tmp = new CustomerDAOImpl();
 		Customer c = null;
 		
@@ -52,6 +52,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			// TODO: handle exception
 		}
 	}
+*/	
 	/////////////////////TEST용////////////////////////
 	
 
@@ -79,13 +80,30 @@ public class CustomerDAOImpl implements CustomerDAO {
       }
 		return customer;
 	}
-
+/////////////////////////////////////////////////////////////////////
+	//id찾기
+	
 	@Override
 	public String findcustomerId(String email) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select customer_Id from customer where email = ?" ;
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql);
+		}catch(Exception e) {
+			
+		}finally {
+			
+		}
 		return null;
 	}
 
+	
+	
+	
 	@Override
 	public String findcusomerPwd(String customerId, String email) throws SQLException {
 		// TODO Auto-generated method stub
