@@ -21,6 +21,7 @@ public class LiquorDAOImpl implements LiquorDAO {
 	public static void main(String[] args) {
 		LiquorDAOImpl dao = new LiquorDAOImpl();
 		try {
+			/*
 			List<Liquor> list = dao.liquorsSelectByLiquorPrice(16000);
 			for(Liquor l : list) {
 				System.out.println(l);
@@ -36,7 +37,15 @@ public class LiquorDAOImpl implements LiquorDAO {
 			System.out.println("-------------------------------");
 			//insert into liquor values(liquor_no, ?, ?, ?, default, ?)
 			//Liquor liquor2 = dao.insertLiquor(Liquor liquorDTO)
-			//Liquor liquor2 = new Liquor(int liquorNo, int liquorTableNo, String liquorName, int liquorPrice, int stock, String addDate)
+			Liquor liquor2 = new Liquor(1, "새 양주이름", 13000, "21-08-23");
+			System.out.println(dao.insertLiquor(liquor2));
+			System.out.println("-------------------------------");
+			Liquor liquor3 = new Liquor(1, "바꾼 양주이름", 200000);
+			System.out.println(dao.updateLiquor(liquor3));
+			
+			System.out.println("-------------------------------");
+			System.out.println(dao.deleteLiquor(1));
+			*/
 			System.out.println("-------------------------------");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,10 +127,9 @@ public class LiquorDAOImpl implements LiquorDAO {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = profile.getProperty("liquor.insertLiquor");
 		try {
 			con = DBUtil.getConnection();
-			ps = con.prepareStatement(sql);
+			ps = con.prepareStatement(profile.getProperty("liquor.insertLiquor"));
 			
 			//LIQUOR_TABLE_NO
 			ps.setInt(1, liquorDTO.getLiquorTableNo());
@@ -169,33 +177,6 @@ public class LiquorDAOImpl implements LiquorDAO {
 
 	
 	@Override
-	public int updateStock(int count, int liquorNo) throws SQLException{
-		int result = 0;
-		Connection con = null;
-		PreparedStatement ps = null;
-		//Liquor liquorDTO = new Liquor();
-		String sql = profile.getProperty("liquor.updateStock");
-		try {
-			con = DBUtil.getConnection();
-			ps = con.prepareStatement(sql);
-
-			//update liquor set stock=stock-? where liquor_no=?
-			ps.setInt(1, count);
-			ps.setInt(2, liquorNo);
-			
-			result = ps.executeUpdate();
-
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			DBUtil.dbClose(con, ps);
-		}
-		return result;
-	}
-		
-	
-	
-	@Override
 	public int deleteLiquor(int liquorNo) throws SQLException {
 		int result = 0;
 		Connection con = null;
@@ -215,7 +196,6 @@ public class LiquorDAOImpl implements LiquorDAO {
 		}finally {
 			DBUtil.dbClose(con, ps);
 		}
-		
 		return result;
 	}
 
