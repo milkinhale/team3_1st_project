@@ -1,9 +1,9 @@
 package kosta.mvc.controller;
 
-import kosta.mvc.model.service.GoodsService;
+import kosta.mvc.model.service.LiquorService;
 
 public class CartController {
-  private static GoodsService goodsService = new GoodsService();
+  private static LiquorService goodsService = new LiquorService();
   
    public static void putCart(String id, String goodsId, int quantity) {
 		

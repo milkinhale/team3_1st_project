@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import kosta.mvc.controller.CartController;
 import kosta.mvc.controller.CustomerController;
-import kosta.mvc.controller.GoodsController;
+import kosta.mvc.controller.LiquorController;
 import kosta.mvc.controller.OrderController;
 import kosta.mvc.model.dto.Customer;
 import kosta.mvc.session.Session;
