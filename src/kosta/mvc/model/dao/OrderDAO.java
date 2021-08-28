@@ -52,4 +52,8 @@ public interface OrderDAO {
 	 * */
 	int[] orderDetailInsert(Connection con  , Orders order, int seq) throws SQLException;
 	
+	 /**
+	  * 주문 번호로 주문 정보 가져오기.
+	  * */
+	 public Orders selectOrderByOrderNo(int orderNo) throws SQLException;
 }
