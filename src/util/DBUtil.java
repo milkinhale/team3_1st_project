@@ -37,7 +37,7 @@ public class DBUtil {
 			proFile.load(new FileInputStream("resources/cart_sql.properties"));
 			proFile.load(new FileInputStream("resources/coupon_sql.properties"));
 			proFile.load(new FileInputStream("resources/customer_sql.properties"));
-			proFile.load(new FileInputStream("resources/liqour_sql.properties"));
+			proFile.load(new FileInputStream("resources/liquor_sql.properties"));
 			proFile.load(new FileInputStream("resources/order_sql.properties"));
 			proFile.load(new FileInputStream("resources/review_sql.properties"));
 		

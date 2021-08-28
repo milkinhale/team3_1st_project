@@ -46,6 +46,19 @@ public class OrderDAOImpl implements OrderDAO {
 //		}catch(Exception e) {
 //			e.printStackTrace();
 //		}
+		
+		try {
+
+			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null, 0);
+			 OrderDetail orderDetail = new OrderDetail(0, 1, 0, 1, 0);
+			 
+			 dao.insertOrder(orders);
+			 orders.getOrderDetailList().add(orderDetail);
+			 
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 	/////////////////Test//////////////////////////
 	
@@ -189,7 +202,7 @@ public class OrderDAOImpl implements OrderDAO {
 		Connection con=null;
 		  PreparedStatement ps=null;
 		  String sql=profile.getProperty("order.insert");
-		  //INSERT INTO ORDER (ORDER_NO, ORDER_DATE, ORDER_ADDR, FINAL_PRICE, CUSTOMER_ID) VALUES(ORDER_NO_SEQ.NEXTVAL, SYSDATE, ?, ?, ?);
+		  //INSERT INTO ORDERS (ORDER_NO, ORDER_DATE, ORDER_ADDR, FINAL_PRICE, CUSTOMER_ID) VALUES(ORDER_NO_SEQ.NEXTVAL, SYSDATE, ?, ?, ?);
 		  //ORDER_ADDR, FINAL_PRICE, CUSTOMER_ID
 //setString   1            2              3
 		  int result=0;
@@ -251,6 +264,11 @@ public class OrderDAOImpl implements OrderDAO {
 		  for( OrderDetail orderDetail : order.getOrderDetailList() ) {
 			 Liquor liquor = liquorDao.liquorSelectByLiquorNo(orderDetail.getLiquorNo());
 			  
+			 ////////////////////////////
+			 System.out.println("orderNo"+order.getOrderNo());
+			 //////////////////////////
+			 
+			 
 			   ps.setInt(1, orderDetail.getLiquorNo());//양주 번호
 			   ps.setInt(2, order.getOrderNo());//주문 번호
 			   ps.setInt(3,  orderDetail.getCount());//총구매금액
