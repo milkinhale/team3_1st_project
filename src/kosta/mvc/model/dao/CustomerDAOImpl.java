@@ -146,35 +146,111 @@ public class CustomerDAOImpl implements CustomerDAO {
 		
 		return pwd;
 	}
-///////////////////////test //////////////////////////////////////
+///////////////////////test //////////////////////////////////////	
+/////////////////////test end ////////////////////////////////////////////
+
+	
 	
 /////////////////////////////////////////////////////////////////
-
+	//회원정보수정 (이메일 수정)
 	
-	
-/////////////////////////////////////////////////////////////////	
 	@Override
 	public int updatecustomerEmail(String customerId, String email) throws SQLException {
-		 
-		return 0;
-	}
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = proFile.getProperty("customer.updateCustomerEmail");
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql) ;
+			ps.setString(1, email);
+			result = ps.executeUpdate();
 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			DBUtil.dbClose(con, ps);
+		}
+		return result;
+	}
+///////////////////////test ////////////////////////////////
+////////////////////// test end ////////////////////////////
+	
+//////////////////////////////////////////////////////////
+// 회원정보수정 (비밀번호)
+	
 	@Override
 	public int updatecustomerPwd(String customerId, String pwd) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = proFile.getProperty("customer.updateCustomerPwd");
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql) ;
+			ps.setString(1, pwd);
+			result = ps.executeUpdate();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			DBUtil.dbClose(con, ps);
+		}
+		return result;
 	}
+///////////////////////test//////////////////////////
+//////////////////////test end //////////////////////
+	
+///////////////////////////////////////////////////
+//	 회원정보수정 (주소변경)	
 
 	@Override
 	public int updatecustomerAddr(String customerId, String addr) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = proFile.getProperty("customer.updateCustomerAddr");
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql) ;
+			ps.setString(1, addr);
+			result = ps.executeUpdate();
 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			DBUtil.dbClose(con, ps);
+		}
+		return result;
+	}
+////////////////////test //////////////////////
+///////////////////test end ///////////////////
+	
+	
+//////////////////////////////////////////////
+// 회원탈퇴	
+	
 	@Override
 	public int deletecustomer(String customerId) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = proFile.getProperty("customer.deleteCustomerPwd");
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql) ;
+			ps.setString(1, customerId);
+			result = ps.executeUpdate();
 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			DBUtil.dbClose(con, ps);
+		}
+		return result;
+	}
 }
