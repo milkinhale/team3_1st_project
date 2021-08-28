@@ -65,7 +65,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		  Customer customer=null;
 		 try {
 		   con = DBUtil.getConnection();
-		   ps= con.prepareStatement("select * from Customer where CUSTOMER_ID= ? and pwd=?");
+		   ps= con.prepareStatement(proFile.getProperty("customer.customerLogin"));
 		   ps.setString(1, customerId);
 		   ps.setString(2, customerpwd);
 		   
@@ -80,36 +80,62 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return customer;
 	}
 /////////////////////////////////////////////////////////////////////
-	//id찾기
+	//email로  id찾기
 	
 	@Override
 	public String findcustomerId(String email) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String eamil = null;
+		String Id = null;
 		
 		try {
 			con = DBUtil.getConnection();
-			ps = con.prepareStatement("SELECT CUSTOMER_ID FROM CUSTOMER WHERE EMAIL = ?") ;
+			ps = con.prepareStatement(proFile.getProperty("customer.findCustomerId")) ;
 			ps.setString(1, email);
+			rs = ps.executeQuery();
 			
-			
-			
-		}catch(Exception e) {
+			if(rs.next()) {
+				Id = rs.getString(1);
+			}
 			
 		}finally {
-			
+			DBUtil.dbClose(con, ps ,rs);
 		}
-		return null;
+		return Id;
 	}
 
+///////////////test /////////////////////
+	public static void main(String[] args) {
+		CustomerDAOImpl tmp = new CustomerDAOImpl();
+		Customer c = null;
+		
+		
+		try {
+			c= tmp.customerLogin("CHOI1", "AAA111@naver.com");
+			
+			System.out.println(c.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+		
 	
-	
-	
+
 	@Override
 	public String findcusomerPwd(String customerId, String email) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return null;
 	}
 
