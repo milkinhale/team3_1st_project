@@ -8,12 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import kosta.mvc.model.dto.Liquor;
 import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
 import util.DBUtil;
 
 public class OrderDAOImpl implements OrderDAO {
 	private Properties profile = DBUtil.getProFile();
+
+	LiquorDAO liquorDao = new LiquorDAOImpl();
 	
 	/////////////////Test//////////////////////////
 	public static void main(String[] args) {
@@ -170,12 +173,25 @@ public class OrderDAOImpl implements OrderDAO {
 		
 	}
 	
+
+	 /**
+	   * 주문하기
+	   *  1) orders테이블에 insert
+	   *  2) order_line테이블에 insert
+	   *  3) 재고량(stock)감소 시키기(update)
+	   * 	
+	   * 	구매자 메뉴에서 사용함.
+	   * 	막판에 쿠폰 체크하는거 잊지 말기! 
+	   * 
+	   * */	
 	@Override
 	public int insertOrder(Orders order) throws SQLException {
 		Connection con=null;
 		  PreparedStatement ps=null;
-		  String sql="INSERT INTO ORDERS(ORDER_ID, ORDER_DATE,USER_ID, ADDRESS, TOTAL_AMOUNT)" + 
-		  		"  VALUES(ORDER_ID_SEQ.NEXTVAL ,sysdate,?,?, ?)";
+		  String sql=profile.getProperty("orderDetail.insert");
+		  //INSERT INTO ORDER (ORDER_NO, ORDER_DATE, ORDER_ADDR, FINAL_PRICE, CUSTOMER_ID) VALUES(ORDER_NO_SEQ.NEXTVAL, SYSDATE, ?, ?, ?);
+		  //ORDER_ADDR, FINAL_PRICE, CUSTOMER_ID
+//setString   1            2              3
 		  int result=0;
 		 try {
 			
@@ -183,9 +199,9 @@ public class OrderDAOImpl implements OrderDAO {
 		   con.setAutoCommit(false);  //오토 커밋 해제!!
 		   
 		   ps = con.prepareStatement(sql);
-//		   ps.setString(1, order.getUserId());
-//		   ps.setString(2, order.getAddress());
-//		   ps.setInt(3, this.getTotalAmount(order));//총구매금액구하는 메소드 호출
+//		   ps.setString(1, order.getAddress());
+//		   ps.setInt(2, this.getTotalAmount(order));//총구매금액구하는 메소드 호출
+//		   ps.setString(3, order.getUserId());
 		   
 		   result = ps.executeUpdate();
 		   if(result==0) {
@@ -226,18 +242,21 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		  PreparedStatement ps=null;
 		  String sql=profile.getProperty("orderDetail.insert");
+		  //INSERT INTO ORDER_DETAIL (ORDER_DETAIL_NO, LIQOUR_NO, ORDER_NO, COUNT, ORDER_PRICE) VALUES(ORDER_DETAIL_NO_SEQ.NEXTVAL, ?, ?, ?, ?);
+		  //		LIQOUR_NO, ORDER_NO, COUNT, ORDER_PRICE
+//setString(혹은Int)   1          2        3       4
 		  int result [] =null;
 		 try {
 			 ps = con.prepareStatement(sql);
 		  for( OrderDetail orderDetail : order.getOrderDetailList() ) {
-//			 Goods goods = goodsDao.goodsSelectBygoodsId(orderline.getGoodsId());
-//			  
-//			   ps.setString(1, orderline.getGoodsId());
-//			   ps.setInt(2, goods.getGoodsPrice());//가격
-//			   ps.setInt(3, orderline.getQty());//총구매금액
-//			   ps.setInt(4,  goods.getGoodsPrice()*orderline.getQty());//총구매금액
-//			   ps.addBatch(); //일괄처리할 작업에 추가
-//			   ps.clearParameters();
+			 Liquor liquor = liquorDao.liquorSelectByLiquorNo(orderDetail.getLiquorNo());
+			  
+			   ps.setInt(1, orderDetail.getLiquorNo());//양주 번호
+			   ps.setInt(2, order.getOrderNo());//주문 번호
+			   ps.setInt(3,  orderDetail.getCount());//총구매금액
+			   ps.setInt(4,  liquor.getLiquorPrice()*orderDetail.getCount());//총구매금액
+			   ps.addBatch(); //일괄처리할 작업에 추가
+			   ps.clearParameters();
 			   
 		  }
 		  result = ps.executeBatch();//일괄처리
@@ -256,13 +275,13 @@ public class OrderDAOImpl implements OrderDAO {
 	 * */
 	public int[] decrementStock(Connection con , List<OrderDetail> orderLineList)throws SQLException {
 		 PreparedStatement ps=null;
-		  String sql="update goods set stock = stock-? where goods_id=?";
-		  int result [] =null;
+		 String sql=profile.getProperty("liquor.updateStock");
+		 int result [] =null;
 		 try {
 		  ps = con.prepareStatement(sql);
 		  for( OrderDetail orderDetail : orderLineList ) {
-//			   ps.setInt(1, orderDetail.getQty());
-//			   ps.setString(2, orderDetail.getGoodsId());
+			   ps.setInt(1, orderDetail.getCount());
+			   ps.setInt(2, orderDetail.getLiquorNo());
 			   
 			   ps.addBatch(); //일괄처리할 작업에 추가
 			   ps.clearParameters();
@@ -274,5 +293,21 @@ public class OrderDAOImpl implements OrderDAO {
 		 }
 		
 		return result;
+	}
+	
+	/**
+	 * 상품 총구매금액 구하기
+	 * */
+	public int getTotalAmount(Orders order) throws SQLException {
+		List<OrderDetail> orderDetailList= order.getOrderDetailList();
+	    int total=0;
+		for(OrderDetail detail : orderDetailList) {
+			Liquor liquor =liquorDao.liquorSelectByLiquorNo(detail.getLiquorNo());
+			if(liquor==null)throw new SQLException("상품번호 오류입니다.... 주문 실패..");
+			else if(liquor.getStock() <  detail.getCount())throw new SQLException("재고량 부족입니다...");
+			
+	    	total += detail.getCount() * liquor.getLiquorPrice() ;
+	    }
+		return total;
 	}
 }
