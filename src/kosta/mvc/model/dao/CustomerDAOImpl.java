@@ -42,7 +42,38 @@ try {
 	}
 }	
  
+ 
+public static void main(String[] args) {
+		CustomerDAOImpl cd = new CustomerDAOImpl();
+
+			String c = null;
+			
+			try {
+				c =  cd.findCustomerId("AAA111@naver.com");
+				System.out.println(c);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	//////////////////////////////////////////////////
+/*	public static void main(String[] args) {
+		CustomerDAOImpl cd = new CustomerDAOImpl();
+
+			String c = null;
+			
+			try {
+				c = cd.findCustomerPwd("CHOI1", "AAA111@naver.com");
+				System.out.println(c);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}	
 */
+	
+/////////////////////////////////////////////
+
 
 	@Override
 	public int insertCustomer(Customer customer) throws SQLException {
@@ -100,22 +131,7 @@ try {
 		return customer;
 	}
 
-///////////////////////////
-	public static void main(String[] args) {
-		CustomerDAOImpl cd = new CustomerDAOImpl();
 
-			String c = null;
-			
-			try {
-				c =  cd.findCustomerId("AAA111@naver.com");
-				System.out.println(c);
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}	
-	
-	
-/////////////////////////////////////////////////////////////////////
 	//email로  id찾기
 	
 	@Override
@@ -141,22 +157,7 @@ try {
 		}
 		return Id;
 	}
-//////////////////////////////////////////////////
-/*	public static void main(String[] args) {
-		CustomerDAOImpl cd = new CustomerDAOImpl();
-
-			String c = null;
-			
-			try {
-				c = cd.findCustomerPwd("CHOI1", "AAA111@naver.com");
-				System.out.println(c);
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}	
-*/
-/////////////////////////////////////////////		
+		
 	
 // pwd 찾기  -아이디입력 + 이메일 
 	@Override
@@ -170,7 +171,7 @@ try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(proFile.getProperty("customer.findCustomerPwd")) ;
 			
-			ps.setString(1, pwd);
+			ps.setString(1, email);
 			ps.setString(2, customerId);
 
 			rs = ps.executeQuery();
@@ -201,6 +202,7 @@ try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql) ;
 			
+			//update customer set email = ? where customer_id = ?
 			ps.setString(1, email);
 			ps.setString(2, customerId);
 
@@ -228,6 +230,7 @@ try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql) ;
 			
+			//update customer set pwd = ? where customer_id = ? 
 			ps.setString(1, pwd);
 			ps.setString(2, customerId);
 
@@ -255,6 +258,7 @@ try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql) ;
 			
+			//update customer set addr = ? where customer_id= ?
 			ps.setString(1, addr);
 			ps.setString(2, customerId);
 			
