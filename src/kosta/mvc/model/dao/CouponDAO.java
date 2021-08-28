@@ -1,5 +1,6 @@
 package kosta.mvc.model.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,15 +21,20 @@ public interface CouponDAO {
 	/**
 	 * 쿠폰 등록하기
 	 * */
-	int insertCoupon(int salePercent) throws SQLException;
+	int insertCoupon(Connection con, int salePercent, int seq) throws SQLException;
 	
 	/**
 	 * 쿠폰테이블 등록하기
 	 * */
-	int insertCouponTable(String customerId) throws SQLException;
+	int insertCouponTable(String customerId, int salePercent) throws SQLException;
 	
 	/**
 	 * 쿠폰 사용하기
 	 * */
 	int useCoupon(Coupon coupon) throws SQLException;
+	
+	/**
+	 * Connection  입력 받고 현재 시퀀스 번호 가져오기
+	 * */
+	int getSeq(Connection con) throws SQLException;
 }

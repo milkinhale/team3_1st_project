@@ -15,6 +15,17 @@ import util.DBUtil;
 public class CouponDAOImpl implements CouponDAO {
 	
 	private Properties proFile = DBUtil.getProFile();
+	
+	public static void main(String[] args) {
+		CouponDAO dao = new CouponDAOImpl();
+		try {
+			dao.insertCouponTable("JANG", 15);
+			System.out.println("¼º°ø");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public List<Coupon> couponSelectAll(String customerId) throws SQLException {
@@ -63,7 +74,7 @@ public class CouponDAOImpl implements CouponDAO {
 	}
 	
 	@Override
-	public int insertCouponTable(String customerId) throws SQLException {
+	public int insertCouponTable(String customerId, int salePercent) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -75,6 +86,12 @@ public class CouponDAOImpl implements CouponDAO {
 			ps.setString(1, customerId);
 			
 			result = ps.executeUpdate();
+			
+			int seq = getSeq(con);
+			
+			if(result!=0) {
+			    int re = insertCoupon(con, salePercent, seq);
+			}
 		} finally {
 			DBUtil.dbClose(con, ps);
 		}
@@ -83,8 +100,7 @@ public class CouponDAOImpl implements CouponDAO {
 	}
 
 	@Override
-	public int insertCoupon(int salePercent) throws SQLException {
-		Connection con = null;
+	public int insertCoupon(Connection con, int salePercent, int seq) throws SQLException {
 		PreparedStatement ps = null;
 		int result = 0;
 		String sql = proFile.getProperty("coupon.insert");
@@ -92,11 +108,12 @@ public class CouponDAOImpl implements CouponDAO {
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, salePercent);
+			ps.setInt(1, seq);
+			ps.setInt(2, salePercent);
 			
 			result = ps.executeUpdate();
 		} finally {
-			DBUtil.dbClose(con, ps);
+			DBUtil.dbClose(null, ps);
 		}
 		
 		return result;
@@ -120,5 +137,26 @@ public class CouponDAOImpl implements CouponDAO {
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public int getSeq(Connection con) throws SQLException{
+		int seq = -1;
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		String sql=proFile.getProperty("coupon.getseq");
+		
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				seq = rs.getInt(1);
+			}
+			
+		}finally {
+	    	DBUtil.dbClose(null, ps , rs);
+		}
+		
+		return seq;
 	}
 }
