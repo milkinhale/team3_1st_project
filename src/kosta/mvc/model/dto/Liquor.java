@@ -10,11 +10,23 @@ public class Liquor {
 	
 	public Liquor() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
+	public Liquor(int liquorNo, String liquorName, int liquorPrice) {
+		this.liquorNo = liquorNo;
+		this.liquorName = liquorName;
+		this.liquorPrice = liquorPrice;
+	}
+	
+	public Liquor(int liquorTableNo, String liquorName, int liquorPrice, String addDate) {
+		this.liquorTableNo = liquorTableNo;
+		this.liquorName = liquorName;
+		this.liquorPrice = liquorPrice;
+		this.addDate = addDate;
+	}
+	
+	
 	public Liquor(int liquorNo, int liquorTableNo, String liquorName, int liquorPrice, int stock, String addDate) {
-		super();
 		this.liquorNo = liquorNo;
 		this.liquorTableNo = liquorTableNo;
 		this.liquorName = liquorName;
@@ -22,6 +34,8 @@ public class Liquor {
 		this.stock = stock;
 		this.addDate = addDate;
 	}
+
+
 	
 	public int getLiquorNo() {
 		return liquorNo;
