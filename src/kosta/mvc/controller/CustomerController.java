@@ -11,10 +11,10 @@ public class CustomerController {
  /**
   * ·Î±×ÀÎ
   * */
-	public static void login(String userId, String userPwd) {
+	public static void login(String customerId, String customerPwd) {
 		try {
-			Customer customer = customerService.login(userId, userPwd);
-			MenuView.printUserMenu(userId);
+			Customer customer = customerService.login(customerId, customerPwd);
+			MenuView.printUserMenu(customerId);
 			//MenuView.menu();
 		}catch (Exception e) {
 			//e.printStackTrace();

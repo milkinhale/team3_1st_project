@@ -12,42 +12,40 @@ import util.DBUtil;
 public class CustomerDAOImpl implements CustomerDAO {
 	private Properties proFile = DBUtil.getProFile();
 
-/////////////////////TEST용////////////////////////
-public static void main(String[] args) {
-CustomerDAOImpl tmp = new CustomerDAOImpl();
-try {
+/////////////////////TEST////////////////////////
 /*
-CustomerDAOImpl da = new customerDAOImpl;
-Connection c = null;
+public static void main(String[] args) {
+CustomerDAOImpl cd = new CustomerDAOImpl();
 
-for(customer 
-for(Liquor l : list) {
-System.out.println(l);
-}
-System.out.println("-------------------------------");
-List<Liquor> list2 = dao.liquorsSelectByLiquorType(1);
-for(Liquor l : list2) {
-System.out.println(l);
-}
-System.out.println("-------------------------------");
-Liquor liquor1 = dao.liquorSelectByLiquorNo(1);
-System.out.println(liquor1);
-System.out.println("-------------------------------");
-//insert into liquor values(liquor_no, ?, ?, ?, default, ?)
-//Liquor liquor2 = dao.insertLiquor(Liquor liquorDTO)
-Liquor liquor2 = new Liquor(1, "새 양주이름", 13000, "21-08-23");
-System.out.println(dao.insertLiquor(liquor2));
-System.out.println("-------------------------------");
-Liquor liquor3 = new Liquor(1, "바꾼 양주이름", 200000);
-System.out.println(dao.updateLiquor(liquor3));
+	Customer c = null;
 
-System.out.println("-------------------------------");
-System.out.println(dao.deleteLiquor(1));
+try {
+	c = new Customer( "hong", "111","홍여원","96-08-06","123@네이버","부산 금정구 남산동","123456");
+	System.out.println(cd.insertCustomer(c));
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		}
+	}
+*/
+/*
+ public static void main(String[] args) {
+	CustomerDAOImpl cd = new CustomerDAOImpl();
+	
+	Customer c = null;
+	
+	try {
+		c =  cd.findCustomerId("hong","111");
+		System.out.println(c);
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+}	
+ 
 */
 
-
 	@Override
-	public int insertcustomer(Customer customer) throws SQLException {
+	public int insertCustomer(Customer customer) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -73,23 +71,9 @@ System.out.println(dao.deleteLiquor(1));
 		
 		return result;
 	}
-/////////////////////TEST용////////////////////////
-/*	public static void main(String[] args) {
-		CustomerDAOImpl tmp = new CustomerDAOImpl();
-		Customer c = null;
-		
-		
-		try {
-			c= tmp.customerLogin("CHOI1", "1111");
-			
-			System.out.println(c.toString());
-		} catch (Exception e) {
- 
-		}
-	}
-*/
 	
-////////////////////////////////////////////
+	
+/////////////////////////////////////////////////
 	//로그인하기
 	
 	@Override
@@ -101,7 +85,7 @@ System.out.println(dao.deleteLiquor(1));
 		  Customer customer=null;
 		 try {
 		   con = DBUtil.getConnection();
-		   ps= con.prepareStatement(proFile.getProperty("customer.customerLogin"));
+		   ps = con.prepareStatement(proFile.getProperty("customer.customerLogin"));
 		   ps.setString(1, customerId);
 		   ps.setString(2, customerpwd);
 		   
@@ -115,12 +99,27 @@ System.out.println(dao.deleteLiquor(1));
       }
 		return customer;
 	}
+
+///////////////////////////
+	public static void main(String[] args) {
+		CustomerDAOImpl cd = new CustomerDAOImpl();
+
+			String c = null;
+			
+			try {
+				c =  cd.findCustomerId("AAA111@naver.com");
+				System.out.println(c);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}	
+	
 	
 /////////////////////////////////////////////////////////////////////
 	//email로  id찾기
 	
 	@Override
-	public String findcustomerId(String email) throws SQLException {
+	public String findCustomerId(String email) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -129,6 +128,7 @@ System.out.println(dao.deleteLiquor(1));
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(proFile.getProperty("customer.findCustomerId")) ;
+			
 			ps.setString(1, email);
 			rs = ps.executeQuery();
 			
@@ -141,27 +141,26 @@ System.out.println(dao.deleteLiquor(1));
 		}
 		return Id;
 	}
-
-///////////////test /////////////////////
+//////////////////////////////////////////////////
 /*	public static void main(String[] args) {
-		CustomerDAOImpl tmp = new CustomerDAOImpl();
-		Customer c = null;
-		
-		
-		try {
-			c= tmp.customerLogin("CHOI1", "AAA111@naver.com");
+		CustomerDAOImpl cd = new CustomerDAOImpl();
+
+			String c = null;
 			
-			System.out.println(c.toString());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
+			try {
+				c = cd.findCustomerPwd("CHOI1", "AAA111@naver.com");
+				System.out.println(c);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}	
 */
 /////////////////////////////////////////////		
 	
 // pwd 찾기  -아이디입력 + 이메일 
 	@Override
-	public String findcusomerPwd(String customerId, String email) throws SQLException {
+	public String findCustomerPwd(String customerId, String email) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -170,7 +169,10 @@ System.out.println(dao.deleteLiquor(1));
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(proFile.getProperty("customer.findCustomerPwd")) ;
+			
 			ps.setString(1, pwd);
+			ps.setString(2, customerId);
+
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
@@ -184,11 +186,12 @@ System.out.println(dao.deleteLiquor(1));
 		return pwd;
 	}
 	
+	
 /////////////////////////////////////////////////////////////////
 	//회원정보수정 (이메일 수정)
 	
 	@Override
-	public int updatecustomerEmail(String customerId, String email) throws SQLException {
+	public int updateCustomerEmail(String customerId, String email) throws SQLException {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -197,7 +200,10 @@ System.out.println(dao.deleteLiquor(1));
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql) ;
+			
 			ps.setString(1, email);
+			ps.setString(2, customerId);
+
 			result = ps.executeUpdate();
 
 		}catch(Exception e) {
@@ -212,7 +218,7 @@ System.out.println(dao.deleteLiquor(1));
 // 회원정보수정 (비밀번호)
 	
 	@Override
-	public int updatecustomerPwd(String customerId, String pwd) throws SQLException {
+	public int updateCustomerPwd(String customerId, String pwd) throws SQLException {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -221,7 +227,10 @@ System.out.println(dao.deleteLiquor(1));
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql) ;
+			
 			ps.setString(1, pwd);
+			ps.setString(2, customerId);
+
 			result = ps.executeUpdate();
 
 		}catch(Exception e) {
@@ -236,7 +245,7 @@ System.out.println(dao.deleteLiquor(1));
 //	 회원정보수정 (주소변경)	
 
 	@Override
-	public int updatecustomerAddr(String customerId, String addr) throws SQLException {
+	public int updateCustomerAddr(String customerId, String addr) throws SQLException {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -245,7 +254,10 @@ System.out.println(dao.deleteLiquor(1));
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql) ;
+			
 			ps.setString(1, addr);
+			ps.setString(2, customerId);
+			
 			result = ps.executeUpdate();
 
 		}catch(Exception e) {
@@ -261,7 +273,7 @@ System.out.println(dao.deleteLiquor(1));
 // 회원탈퇴	
 	
 	@Override
-	public int deletecustomer(String customerId) throws SQLException {
+	public int deleteCustomer(String customerId) throws SQLException {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -270,6 +282,7 @@ System.out.println(dao.deleteLiquor(1));
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql) ;
+			
 			ps.setString(1, customerId);
 			result = ps.executeUpdate();
 

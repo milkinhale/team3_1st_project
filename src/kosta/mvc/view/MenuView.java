@@ -28,6 +28,7 @@ public class MenuView {
 			case 2 :
 				MenuView.login();// 로그인
 				break;
+			
 
 			case 9 : 
 				System.exit(0);
@@ -39,7 +40,7 @@ public class MenuView {
 
 
 	public static void printMenu() {
-		System.out.println("=== Heejung Shopping Mall ===");
+		System.out.println("=== KOSTA liqour Shopping Mall ===");
 		System.out.println("1. 가입   |   2. 로그인   |  9. 종료");
 	}
 	
