@@ -10,7 +10,7 @@ public interface CartDAO {
 	 * 회원별 장바구니 조회
 	 *  구매자용 메뉴에서 사용
 	 * */
-	List<Cart> cartSelectByCustomerId(int customerId) throws SQLException;
+	List<Cart> cartSelectByCustomerId(String customerId) throws SQLException;
 	
 	/**
 	 * 장바구니 담기

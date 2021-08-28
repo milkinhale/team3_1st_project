@@ -1,95 +1,89 @@
 package kosta.mvc.model.dto;
 
 public class Cart {
-	private int orderNo;
+	private int cartNo;
 	private String customerId;
-	private String orderDate;
-	private String orderAddr;
-	private String orderStatus;
-	private int finalPrice;
+	private int liquorNo;
+	private int cartCount;
 
 	public Cart() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public Cart(int orderNo, String customerId, String orderDate, String orderAddr, String orderStatus,
-			int finalPrice) {
+
+	public Cart(int cartNo, String customerId, int liquorNo, int cartCount) {
 		super();
-		this.orderNo = orderNo;
+		this.cartNo = cartNo;
 		this.customerId = customerId;
-		this.orderDate = orderDate;
-		this.orderAddr = orderAddr;
-		this.orderStatus = orderStatus;
-		this.finalPrice = finalPrice;
+		this.liquorNo = liquorNo;
+		this.cartCount = cartCount;
 	}
 
-	public int getOrderNo() {
-		return orderNo;
+
+
+	public int getCartNo() {
+		return cartNo;
 	}
 
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
+
+
+	public void setCartNo(int cartNo) {
+		this.cartNo = cartNo;
 	}
+
+
 
 	public String getCustomerId() {
 		return customerId;
 	}
 
+
+
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
 
-	public String getOrderDate() {
-		return orderDate;
+
+
+	public int getLiquorNo() {
+		return liquorNo;
 	}
 
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
+
+
+	public void setLiquorNo(int liquorNo) {
+		this.liquorNo = liquorNo;
 	}
 
-	public String getOrderAddr() {
-		return orderAddr;
+
+
+	public int getCartCount() {
+		return cartCount;
 	}
 
-	public void setOrderAddr(String orderAddr) {
-		this.orderAddr = orderAddr;
-	}
 
-	public String getOrderStatus() {
-		return orderStatus;
-	}
 
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
-	}
-
-	public int getFinalPrice() {
-		return finalPrice;
-	}
-
-	public void setFinalPrice(int finalPrice) {
-		this.finalPrice = finalPrice;
+	public void setCartCount(int cartCount) {
+		this.cartCount = cartCount;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Cart [orderNo=");
-		builder.append(orderNo);
+		builder.append("Cart [cartNo=");
+		builder.append(cartNo);
 		builder.append(", customerId=");
 		builder.append(customerId);
-		builder.append(", orderDate=");
-		builder.append(orderDate);
-		builder.append(", orderAddr=");
-		builder.append(orderAddr);
-		builder.append(", orderStatus=");
-		builder.append(orderStatus);
-		builder.append(", finalPrice=");
-		builder.append(finalPrice);
+		builder.append(", liquorNo=");
+		builder.append(liquorNo);
+		builder.append(", cartCount=");
+		builder.append(cartCount);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 
 	
 	

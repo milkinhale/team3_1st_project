@@ -1,7 +1,7 @@
 package kosta.mvc.model.dto;
 
 public class Review {
-	private String reviewNo;
+	private int reviewNo;
 	private int liquorNo;
 	private String customerId;
 	private String writeDate;
@@ -12,7 +12,7 @@ public class Review {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Review(String reviewNo, int liquorNo, String customerId, String writeDate, String content) {
+	public Review(int reviewNo, int liquorNo, String customerId, String writeDate, String content) {
 		super();
 		this.reviewNo = reviewNo;
 		this.liquorNo = liquorNo;
@@ -21,10 +21,10 @@ public class Review {
 		this.content = content;
 	}
 	
-	public String getReviewNo() {
+	public int getReviewNo() {
 		return reviewNo;
 	}
-	public void setReviewNo(String reviewNo) {
+	public void setReviewNo(int reviewNo) {
 		this.reviewNo = reviewNo;
 	}
 	public int getLiquorNo() {
