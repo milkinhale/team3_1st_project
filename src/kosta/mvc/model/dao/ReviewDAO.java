@@ -21,7 +21,7 @@ public interface ReviewDAO {
 	 * 양주종류별(양주번호별) 리뷰 조회
 	 *  판매자용 메뉴에서 사용할 것임
 	 * */
-	List<Review> reviewSelectByLiquorNo(String liqourtype) throws SQLException;
+	List<Review> reviewSelectByLiquorNo(int liquorNo) throws SQLException;
 	
 	/**
 	 * 리뷰 등록하기
