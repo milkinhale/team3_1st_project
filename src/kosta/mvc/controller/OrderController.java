@@ -4,6 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import kosta.mvc.model.dao.CustomerDAO;
+import kosta.mvc.model.dao.CustomerDAOImpl;
+import kosta.mvc.model.dao.OrderDAO;
+import kosta.mvc.model.dao.OrderDAOImpl;
 import kosta.mvc.model.dto.Orders;
 import kosta.mvc.model.service.OrderService;
 import kosta.mvc.view.EndView;
@@ -11,6 +15,8 @@ import kosta.mvc.view.FailView;
 
 public class OrderController {
     private static OrderService orderService = new OrderService();
+    private static CustomerDAO customerDao = new CustomerDAOImpl();
+    private static OrderDAO orderDao = new OrderDAOImpl();
 	
     /**
 	 * 주문 내역 전체 보기
@@ -19,7 +25,7 @@ public class OrderController {
 	public static void orderSelectAll(){
 		try {
 			 List<Orders> orderList = orderService.orderSelectAll();
-			 EndView.printOrders(orderList);
+			 EndView.printAllOrders(orderList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
@@ -33,7 +39,8 @@ public class OrderController {
 	public static void selectOrdersByUserId(String customerId) {
 		try {
 			 List<Orders> orderList = orderService.selectOrdersByUserId(customerId);
-             EndView.printOrders(orderList);
+			 String customerName = customerDao.findCustomerName(customerId);
+             EndView.printOrders(orderList, customerName);
 		}catch (SQLException e) {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
@@ -91,8 +98,10 @@ public class OrderController {
 			 List<Orders> orderList = new ArrayList<Orders>();
 			 Orders order = orderService.selectOrderByOrderNo(orderNo);
 			 orderList.add(order);
+			 String customerId = orderDao.getCustomerIdByOrderNo(orderNo);
+			 String customerName = customerDao.findCustomerName(customerId);
 
-			 EndView.printOrders(orderList);
+			 EndView.printOrders(orderList, customerName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());		

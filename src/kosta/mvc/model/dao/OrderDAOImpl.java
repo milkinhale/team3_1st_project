@@ -463,4 +463,31 @@ public class OrderDAOImpl implements OrderDAO {
 	    }
 		return total;
 	}
+	
+	/**
+	 * 오더 넘버로 고객 아이디 가져오기
+	 * 
+	 * */
+	public String getCustomerIdByOrderNo(int orderNo) throws SQLException{
+		String customerId=null;
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		Connection con = null;
+		String sql=profile.getProperty("order.getCustomerIdByOrderNo");
+		//select ORDER_NO_SEQ.currval from dual
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				customerId = rs.getString(1);
+			}
+			
+		}finally {
+	    	DBUtil.dbClose(con, ps , rs);
+		}
+		
+		return customerId;
+	}
 }

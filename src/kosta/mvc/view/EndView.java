@@ -1,7 +1,10 @@
 package kosta.mvc.view;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import kosta.mvc.model.dao.CustomerDAO;
+import kosta.mvc.model.dao.CustomerDAOImpl;
 import kosta.mvc.model.dto.Coupon;
 import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
@@ -86,16 +89,26 @@ public class EndView {
 	}*/
  
 	/**
-	 * 주문 상세보기
+	 * 회원별 주문 상세보기
 	 * */
-	public static void printOrders(List<Orders> orderList) {
-		
+	public static void printOrders(List<Orders> orderList, String customerName) {
 	   for(Orders order : orderList) {
-		   String CustomerId = order.getCustomerId();
 		   
+		   System.out.println(order.getOrderNo()+ " | " + order.getOrderDate() +" | " + order.getFinalPrice() +" | " + order.getOrderAddr() +" | " + customerName);
+		   for(OrderDetail orderDetail : order.getOrderDetailList()) {
+			   System.out.println("  ▶ "+orderDetail);
+		   }
+		   System.out.println();
+	   }
+		
+	}
+	/**
+	 * 모든 주문 상세보기
+	 * */
+	public static void printAllOrders(List<Orders> orderList) {
+	   for(Orders order : orderList) {
 		   
-		   
-		   System.out.println(order.getOrderNo()+ " | " + order.getOrderDate() +" | " + order.getFinalPrice() +" | " + order.getOrderAddr() +" | " + CustomerId);
+		   System.out.println(order.getOrderNo()+ " | " + order.getOrderDate() +" | " + order.getFinalPrice() +" | " + order.getOrderAddr() +" | " + order.getCustomerId());
 		   for(OrderDetail orderDetail : order.getOrderDetailList()) {
 			   System.out.println("  ▶ "+orderDetail);
 		   }
