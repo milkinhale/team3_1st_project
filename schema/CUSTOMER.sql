@@ -22,8 +22,15 @@ INSERT INTO CUSTOMER VALUES('KIM', '4444', '김미현','05-12-25',  'DDD444@naver.c
 
 INSERT INTO CUSTOMER VALUES('HYEON', '5555', '현우정','02-03-28', 'EEE555@naver.com', '전남 목포시 옥암동', '010-5555-5555', SYSDATE,DEFAULT);
 
+--아이디 중복 체크 
+
+select customer_id from customer where customer_id =? ;
+
 --판매자 입력
 INSERT INTO CUSTOMER VALUES('ADMIN', '1234', '판매자','1991-05-15', 'seller@naver.com', '아틀란티스 전북익산', '010-1111-1111', SYSDATE, 'SELLER');
+
+
+
 
 
 --확인용

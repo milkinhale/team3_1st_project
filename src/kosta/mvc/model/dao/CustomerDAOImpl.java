@@ -80,7 +80,32 @@ public static void main(String[] args) {
 		
 		return result;
 	}
-	
+////////////////////////////////////////////////
+	// 아이디 중복 체크 
+	@Override
+	public String customerIdDuplicationCheck(String customerId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String Id = null;
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(proFile.getProperty("customer.customerIdDuplicationCheck")) ;
+			
+			ps.setString(1, customerId);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				Id = rs.getString(1);
+			}
+			
+		}finally {
+			DBUtil.dbClose(con, ps ,rs);
+		}
+		return Id;
+	}
+
 	
 /////////////////////////////////////////////////
 	//로그인하기
@@ -111,6 +136,7 @@ public static void main(String[] args) {
 
 
 	//email로  id찾기
+	
 	
 	@Override
 	public String findCustomerId(String email) throws SQLException {

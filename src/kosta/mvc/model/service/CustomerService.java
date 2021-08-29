@@ -20,10 +20,10 @@ public class CustomerService {
   /**
    * 로그인
    * */
-	public Customer login(String customerId, String customerPwd)throws NotFoundException , SQLException{
+	public Customer customerLogin(String customerId, String customerPwd)throws NotFoundException , SQLException{
 		Customer customer=customerDao.customerLogin(customerId, customerPwd);
 		if(customer==null) {
-			throw new NotFoundException("정보를 다시 확안해주세요.");
+			throw new NotFoundException("정보를 다시 확인해주세요.");
 		}
 		
 		String seller = customer.getSeller();
@@ -58,11 +58,77 @@ public class CustomerService {
 			throw new SQLException("애들은 가라");
 		}
 		
+		
+		//회원 아이디가 중복 못 넣게 
+		public boolean customerIdDuplicationCheck(String customerId) throws SQLException {
+			String id = customerDao.customerIdDuplicationCheck(customerId);
+			if(id == customerId) {
+				return false;
+			}else {
+				return true;
+			}
+		}
+		
+
+
+/**
+ * 회원정보찾기 (아이디)
+ **/
+	public String findCustomerId(String email) throws NotFoundException, SQLException {
+		String id  =customerDao.findCustomerId(email);
+		if(id == null) throw new NotFoundException("정보를 다시 확인해주세요.");
+			return id;			
+	}
+	
+/**
+ * 회원정보찾기 (비번)
+ **/
+	public String findCustomerPwd(String customerId, String email ) throws NotFoundException, SQLException {
+		String pwd = customerDao.findCustomerPwd(customerId, email); 
+		if(pwd == null) throw new NotFoundException("정보를 다시 확인해주세요.");
+		return pwd;
+		
 	}
 
 /**
- * 회원정보수정 (이메일)
+ * 회원정보수정 (이메일) -update	
  **/
+	public int updateCustomerEmail(String customerId, String email ) throws SQLException {
+		int result = customerDao.updateCustomerEmail(customerId, email); 
+		if(result == 0) throw new SQLException("정보를 다시 확인해주세요.");
+		return result;
+		
+	}
+	
+/**	
+ * 회원정보수정 (비번)-update
+ **/
+	public int updateCustomerPwd(String customerId, String email ) throws SQLException {
+		int result = customerDao.updateCustomerPwd(customerId, email); 
+		if(result == 0) throw new SQLException("정보를 다시 확인해주세요.");
+		return result;
+		
+	}
+	
+	
+/**
+ * 회원정보수정 (주소)-update
+ **/
+	
+	public int updateCustomerAddr(String customerId, String Addr ) throws SQLException {
+		int result = customerDao.updateCustomerAddr(customerId, Addr); 
+		if(result == 0) throw new SQLException("정보를 다시 확인해주세요.");
+		return result;
+		
+	}
+/**
+ * 회원 탈퇴 - delete
+ **/
+	public int deleteCustomer(String customerId) throws SQLException{
+		int result = customerDao.deleteCustomer(customerId);
+		if(result == 0) throw new SQLException("정보를 다시 확인해주세요");
+		return result;
+	}
 	
 	
 }
