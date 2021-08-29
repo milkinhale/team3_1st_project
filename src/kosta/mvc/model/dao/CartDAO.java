@@ -17,9 +17,15 @@ public interface CartDAO {
 	 * */
 	int insertCart(Cart cart) throws SQLException;
 	
+
 	/**
-	 * 장바구니 비우기
+	 * 장바구니번호를 입력해서 장바구니 삭제하기 
 	 * */
-	int deleteCart(Cart cart) throws SQLException;
+	int deleteCart(int cartNo) throws SQLException;
+
+	/**
+	 * 장바구니 전체 조회하기
+	 * */
+	List<Cart> cartSelectAll() throws SQLException;
 
 }

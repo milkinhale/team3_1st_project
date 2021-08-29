@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 
 import kosta.mvc.model.dto.Review;
 import util.DBUtil;
 
 public class ReviewDAOImpl implements ReviewDAO {
 	private Properties proFile = DBUtil.getProFile();
+	static Scanner sc =new Scanner(System.in);
 	
 	@Override
 	public List<Review> reviewSelectAll() throws SQLException {
@@ -99,7 +101,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	 * 리뷰 등록
 	 * */
 	@Override
-	public int insertReview(Review review) throws SQLException {
+	public int insertReview(Review reviewdto) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -108,13 +110,17 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			//?값
-			ps.setInt(1, review.getLiquorNo());
-			ps.setString(2, review.getCustomerId());
-			ps.setString(3, review.getContent());
+			ps.setInt(1, reviewdto.getLiquorNo());
+			ps.setString(2, reviewdto.getCustomerId());
+			ps.setString(3, reviewdto.getContent());
 			
 			result = ps.executeUpdate();
 			
-		}finally {
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}	
+		finally {
 			DBUtil.dbClose(con, ps);
 		}
 		return result;
@@ -150,7 +156,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	 * 리뷰 삭제하기
 	 * */
 	@Override
-	public int deleteReview(Review review) throws SQLException {
+	public int deleteReview(int reviewNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		int result = 0;
@@ -159,7 +165,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			//?값
-			ps.setInt(1, review.getReviewNo());
+			ps.setInt(1, reviewNo);
 
 			result = ps.executeUpdate();
 			

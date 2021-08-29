@@ -40,7 +40,7 @@ public interface ReviewDAO {
 	 * 리뷰 삭제하기  -> 리뷰 번호를 받아서
 	 * 해당 리뷰번호에 해당하는 리뷰 삭제
 	 * */
-	int deleteReview(Review review) throws SQLException;
+	int deleteReview(int reviewNo) throws SQLException;
 	
 	
 }

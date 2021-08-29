@@ -21,6 +21,14 @@ public class Review {
 		this.content = content;
 	}
 	
+	public Review(int liquorNo, String customerId, String content) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Review(String content, int reviewNo) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getReviewNo() {
 		return reviewNo;
 	}

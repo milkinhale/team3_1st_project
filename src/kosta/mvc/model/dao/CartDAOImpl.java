@@ -9,11 +9,74 @@ import java.util.List;
 import java.util.Properties;
 
 import kosta.mvc.model.dto.Cart;
+import kosta.mvc.model.dto.Review;
 import util.DBUtil;
 
 public class CartDAOImpl implements CartDAO {
 	private Properties proFile = DBUtil.getProFile();
+	
+	//테스트
+	public static void main(String[] args) {
+		CartDAOImpl dao = new CartDAOImpl();
+		try {
+			
+			//장바구니 전체 조회하기
+			System.out.println("장바구니 전체 조회하기");
+			List<Cart> cart2 = dao.cartSelectAll();
+			if (cart2 != null) {
+				for(Cart ca : cart2) {
+					System.out.println(ca);
+				}
+			}
+			
+			//회원id별로 장바구니 조회하기
+			System.out.println("****회원id별로 장바구니 조회하기 test***");
+			List<Cart> cart1 = dao.cartSelectByCustomerId("CHOI1");
+			if(cart1 != null) {
+				for(Cart c : cart1) {
+					System.out.println(c);
+				}
+			}
+			
+			
+			System.out.println("****장바구니 삭제하기test *****");
+			System.out.println(dao.deleteCart(4));
 
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+	}
+	///////////테스트////////////
+
+	/**
+	 * 장바구니 전체 조회하기
+	 * */
+	
+	@Override
+	public List<Cart> cartSelectAll() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps =null;
+		ResultSet rs= null;
+		List<Cart> cartList = new ArrayList<Cart>();
+		String sql = proFile.getProperty("cart.select"); //이것을 외
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Cart cartDto = new Cart(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+				cartList.add(cartDto);
+			}
+		}finally {
+			DBUtil.dbClose(con, ps, rs);
+		}
+		
+		return cartList;
+	}
+	
 	/**
 	 * 회원id별로 장바구니 조회하기
 	 * */
@@ -38,7 +101,7 @@ public class CartDAOImpl implements CartDAO {
 			DBUtil.dbClose(con, ps, rs);
 		}
 		
-		return null;
+		return cartList;
 	}
 
 	
@@ -66,12 +129,12 @@ public class CartDAOImpl implements CartDAO {
 		return result;
 	}
 
-	
+
 	/**
 	 * 장바구니번호를 입력해서 장바구니 삭제하기 
 	 * */
 	@Override
-	public int deleteCart(Cart cart) throws SQLException {
+	public int deleteCart(int cartNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		int result = 0;
@@ -80,7 +143,7 @@ public class CartDAOImpl implements CartDAO {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			//?값
-			ps.setInt(1, cart.getCartNo());
+			ps.setInt(1, cartNo);
 
 			result = ps.executeUpdate();
 		}finally {
