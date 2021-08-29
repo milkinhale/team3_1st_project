@@ -1,5 +1,9 @@
 package kosta.mvc.view;
 
+import java.util.List;
+
+import kosta.mvc.model.dto.Coupon;
+
 public class EndView {
   /**
    * 상품 전체 출력
@@ -17,6 +21,16 @@ public class EndView {
 	
 	public static void printMessage(String message) {
 		System.out.println(message);
+	}
+
+	public static void printCouponList(List<Coupon> couponList) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public static void printCoupon(Coupon coupon) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	/**

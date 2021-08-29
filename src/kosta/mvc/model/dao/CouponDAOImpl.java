@@ -16,7 +16,7 @@ public class CouponDAOImpl implements CouponDAO {
 	
 	private Properties proFile = DBUtil.getProFile();
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		CouponDAO dao = new CouponDAOImpl();
 		try {
 			dao.insertCouponTable("JANG", 15);
@@ -25,7 +25,7 @@ public class CouponDAOImpl implements CouponDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	@Override
 	public List<Coupon> couponSelectAll(String customerId) throws SQLException {
