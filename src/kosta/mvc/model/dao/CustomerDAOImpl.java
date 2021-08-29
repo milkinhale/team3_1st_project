@@ -18,10 +18,10 @@ public static void main(String[] args) {
 	Customer c = null;
 
 	try {
-		/*
-		c = new Customer("mask", "tiger","마스크","00-03-04","masklover@naver.com","경기도 판교","010-3333-3333");
-		System.out.println(cd.insertCustomer(c));
 		
+		c = new Customer("m", "tiger","마스크","00-03-04","masklover@naver.com","경기도 판교","010-3333-3333");
+		System.out.println(cd.insertCustomer(c));
+	/*	
 		//customerLogin(String customerId, String customerpwd)
 		c = cd.customerLogin("hong", "111");
 		System.out.println(c);
