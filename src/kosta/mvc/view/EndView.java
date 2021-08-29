@@ -3,6 +3,8 @@ package kosta.mvc.view;
 import java.util.List;
 
 import kosta.mvc.model.dto.Coupon;
+import kosta.mvc.model.dto.OrderDetail;
+import kosta.mvc.model.dto.Orders;
 
 public class EndView {
   /**
@@ -86,16 +88,21 @@ public class EndView {
 	/**
 	 * 주문 상세보기
 	 * */
-	/*public static void printOrderByUserId(List<Orders> orderList) {
+	public static void printOrders(List<Orders> orderList) {
+		
 	   for(Orders order : orderList) {
-		   System.out.println(order.getOrderId()+ " | " + order.getOrderDate() +" | " + order.getTotalAmount() +" | " + order.getAddress());
-		   for(OrderLine orderLine : order.getOrderLineList()) {
-			   System.out.println("  ▶ "+orderLine);
+		   String CustomerId = order.getCustomerId();
+		   
+		   
+		   
+		   System.out.println(order.getOrderNo()+ " | " + order.getOrderDate() +" | " + order.getFinalPrice() +" | " + order.getOrderAddr() +" | " + CustomerId);
+		   for(OrderDetail orderDetail : order.getOrderDetailList()) {
+			   System.out.println("  ▶ "+orderDetail);
 		   }
 		   System.out.println();
 	   }
 		
-	}*/
+	}
 }
 
 
