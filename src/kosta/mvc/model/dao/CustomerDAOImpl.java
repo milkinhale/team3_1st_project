@@ -13,66 +13,40 @@ public class CustomerDAOImpl implements CustomerDAO {
 	private Properties proFile = DBUtil.getProFile();
 
 /////////////////////TEST////////////////////////
-/*
 public static void main(String[] args) {
-CustomerDAOImpl cd = new CustomerDAOImpl();
-
+	CustomerDAOImpl cd = new CustomerDAOImpl();
 	Customer c = null;
 
-try {
-	c = new Customer( "hong", "111","홍여원","96-08-06","123@네이버","부산 금정구 남산동","123456");
-	System.out.println(cd.insertCustomer(c));
-
+	try {
+		/*
+		c = new Customer("mask", "tiger","마스크","00-03-04","masklover@naver.com","경기도 판교","010-3333-3333");
+		System.out.println(cd.insertCustomer(c));
+		
+		//customerLogin(String customerId, String customerpwd)
+		c = cd.customerLogin("hong", "111");
+		System.out.println(c);
+		
+		//updateCustomerEmail(String customerId, String email)
+		System.out.println(cd.updateCustomerEmail("JANG", "JANG@naver.com"));
+		
+		//updateCustomerPwd(String customerId, String pwd)
+		System.out.println(cd.updateCustomerPwd("YOO", "1234"));
+	
+		//updateCustomerAddr(String customerId, String addr)
+		System.out.println(cd.updateCustomerAddr("JANG", "서울시 서초구"));
+		
+		//deleteCustomer(String customerId)
+		System.out.pritnln(cd.deleteCustomer());
+		
+		System.out.println(cd.findCustomerId("AAA111@naver.com"));
+		
+		System.out.println(cd.findCustomerPwd("CHOI1", "AAA111@naver.com"));
+		*/
 	} catch (Exception e) {
 		e.printStackTrace();
-		}
 	}
-*/
-/*
- public static void main(String[] args) {
-	CustomerDAOImpl cd = new CustomerDAOImpl();
-	
-	Customer c = null;
-	
-	try {
-		c =  cd.findCustomerId("hong","111");
-		System.out.println(c);
-	}catch(Exception e) {
-		e.printStackTrace();
-	}
-}	
- 
- 
-public static void main(String[] args) {
-		CustomerDAOImpl cd = new CustomerDAOImpl();
-
-			String c = null;
-			
-			try {
-				c =  cd.findCustomerId("AAA111@naver.com");
-				System.out.println(c);
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-	//////////////////////////////////////////////////
-/*	public static void main(String[] args) {
-		CustomerDAOImpl cd = new CustomerDAOImpl();
-
-			String c = null;
-			
-			try {
-				c = cd.findCustomerPwd("CHOI1", "AAA111@naver.com");
-				System.out.println(c);
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}	
-*/
-	
-/////////////////////////////////////////////
+}
+/////////////////////TEST////////////////////////
 
 
 	@Override
@@ -85,6 +59,8 @@ public static void main(String[] args) {
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
+			//insert into customer(customer_id, pwd, customer_name, birth, email, addr, contact, sign_date ) 
+			//values( ?, ?, ?, ?, ?, ?, ?, sysdate)
 			ps.setString(1, customer.getCustomerId());
 			ps.setString(2, customer.getPwd());
 			ps.setString(3, customer.getCustomerName());
@@ -171,6 +147,7 @@ public static void main(String[] args) {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(proFile.getProperty("customer.findCustomerPwd")) ;
 			
+			//SELECT PWD FROM CUSTOMER WHERE EMAIL = ? AND CUSTOMER_ID = ?
 			ps.setString(1, email);
 			ps.setString(2, customerId);
 
