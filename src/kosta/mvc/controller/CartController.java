@@ -1,10 +1,70 @@
 package kosta.mvc.controller;
 
-import kosta.mvc.model.service.LiquorService;
+import java.sql.SQLException;
+import java.util.List;
+
+import kosta.mvc.model.dto.Cart;
+import kosta.mvc.model.service.CartService;
+import kosta.mvc.view.FailView;
+import kosta.mvc.view.ReviewCartEndview;
+import kosta.mvc.view.SuccessView;
+
 
 public class CartController {
-  private static LiquorService goodsService = new LiquorService();
+  private static CartService cartService = new CartService();
   
+  /**
+   * 회원 id별로 장바구니 조회
+   * */
+  public static void cartSelectByCustomerId(String customerId) {
+	  try {
+			List<Cart> cartList = cartService.cartSelectByCustomerId(customerId);
+			ReviewCartEndview.printCartByCustomerId(cartList);
+		}catch(Exception e) {
+			FailView.errorMessage(e.getMessage());
+		}
+  }
+  
+  /**
+   * 장바구니 담기
+   * */
+  public static void insertCart(Cart cart) {
+	  try {
+		  cartService.insertCart(cart);
+		  ReviewCartEndview.meesegePrint("등록되었습니다.");
+	  }catch(Exception e) {
+		  FailView.errorMessage(e.getMessage());
+	  }
+  }
+  
+  /**
+   * 장바구니 삭제하기
+   * */
+  public static void deleteCart(int cartNo) {
+	  try {
+		  cartService.deleteCart(cartNo);
+		  ReviewCartEndview.meesegePrint("삭제되었습니다.");
+	  }catch(Exception e) {
+		  FailView.errorMessage(e.getMessage());
+	  }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /*
    public static void putCart(String id, String goodsId, int quantity) {
 		
 		/*try {
@@ -54,8 +114,8 @@ public class CartController {
 			FailView.errorMessage("장바구니가 비었습니다");
 		}else {
 			EndView.printViewCart(id , cart);
-		}*/
-	}
+		}
+	}*/
 }
 
 

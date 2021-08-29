@@ -16,6 +16,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 	private Properties proFile = DBUtil.getProFile();
 	static Scanner sc =new Scanner(System.in);
 	
+	/**
+	 * 리뷰 전체 조회
+	 * */
 	@Override
 	public List<Review> reviewSelectAll() throws SQLException {
 		Connection con = null;

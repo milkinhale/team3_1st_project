@@ -5,9 +5,11 @@ import java.util.List;
 
 import kosta.mvc.model.dao.CustomerDAO;
 import kosta.mvc.model.dao.CustomerDAOImpl;
+import kosta.mvc.model.dto.Cart;
 import kosta.mvc.model.dto.Coupon;
 import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
+import kosta.mvc.model.dto.Review;
 
 public class EndView {
   /**
@@ -37,6 +39,48 @@ public class EndView {
 	public static void printCoupon(Coupon coupon) {
 		System.out.println(coupon);
 	}
+	
+	//Review, Cart
+	/**
+	 * 전체 리뷰 조회
+	 * */
+	public static void printReivew(List<Review> reviewList){
+		System.out.println("--총 리뷰 수 : " + reviewList.size()+ "개 ----");
+		for(Review r : reviewList) {
+			System.out.println(r);
+		}
+		System.out.println();
+	}
+	
+	/**
+	 * 고객아이디 해당 리뷰 조회
+	 * */
+	public static void printReviewByCustomerId(List<Review> reviewList){
+		System.out.println(reviewList + "\n");
+		
+	}
+	
+	/**
+	 * 양주종류별 리뷰 검색
+	 * */
+	public static void printReviewByLiquorNo(List<Review> reviewList){
+		System.out.println(reviewList + "\n");
+		
+	}
+	
+	/**
+	 * 성공했을 때 메세지 출력
+	 * */
+	public static void meesegePrint(String message) {
+		System.out.println(message);
+	}
+	
+	/**
+	 * 고객아이디별 장바구니 조회
+	 * */
+	public static void printCartByCustomerId(List<Cart> cartList) {
+		System.out.println(cartList);
+	}//Review cart 끝
 	
 	/**
 	 * 장바구니 보기
