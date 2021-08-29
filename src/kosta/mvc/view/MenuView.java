@@ -45,11 +45,11 @@ public class MenuView {
 	}
 	
 	
-	public static void printUserMenu(String userId) {
+	public static void printUserMenu(String customerId) {
 		while(true) {
 			SessionSet ss = SessionSet.getInstance();
 			System.out.println(ss.getSet()); //Set객체
-			System.out.println("-----" +userId+ " 로그인 중 -----");
+			System.out.println("-----" +customerId+ " 로그인 중 -----");
 			System.out.println(" 1.로그아웃 |  2.상품보기  |  3.주문하기  | 4. 주문내역보기  |  5.장바구니담기  |  6.장바구니보기 ");
 			int menu =Integer.parseInt( sc.nextLine());
 			/*switch(menu) {
