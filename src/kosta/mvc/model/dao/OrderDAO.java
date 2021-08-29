@@ -55,12 +55,17 @@ public interface OrderDAO {
 	 /**
 	  * 주문 번호로 주문 정보 가져오기.
 	  * */
-	 public Orders selectOrderByOrderNo(int orderNo) throws SQLException;
+	 Orders selectOrderByOrderNo(int orderNo) throws SQLException;
 	 
 	 /**
 		 * 오더 넘버로 고객 아이디 가져오기
 		 * 
 		 * */
-	public String getCustomerIdByOrderNo(int orderNo) throws SQLException;
+	String getCustomerIdByOrderNo(int orderNo) throws SQLException;
+	
+	/**
+	 * 주문번호로 주문상태 여부 가져오기
+	 * */
+	String getOrderStatusByOrderNo(int orderNo) throws SQLException;
 	 
 }

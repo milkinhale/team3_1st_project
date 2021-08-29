@@ -46,8 +46,15 @@ public class OrderService {
 	 * 		(주문상태에따라 취소 가능 여부 체크!)
 	 * */
 	public void deleteOrder(Orders order)throws SQLException{
-		int result =  orderDao.deleteOrder(order);
-		if(result==0)throw new SQLException("주문 삭제에 실패하였습니다.");
+		
+		int orderNo = order.getOrderNo();
+		
+		if(checkOrderStatus(orderNo)) {
+			int result =  orderDao.deleteOrder(order);
+			if(result==0)throw new SQLException("주문 삭제에 실패하였습니다.");
+		}else {
+			throw new SQLException("현재 주문 상태에서는 주문 취소가 불가능합니다.");
+		}
 	}
 		
    /**
@@ -65,6 +72,21 @@ public class OrderService {
 		 Orders returnVal = orderDao.selectOrderByOrderNo(orderNo);
 		 if(returnVal == null) throw new SQLException(orderNo + "번의 주문이 없습니다.");
 		 return returnVal;
+	 }
+	 
+	 /**
+	  * 주문 번호로 주문 상태 체크하기.
+	  * @return : true 면 결제확인중 즉, 주문 삭제 가능. 
+	  * 		  false면 결제확인중이 아님. 즉, 주문 삭제 불가능.
+	  * */
+	 public boolean checkOrderStatus(int orderNo) throws SQLException{
+		 boolean returnValue = false;
+		 
+		 String orderStatus = orderDao.getOrderStatusByOrderNo(orderNo);
+		 
+		 if(orderStatus.equals("결제확인중")) returnValue = true;
+		 
+		 return returnValue;
 	 }
 	 
 }

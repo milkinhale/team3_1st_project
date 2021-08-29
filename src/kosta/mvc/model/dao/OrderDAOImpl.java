@@ -490,4 +490,31 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		return customerId;
 	}
+
+	@Override
+	public String getOrderStatusByOrderNo(int orderNo) throws SQLException {
+		String orderStatus = null;
+		
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		Connection con = null;
+		String sql=profile.getProperty("order.getOrderStatusByOrderNo");
+		//select ORDER_NO_SEQ.currval from dual
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				orderStatus = rs.getString(1);
+			}
+			
+		}finally {
+	    	DBUtil.dbClose(con, ps , rs);
+		}
+				
+		return orderStatus;
+	}
+	
+	
 }

@@ -59,7 +59,6 @@ public class OrderController {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
-		
 	}
     
 	/**
