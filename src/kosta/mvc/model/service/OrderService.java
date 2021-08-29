@@ -3,10 +3,12 @@
 import java.sql.SQLException;
 import java.util.List;
 
+import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dao.CustomerDAO;
 import kosta.mvc.model.dao.CustomerDAOImpl;
 import kosta.mvc.model.dao.OrderDAO;
 import kosta.mvc.model.dao.OrderDAOImpl;
+import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
 
 public class OrderService {
@@ -87,5 +89,13 @@ public class OrderService {
 		 if(orderStatus.equals("결제확인중")) returnValue = true;
 		 
 		 return returnValue;
+	 }
+	 /**
+	  * 회원 아이디로 장바구니를 주문상세 리스트로 변환하기
+	  * */
+	 public List<OrderDetail> convertCartIntoOrderDetailListByCustomerId(String customerId) throws SQLException, NotFoundException{
+		 List<OrderDetail> orderDetailList = orderDao.convertCartIntoOrderDetailListByCustomerId(customerId);
+		 if(orderDetailList == null) throw new NotFoundException("장바구니에 물건이 없습니다.");
+		 return orderDetailList;
 	 }
 }

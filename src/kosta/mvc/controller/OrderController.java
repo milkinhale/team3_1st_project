@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dao.CustomerDAO;
 import kosta.mvc.model.dao.CustomerDAOImpl;
 import kosta.mvc.model.dao.OrderDAO;
 import kosta.mvc.model.dao.OrderDAOImpl;
+import kosta.mvc.model.dto.Customer;
+import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
 import kosta.mvc.model.service.OrderService;
 import kosta.mvc.view.EndView;
@@ -105,6 +108,36 @@ public class OrderController {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());		
 		}
+	 }
+	 
+	 /**
+	  * 장바구니로 주문하기.
+	  * */
+	 public static void OrderCart(String customerId, String addr) throws SQLException, NotFoundException{
+		 try {
+			 //일단 오더 객체를 하나 만듬.
+			 Orders order = new Orders(0, customerId, null, addr, null, 0);
+			 //주문번호 : 0(sql에서 시퀀스로 들어갈꺼임)
+			 //회원번호 : 입력받은 번호 (세션객체에서 가져와야됨)
+			 //주문일자 : null (sql에서 sysdate으로 들어갈꺼임)
+			 //배송주소 : 입력받은 주소 (스캐너로 입력받아서 넣어줘야함)
+			 //주문상태 : null (sql에서 default값으로 들어갈꺼임)
+			 //최종가격 : 0 (DAO에서 계산해줄 예정)
+			 
+			 //서비스에서 오더디테일 리스트 가져오기
+			 List<OrderDetail> list = orderService.convertCartIntoOrderDetailListByCustomerId(customerId);
+			 
+			 //서비스에서 가져온 오더디테일을 하나씩 꺼내서... 
+			 for(OrderDetail detail : list) {
+				 //위에서 새로 만든 오더 객체의 오더디테일 리스트에 하나씩 넣어줌.
+				 order.getOrderDetailList().add(detail);				 
+			 }
+			 //완성된 오더 객체를 서비스의 주문하기 메소드로 날림.	 
+			 orderService.insertOrders(order);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+			 FailView.errorMessage(e.getMessage());	
+		 }
 	 }
 	
 	

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dto.Cart;
 import kosta.mvc.model.dto.Liquor;
 import kosta.mvc.model.dto.OrderDetail;
@@ -355,7 +356,7 @@ public class OrderDAOImpl implements OrderDAO {
 	/**
 	  * 해당 회원 번호를 입력하고 장바구니를 오더객체로 만들고 오더 디테일 리스트로 묶어서 리턴해줌.
 	  * */
-	public List<OrderDetail> convertCartIntoOrderDetailListByCustomerId(String customer_id) throws SQLException{
+	public List<OrderDetail> convertCartIntoOrderDetailListByCustomerId(String customer_id) throws SQLException, NotFoundException{
 		//먼저 오더디테일 리스트를 하나 만들고...
 		List<OrderDetail> orderList = new ArrayList<OrderDetail>();
 		
