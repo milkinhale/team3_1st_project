@@ -51,22 +51,28 @@ public class CustomerService {
 			age--;
 		}
 		if(age >= 19) {
-		    int result =  customerDao.insertCustomer(customer);
+			if(customerIdDuplicationCheck(customer.getCustomerId()) ) throw new SQLException("아이디가 중복되었습니다.");
+			
+			int result =  customerDao.insertCustomer(customer);
 		    if(result==0)throw new SQLException("회원가입에 실패하였습니다.");
 		    coupon.insertCouponTable(customer.getCustomerId(), 15);
 		} else {
 			throw new SQLException("애들은 가라");
 		}
+		
 	}	
 		
-		
-		//회원 아이디가 중복 못 넣게 
+/**
+ *  회원 가입 (	회원 아이디가 중복 못 넣게) 
+ *  @return  아이디가 중복이면 true, 중복 아니면  false 
+ **/
+	
 		public boolean customerIdDuplicationCheck(String customerId) throws SQLException {
 			String id = customerDao.customerIdDuplicationCheck(customerId);
 			if(id == customerId) {
-				return false;
-			}else {
 				return true;
+			}else {
+				return false;
 			}
 		}
 		
