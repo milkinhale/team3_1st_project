@@ -57,6 +57,7 @@ public class CustomerService {
 		} else {
 			throw new SQLException("애들은 가라");
 		}
+	}	
 		
 		
 		//회원 아이디가 중복 못 넣게 
