@@ -26,13 +26,13 @@ public class EndView {
 	}
 
 	public static void printCouponList(List<Coupon> couponList) {
-		// TODO Auto-generated method stub
-
+		for(Coupon coupon : couponList) {
+			System.out.println(coupon);
+		}
 	}
 
 	public static void printCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(coupon);
 	}
 	
 	/**
