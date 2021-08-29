@@ -51,7 +51,7 @@ public class CustomerService {
 			age--;
 		}
 		if(age >= 19) {
-		    int result =  customerDao.insertcustomer(customer);
+		    int result =  customerDao.insertCustomer(customer);
 		    if(result==0)throw new SQLException("회원가입에 실패하였습니다.");
 		    coupon.insertCouponTable(customer.getCustomerId(), 15);
 		} else {
