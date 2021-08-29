@@ -28,6 +28,8 @@ public class MenuView {
 			case 2 :
 				MenuView.login();// 로그인
 				break;
+			case 3: 
+				MenuView.
 			
 
 			case 9 : 
@@ -78,9 +80,19 @@ public class MenuView {
 		}
 		
 	}
+	//ID랑 pwd sub menu에 들어가나?
 	
 	public static void printSubMenu() {
 		System.out.println("1. 수정   |  2.탈퇴   | 9. 나가기");
+		
+		//이메일 수정 
+		System.out.print("아이디: ");
+		String customerId = sc.nextLine();
+		System.out.print("이메일");
+		String customerEmail = sc.nextLine();
+		
+		System.out.print("변경할 이메일 입력: ");
+		String customerEmail1 = sc.nextLine();
 	}
 	
 	public static void printAdminMenu() {
@@ -123,19 +135,19 @@ public class MenuView {
 	 * */
 	public static void login() {
 		 System.out.print("아이디 : ");
-		 String userId = sc.nextLine();
+		 String customerId = sc.nextLine();
 		 
 		 System.out.print("비번 : ");
-		 String userPwd = sc.nextLine();
+		 String customerPwd = sc.nextLine();
 		 
-		 CustomerController.login(userId, userPwd); 
+		 CustomerController.login(customerId, customerPwd); 
 	}
 	
 	/**
 	 * 로그아웃
 	 * */
-	public static void logout(String userId) {
-		Session session = new Session(userId);
+	public static void logout(String customerId) {
+		Session session = new Session(customerId);
 		
 		SessionSet ss = SessionSet.getInstance();
 		ss.remove(session);	

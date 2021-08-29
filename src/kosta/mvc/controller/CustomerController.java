@@ -30,9 +30,9 @@ public class CustomerController {
     	try {
 			customerService.register(customer);
 			EndView.printMessage("회원가입에 성공하였습니다.");
-			//MenuView.menu();
+			MenuView.menu();
 		}catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 			
 		}
@@ -46,9 +46,10 @@ public class CustomerController {
     	try {
     		String id = customerService.findCustomerId(customerId);
     		MenuView.printUserMenu(customerId);
-    		//MenuView.menu();
+    		MenuView.menu();
     		
     	}catch(Exception e) {
+    		e.printStackTrace();
     		FailView.errorMessage(e.getMessage());
     	}	
     }
@@ -61,31 +62,59 @@ public class CustomerController {
     	try {
     		String pwd = customerService.findCustomerPwd(customerId, email);
     		MenuView.printUserMenu(pwd);
-    		//MenuView.menu();
+    		MenuView.menu();
     	
     	}catch(Exception e) {
     		FailView.errorMessage(e.getMessage());
     	}
     }
 
-    /**
+    /**										 
      * 회원정보수정(이메일) 
      **/
-    public static void updateCustomerEmail(String customerId, String eamil) {
+    public static void updateCustomerEmail(String customerId, String email) {
     	try {
-    		String email = customerService.updateCustomerEmail(customerId,email);
-    		MenuView.printUserMenu(email);
-    	}
+    		int result = customerService.updateCustomerEmail(customerId,email);
+    		MenuView.printUserMenu(email);  ////////////////////////sub menu 아닌가 usermenu하면 오류 안뜸 
+    		MenuView.menu();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		FailView.errorMessage(e.getMessage());
+    	}   
     }
 
 
     /**
      * 회원정보수정 (비번) 
      **/
+    public static void updateCustomerPwd(String customerId, String email) {
+    	try {
+    		int result = customerService.updateCustomerPwd(customerId, email);    
+    		MenuView.printUserMenu(email); ///////////////////////////////////////
+    		MenuView.menu();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		FailView.errorMessage(e.getMessage());
+    	}
+    }
+    
     
     /**
      * 회원정보수정(주소)
      **/
+    public static void updateCustomerAddr(String customerId, String Addr) {
+    	try {
+    		int result = customerService.updateCustomerAddr(customerId, Addr);
+    		MenuView.printUserMenu(Addr);//////////////////////////////////Usermenu로 해야하나? Submenu로 해야하나
+    		MenuView.menu();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		FailView.errorMessage(e.getMessage());
+    	}
+    }
+    
+    
+    
 
     /**
      * 회원탈퇴
