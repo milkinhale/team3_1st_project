@@ -91,8 +91,7 @@ public class OrderController {
 			 List<Orders> orderList = new ArrayList<Orders>();
 			 Orders order = orderService.selectOrderByOrderNo(orderNo);
 			 orderList.add(order);
-			 
-			 
+
 			 EndView.printOrders(orderList);
 		} catch (SQLException e) {
 			e.printStackTrace();
