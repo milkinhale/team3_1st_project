@@ -22,6 +22,7 @@ public class LiquorController {
 		}
 	}
 	
+	
 	public static void liquorsSelectByLiquorType(int liqourTableNo) {
 		try {
 			List<Liquor> liquorList = liquorService.liquorsSelectByLiquorType(liqourTableNo);
@@ -31,7 +32,6 @@ public class LiquorController {
 		}
 	}
 	
-
 	
 	public static void liquorSelectByLiquorNo(int liquorNo){
 		try {
@@ -42,9 +42,7 @@ public class LiquorController {
 		}
 	}
 
-	/**
-	 * 
-	 * */
+	
 	public static void insertLiquor(Liquor liquorDTO) {
 		try {
 			liquorService.insertLiquor(liquorDTO);
@@ -58,7 +56,7 @@ public class LiquorController {
 	public static void updateLiquor(Liquor liquorDTO) {
 		try {
 			liquorService.updateLiquor(liquorDTO);
-			LiquorEndView.messagePrint("상품이 삭제되었어요.");
+			LiquorEndView.messagePrint("상품 정보가 수정되었어요.");
 		}catch(SQLException e) {
 			FailView.errorMessage(e.getMessage());
 		}

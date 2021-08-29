@@ -24,7 +24,12 @@ public interface CustomerDAO {
  * 	 회원정보찾기(비번) 
  **/
 	String findCustomerPwd (String customerId, String email) throws SQLException;
-	
+
+/**
+ * 	회원정보찾기(이름) -> 아이디를 넣으면 이름이 나온다. 
+ * */
+	String findCustomerName (String customerId) throws SQLException;
+
 /**
  * 	회원정보수정(이메일)
  **/

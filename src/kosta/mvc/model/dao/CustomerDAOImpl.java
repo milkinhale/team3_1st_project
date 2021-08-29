@@ -41,6 +41,8 @@ public static void main(String[] args) {
 		System.out.println(cd.findCustomerId("AAA111@naver.com"));
 		
 		System.out.println(cd.findCustomerPwd("CHOI1", "AAA111@naver.com"));
+		
+		System.out.println(cd.findCustomerName("CHOI1"));
 		*/
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -164,7 +166,30 @@ public static void main(String[] args) {
 		return pwd;
 	}
 	
-	
+	@Override
+	public String findCustomerName(String customerId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String name = null;
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(proFile.getProperty("customer.findCustomerName")) ;
+			
+			ps.setString(1, customerId);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				name = rs.getString(1);
+			}
+			
+		}finally {
+			DBUtil.dbClose(con, ps ,rs);
+		}
+		
+		return name;
+	}
 /////////////////////////////////////////////////////////////////
 	//회원정보수정 (이메일 수정)
 	
