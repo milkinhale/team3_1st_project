@@ -19,10 +19,10 @@ public class OrderDAOImpl implements OrderDAO {
 	LiquorDAO liquorDao = new LiquorDAOImpl();
 	
 	/////////////////Test//////////////////////////
-	public static void main(String[] args) {
-		OrderDAOImpl dao = new OrderDAOImpl();
-		
-		
+//	public static void main(String[] args) {
+//		OrderDAOImpl dao = new OrderDAOImpl();
+//		
+//		
 //		try {
 //			List<Orders> list = dao.orderSelectByCustomerId("KIM");
 //			for(Orders o : list) {
@@ -60,16 +60,16 @@ public class OrderDAOImpl implements OrderDAO {
 //			e.printStackTrace();
 //		}
 		
-		try {
-			Orders orders = new Orders(25, null, null, null, null, 0);
-			dao.deleteOrder(orders);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-
-	}
+//		try {
+//			Orders orders = new Orders(25, null, null, null, null, 0);
+//			dao.deleteOrder(orders);
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//
+//	}
 	/////////////////Test//////////////////////////
 	
 
