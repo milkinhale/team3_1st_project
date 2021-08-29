@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import kosta.mvc.model.dto.Cart;
 import kosta.mvc.model.dto.Liquor;
 import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
@@ -19,9 +20,9 @@ public class OrderDAOImpl implements OrderDAO {
 	LiquorDAO liquorDao = new LiquorDAOImpl();
 	
 	/////////////////Test//////////////////////////
-//	public static void main(String[] args) {
-//		OrderDAOImpl dao = new OrderDAOImpl();
-//		
+	public static void main(String[] args) {
+		OrderDAOImpl dao = new OrderDAOImpl();
+		
 //		
 //		try {
 //			List<Orders> list = dao.orderSelectByCustomerId("KIM");
@@ -47,18 +48,18 @@ public class OrderDAOImpl implements OrderDAO {
 //			e.printStackTrace();
 //		}
 		
-//		try {
-//
-//			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null, 0);
-//			 OrderDetail orderDetail = new OrderDetail(0, 2, 0, 1, 0);
-//
-//			 orders.getOrderDetailList().add(orderDetail);
-//			 dao.insertOrder(orders);
-//			 
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
+		try {
+
+			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null, 0);
+			 OrderDetail orderDetail = new OrderDetail(0, 2, 0, 1, 0);
+
+			 orders.getOrderDetailList().add(orderDetail);
+			 dao.insertOrder(orders);
+			 
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		
 //		try {
 //			Orders orders = new Orders(25, null, null, null, null, 0);
@@ -69,7 +70,7 @@ public class OrderDAOImpl implements OrderDAO {
 //			e.printStackTrace();
 //		}
 //
-//	}
+	}
 	/////////////////Test//////////////////////////
 	
 
@@ -350,6 +351,39 @@ public class OrderDAOImpl implements OrderDAO {
 		    }
 		
 		return result;
+	}
+	/**
+	  * 해당 회원 번호를 입력하고 장바구니를 오더객체로 만들고 오더 디테일 리스트로 묶어서 리턴해줌.
+	  * */
+	public List<OrderDetail> convertCartIntoOrderDetailListByCustomerId(String customer_id) throws SQLException{
+		//먼저 오더디테일 리스트를 하나 만들고...
+		List<OrderDetail> orderList = new ArrayList<OrderDetail>();
+		
+		//회원번호로 카트 리스트 가져오기
+		CartDAO cartDao = new CartDAOImpl();
+		List<Cart> cartList = cartDao.cartSelectByCustomerId(customer_id);
+		
+		//카트 리스트에 있는 내용을 하나씩 빼서 오더 디테일 객체로 변환하기.
+		
+		for(Cart cart : cartList) {
+			//카트 리스트에 있는 카트 객체레서 양주번호, 수량 빼오자.
+			int liquorNo = cart.getLiquorNo();
+			int cartCount = cart.getCartCount();
+			//위의 정보를 바탕으로 오더디테일 객체 만들고...
+			OrderDetail orderDetail = new OrderDetail(0,liquorNo,0,cartCount,0);
+			//주문상세번호: 0(SQL에서 시퀀스로 들어갈 예정)
+			//양주번호: cart에서 꺼내온값
+			//주문번호: 0(SQL에서 시퀀스로 들어갈 예정)
+			//양주개수: cart에서 꺼내온값
+			//가격: 0 (insertOrder 메소드에서 양주값*개수로 계산해줄 예정)
+			
+			//만들어준 오더디테일 객체를 오더리스트에 하나씩 넣어줌.(카트 리스트에 더이상 카트가 없을때까지)
+			//(사실 오더 디테일 리스트인데 이름이 길어짐...)
+			orderList.add(orderDetail);
+		}
+		//for문이 끝나면 orderList에는 카트에서 변환된 값이 전부 들어가 있음.	
+		
+		return orderList;
 	}
 	/**
 	 * Connection  입력 받고 현재 시퀀스 번호 가져오기

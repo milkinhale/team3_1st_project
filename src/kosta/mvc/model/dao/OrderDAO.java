@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
 
 public interface OrderDAO {
@@ -67,5 +68,10 @@ public interface OrderDAO {
 	 * 주문번호로 주문상태 여부 가져오기
 	 * */
 	String getOrderStatusByOrderNo(int orderNo) throws SQLException;
+
+	 /**
+	  * 해당 회원 번호를 입력하고 장바구니를 오더객체로 만들기
+	  * */
+	List<OrderDetail> convertCartIntoOrderDetailListByCustomerId(String customer_id) throws SQLException;
 	 
 }
