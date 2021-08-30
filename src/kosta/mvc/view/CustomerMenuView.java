@@ -139,7 +139,7 @@ public class CustomerMenuView {
 		 System.out.print("배송주소 : ");
 		 String address = sc.nextLine();
 		 
-			 
+		
 		 /*Orders orders = new Orders(0, null, userId, address, 0);
 		 OrderLine orderLine = new OrderLine(0, 0, goodsId, 0, qty, 0);
 		 

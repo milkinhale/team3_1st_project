@@ -9,6 +9,7 @@ import kosta.mvc.model.dto.Liquor;
 
 public class AdminMenuView {
 	private static Scanner sc = new Scanner(System.in);
+	
 	/**
 	 * 판매자용 메뉴
 	 * */
@@ -19,19 +20,22 @@ public class AdminMenuView {
 		switch(menu) {
 			//양주 메뉴 
 			case 1:
-				
+				liquorAdminMenu();
 				break;
 				
 			//주문 메뉴 
 			case 2:
+				orderAdminMenu();
 				break;
 				
 			//회원메뉴 
 			case 3:
+				customerAdminMenu();
 				break;
 				
 			//리뷰메뉴
 			case 4:
+				reviewAdminMenu();
 				break;
 				
 			case 0:
