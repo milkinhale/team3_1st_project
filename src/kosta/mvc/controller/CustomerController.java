@@ -47,7 +47,7 @@ public class CustomerController {
     public static void findCustomerId(String customerId) {
     	try {
     		String id = customerService.findCustomerId(customerId);
-    		MenuView.printSubMenu();
+    		MenuView.printMenu();
     		MenuView.menu();
     		
     	}catch(Exception e) {
@@ -63,7 +63,7 @@ public class CustomerController {
     public static void findcustomerPwd(String customerId, String email) {
     	try {
     		String pwd = customerService.findCustomerPwd(customerId, email);
-    		MenuView.printSubMenu();
+    		MenuView.printMenu();
     		MenuView.menu();
     	
     	}catch(Exception e) {
