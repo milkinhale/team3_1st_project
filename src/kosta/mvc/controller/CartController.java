@@ -38,9 +38,9 @@ public class CartController {
   /**
    * 장바구니 삭제하기
    * */
-  public static void deleteCart(int cartNo) {
+  public static void deleteCart(String customerId) {
 	  try {
-		  cartService.deleteCart(cartNo);
+		  cartService.deleteCart(customerId);
 		  EndView.meesegePrint("삭제되었습니다.");
 	  }catch(Exception e) {
 		  FailView.errorMessage(e.getMessage());

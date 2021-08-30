@@ -62,11 +62,23 @@ public class ReviewController {
 	}
 	
 	/**
+	 * 리뷰 수정하기
+	 * */
+	public static void updateReview (Review review) {
+		try {
+			reviewService.updateReview(review);
+			EndView.meesegePrint("수정되었습니다.");
+		}catch(Exception e) {
+			FailView.errorMessage(e.getMessage());
+		}
+	}
+	
+	/**
 	 * 리뷰 삭제
 	 * */
-	public static void deleteReview (Review reviewdto) {
+	public static void deleteReview (int reviewNo) {
 		try {
-			reviewService.insertReview(reviewdto);
+			reviewService.deleteReview(reviewNo);
 			EndView.meesegePrint("삭제되었습니다.");
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
