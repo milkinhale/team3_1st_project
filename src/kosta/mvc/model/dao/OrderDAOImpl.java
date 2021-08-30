@@ -20,6 +20,7 @@ public class OrderDAOImpl implements OrderDAO {
 	private Properties profile = DBUtil.getProFile();
 
 	LiquorDAO liquorDao = new LiquorDAOImpl();
+	CouponDAO couponDAO = new CouponDAOImpl();
 	
 	/////////////////Test//////////////////////////
 	public static void main(String[] args) {
@@ -311,6 +312,8 @@ public class OrderDAOImpl implements OrderDAO {
 		   con = DBUtil.getConnection();
 		   con.setAutoCommit(false);  //오토 커밋 해제!!
 		   
+		   int totalAmount = this.getTotalAmount(order);
+		   
 		   ps = con.prepareStatement(sql);
 		   ps.setString(1, order.getOrderAddr());
 		   ps.setInt(2, this.getTotalAmount(order));//총구매금액구하는 메소드 호출
@@ -345,6 +348,9 @@ public class OrderDAOImpl implements OrderDAO {
 			   }
 			   //주문수량만큼 재고량 감소하기
 			   decrementStock(con, order.getOrderDetailList());
+			   if(totalAmount > 200000) {
+				   couponDAO.insertCouponTable(order.getCustomerId(), 20);
+			   }
 			   con.commit();
 		   }
 		   
