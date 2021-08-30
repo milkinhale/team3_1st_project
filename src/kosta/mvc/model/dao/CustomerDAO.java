@@ -69,6 +69,11 @@ public interface CustomerDAO {
 /**
  * 	관리자 - 회원메뉴- 전체회원 리스트 보기
  **/
-	List<CustomerDAO> selectCustomerListAll() throws SQLException;
+	List<Customer> selectCustomerListAll() throws SQLException;
+	
+/**
+ * 관리자 -회원받아서 탈퇴시켜버린다.
+ **/
+
 	
 }

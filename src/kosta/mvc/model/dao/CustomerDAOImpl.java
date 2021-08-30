@@ -1,12 +1,16 @@
 package kosta.mvc.model.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import kosta.mvc.model.dto.Customer;
+
 import util.DBUtil;
 
 public class CustomerDAOImpl implements CustomerDAO {
@@ -18,10 +22,10 @@ public static void main(String[] args) {
 	Customer c = null;
 
 	try {
-		
-		c = new Customer("m", "tiger","마스크","00-03-04","masklover@naver.com","경기도 판교","010-3333-3333");
-		System.out.println(cd.insertCustomer(c));
 	/*	
+		c = new Customer("m", "tiger","마스크","00-03-04","masklover@naver.com","경기도 판교","010-3333-3333"); 
+		System.out.println(cd.insertCustomer(c));
+	
 		//customerLogin(String customerId, String customerpwd)
 		c = cd.customerLogin("hong", "111");
 		System.out.println(c);
@@ -43,8 +47,15 @@ public static void main(String[] args) {
 		System.out.println(cd.findCustomerPwd("CHOI1", "AAA111@naver.com"));
 		
 		System.out.println(cd.findCustomerName("CHOI1"));
-		*/
-	} catch (Exception e) {
+		
+
+	//	List<Customer> list = dao.selectCustomerListAll();
+		for(Customer ct : list) 
+		System.out.println(ct);
+*/		
+		System.out.print(cd.deleteCustomer("hong"));
+	
+		}catch (Exception e) {
 		e.printStackTrace();
 	}
 }
@@ -309,7 +320,7 @@ public static void main(String[] args) {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = proFile.getProperty("customer.deleteCustomerPwd");
+		String sql = proFile.getProperty("customer.deleteCustomer");
 		
 		try {
 			con = DBUtil.getConnection();
@@ -355,4 +366,36 @@ public static void main(String[] args) {
 		return seller;
 	}
 
+	
+	/**
+	 *  관리자 - 전체 회원 리스트 보기 
+	 **/
+
+	@Override
+	public List<Customer> selectCustomerListAll() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null; 
+		ResultSet rs = null;
+		List<Customer>customerList = new ArrayList<Customer>();
+		String sql = proFile.getProperty("customer.selectCustomerListAll" );
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+	
+		}catch(Exception e ) {
+			while(rs.next()) {
+				Customer customerDto= new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+				customerList.add(customerDto);
+			}
+		}finally {
+			DBUtil.dbClose(con, ps,rs);
+		}
+		return customerList;
+	}
+
+	
+	/**
+	 * 관리자 - 회원강퇴 
+	 **/
 }
