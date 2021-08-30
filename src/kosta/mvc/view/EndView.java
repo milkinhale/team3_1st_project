@@ -135,31 +135,31 @@ public class EndView {
 	/**
 	 * 회원별 주문 상세보기
 	 * */
-	public static void printOrders(List<Orders> orderList, String customerName) {
-	   for(Orders order : orderList) {
-		   
-		   System.out.println(order.getOrderNo()+ " | " + order.getOrderDate() +" | " + order.getFinalPrice() +" | " + order.getOrderAddr() +" | " + customerName);
-		   for(OrderDetail orderDetail : order.getOrderDetailList()) {
-			   System.out.println("  ▶ "+orderDetail);
-		   }
-		   System.out.println();
-	   }
-		
-	}
+//	public static void printOrders(List<Orders> orderList, String customerName) {
+//	   for(Orders order : orderList) {
+//		   
+//		   System.out.println(order.getOrderNo()+ " | " + order.getOrderDate() +" | " + order.getFinalPrice() +" | " + order.getOrderAddr() +" | " + customerName);
+//		   for(OrderDetail orderDetail : order.getOrderDetailList()) {
+//			   System.out.println("  ▶ "+orderDetail);
+//		   }
+//		   System.out.println();
+//	   }
+//		
+//	}
 	/**
 	 * 모든 주문 상세보기
 	 * */
-	public static void printAllOrders(List<Orders> orderList) {
-	   for(Orders order : orderList) {
-		   
-		   System.out.println(order.getOrderNo()+ " | " + order.getOrderDate() +" | " + order.getFinalPrice() +" | " + order.getOrderAddr() +" | " + order.getCustomerId());
-		   for(OrderDetail orderDetail : order.getOrderDetailList()) {
-			   System.out.println("  ▶ "+orderDetail);
-		   }
-		   System.out.println();
-	   }
-		
-	}
+//	public static void printAllOrders(List<Orders> orderList) {
+//	   for(Orders order : orderList) {
+//		   
+//		   System.out.println(order.getOrderNo()+ " | " + order.getOrderDate() +" | " + order.getFinalPrice() +" | " + order.getOrderAddr() +" | " + order.getCustomerId());
+//		   for(OrderDetail orderDetail : order.getOrderDetailList()) {
+//			   System.out.println("  ▶ "+orderDetail);
+//		   }
+//		   System.out.println();
+//	   }
+//		
+//	}
 }
 
 

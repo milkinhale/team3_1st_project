@@ -15,6 +15,7 @@ import kosta.mvc.model.dto.Orders;
 import kosta.mvc.model.service.OrderService;
 import kosta.mvc.view.EndView;
 import kosta.mvc.view.FailView;
+import kosta.mvc.view.OrderEndView;
 
 public class OrderController {
     private static OrderService orderService = new OrderService();
@@ -28,7 +29,7 @@ public class OrderController {
 	public static void orderSelectAll(){
 		try {
 			 List<Orders> orderList = orderService.orderSelectAll();
-			 EndView.printAllOrders(orderList);
+			 OrderEndView.printAllOrders(orderList);
 		} catch (SQLException e) {
 			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
@@ -43,7 +44,7 @@ public class OrderController {
 		try {
 			 List<Orders> orderList = orderService.selectOrdersByUserId(customerId);
 			 String customerName = customerDao.findCustomerName(customerId);
-             EndView.printOrders(orderList, customerName);
+			 OrderEndView.printOrders(orderList, customerName);
 		}catch (SQLException e) {
 			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
@@ -74,7 +75,7 @@ public class OrderController {
 		try {
 			orderService.deleteOrder(orderNo);
 		} catch (SQLException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 	}
@@ -103,7 +104,7 @@ public class OrderController {
 			 String customerId = orderDao.getCustomerIdByOrderNo(orderNo);
 			 String customerName = customerDao.findCustomerName(customerId);
 
-			 EndView.printOrders(orderList, customerName);
+			 OrderEndView.printOrders(orderList, customerName);
 		} catch (SQLException e) {
 			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());		

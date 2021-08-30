@@ -73,6 +73,13 @@ public class OrderDAOImpl implements OrderDAO {
 //			e.printStackTrace();
 //		}
 //
+//		try {
+//			dao.deleteOrder(30);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+		
 	}
 	/////////////////Test//////////////////////////
 	
@@ -223,7 +230,7 @@ public class OrderDAOImpl implements OrderDAO {
 		 ResultSet rs = null;
 		 
 		 String sql = profile.getProperty("order.selectOrderByOrderNo");
-		 //select customer_id, order_date, order_addr, order_status, final_price from orders where order_no=?
+		 //select customer_id, order_date, order_addr, order_status, final_price, DISCOUNT from orders where order_no=?
 
 		 
 		 try {
@@ -245,7 +252,8 @@ public class OrderDAOImpl implements OrderDAO {
 				 orderDetailList = this.selectOrderDetail(orderNo) ;
 				 int discount = rs.getInt(6);
 				 
-				 returnVal = new Orders(orderNo, customerId, orderDate, orderAddr, orderStatus, finalPrice , discount, orderDetailList);
+				 returnVal = new Orders(orderNo, customerId, orderDate, orderAddr, orderStatus,
+							finalPrice, discount, orderDetailList);
 			 }
 
 			 //System.out.println("false");	 
@@ -582,6 +590,7 @@ public class OrderDAOImpl implements OrderDAO {
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, orderNo);
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				orderStatus = rs.getString(1);

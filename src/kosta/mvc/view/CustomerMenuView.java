@@ -185,11 +185,13 @@ public class CustomerMenuView {
 			//주문내역 확인 
 			case 1:
 				OrderController.selectOrdersByUserId(customerId);
+				myPageMenu(customerId);
 				break;
 				
 			//주문 취소 
 			case 2:
 				deleteOrder();
+				myPageMenu(customerId);
 				break;
 				
 			//장바구니 비우기 
