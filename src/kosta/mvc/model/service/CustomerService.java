@@ -157,6 +157,22 @@ public class CustomerService {
 		return result;
 	}
 	
+/**
+ * 회원 정보 확인
+ * (아이디를 넣으면 -> Customer 객체(DTO)를 돌려주는 메소드!)
+ * */
+	public Customer selectCustomerByCustomerId(String customerId) throws SQLException{
+	//서비스를 컨트롤러에서 호출해서 컨트롤러쪽에서 뷰 쪽에다가 뿌려줄 Customer를 줘야하니까
+	//리턴해줄 Customer 베리어블 하나 만들어줌.
+		//커스터머 DAO에서 만들어둔 selectCustomerByCustomerId 메소드를 여기에 넣어줌.
+		Customer customer = customerDao.selectCustomerByCustomerId(customerId);
+		
+		if(customer == null) { //DAO에서 돌려준 커스터머 객체가 없다면...
+			throw new SQLException("----------*****정보를 다시 확인해주세요*****----------");
+		}
+		
+		return customer;
+	}
 	
 //////////////////////////////////////////////////////////////////////	
 	/**

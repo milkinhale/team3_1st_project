@@ -82,6 +82,23 @@ public static void printdeleteCustomer(String customerId) {
 	System.out.print("----------***** 탈퇴되었습니다 *****----------");
 	}
 
+/**
+ * 회원 정보 보기
+ * (각 회원용) 마이페이지-회원정보 수정에서 사용할 예정.
+ * */
+public static void printCustomer(Customer customer) {
+	//회원 이름, 생일, 이메일, 주소, 연락처, 가입일만 보여줍니다.
+	String customerName = customer.getCustomerName();
+	String birth = customer.getBirth();
+	String email = customer.getEmail();
+	String addr = customer.getAddr();
+	String contact = customer.getContact();
+	String signDate = customer.getSignDate();
+	
+	System.out.println("성명: " + customerName + " | 생일: " + birth + " | 이메일: " + email + " | 주소: " + addr + " | 연락처 : " + contact + " | 가입일: " + signDate);
+	System.out.println();
+}
+
 ////////////////////////////
 
 /**

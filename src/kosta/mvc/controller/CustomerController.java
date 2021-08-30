@@ -137,6 +137,21 @@ public class CustomerController {
     }
     
     /**
+     * 회원 정보 확인
+     * */
+    public static void selectCustomerByCustomerId(String customerId){
+    	try {
+			//서비스에서 커스터머 객체를 가져와서...
+    		Customer customer = customerService.selectCustomerByCustomerId(customerId);
+			//customer 객체를 입력받아서 화면에다가 회원정보를 뿌려주는 메소드를 불러옴.
+    		CustomerEndView.printCustomer(customer);
+			//이러면 컨트롤러가 하는 일은 끝!
+		} catch (SQLException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+    }
+    
+    /**
 	 * 회원인지 판매자 확인  
 	 **/
 	public static void sellerCheck (String customerId){

@@ -262,27 +262,34 @@ public class CustomerMenuView {
 	 * 5. 회원정보 수정 
 	 * */
 	public static void updateCustomer(String customerId) {
-		System.out.println("1.비밀번호   |  2.이메일   |  3.주소  |  0. 나가기");
+		System.out.println("1.회원정보 보기  | 2. 비밀번호 수정   |  3.이메일 수정   |  4.주소 수정 |  0. 나가기");
 		System.out.println("수정하실 정보를 선택해주세요: ");
 		int menu =Integer.parseInt( sc.nextLine());
 		
 		switch(menu) {
-			//비밀번호 수정 
 			case 1:
+				//회원 정보 보여주는 컨트롤러 메소드 띄우고...
+				CustomerController.selectCustomerByCustomerId(customerId);
+				//보여줬으면 다시 회원정보 수정 메뉴 띄워주기.
+				updateCustomer(customerId);
+				break;
+		
+			//비밀번호 수정 
+			case 2:
 				System.out.print("새로운 비밀번호를 입력해주세요: ");
 				String pwd = sc.nextLine();
 				CustomerController.updateCustomerPwd(customerId, pwd);
 				break;
 			
 			//이메일 수정 
-			case 2: 
+			case 3: 
 				System.out.print("새로운 이메일을 입력해주세요: ");
 				String email = sc.nextLine();
 				CustomerController.updateCustomerEmail(customerId, email);
 				break;
 			
 			//주소 수정
-			case 3:
+			case 4:
 				System.out.print("새로운 주소를 입력해주세요: ");
 				String addr = sc.nextLine();
 				CustomerController.updateCustomerAddr(customerId, addr);

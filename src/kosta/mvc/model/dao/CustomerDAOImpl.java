@@ -339,6 +339,72 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}	
 	
 	/**
+	 * 회원 정보 확인
+	 * (아이디를 넣으면 -> Customer 객체(DTO)를 돌려주는 메소드!)
+	 * */
+	public Customer selectCustomerByCustomerId(String customerId) throws SQLException{
+		//일단 리턴할 커스터머DTO 베리어블 하나 만들고...
+		Customer customer = null;
+		
+		//커넥션, 프리페어스테이트먼트(쿼리 들어갈거), 리절트 셋(결과값 나올거) 준비해둠.
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		//프리페어 스테이트먼트에 실제로 들어갈 쿼리문 하나 준비해둠.
+		String sql = "SELECT CUSTOMER_ID, PWD, CUSTOMER_NAME, BIRTH, EMAIL, ADDR, CONTACT, SIGN_DATE, SELLER FROM CUSTOMER WHERE CUSTOMER_ID=?";
+		
+		try {
+			//con에 DBUtil에 있는 겟 커넥션 메소드로 커넥션 구축하기
+			con = DBUtil.getConnection();
+			//con에다가 프리페어 스테이트먼트 메소드 호출해서 위에서 만든 sql 즉, 쿼리 넣어줌.
+			//그리고 이걸 프리페어 스테이트먼트 객체에 다시 넣어줌.
+			ps = con.prepareStatement(sql);
+			//쿼리문 마지막에 물음표(?)하나 있는 곳에다가 메소드에서 받아온 customerId를 넣어줌.
+			ps.setString(1, customerId);
+			//이렇게하면 쿼리문은...
+			//SELECT CUSTOMER_ID...(생략) FROM CUSTOMER WHERE CUSTOMER_ID=회원번호가 됨.
+			//즉, 회원번호가 일치하는 레코드의 아이디, 비번, 등등을 가져오라는 쿼리가 완성됨.
+			
+			//쿼리가 완성되었으니까 엑시큐트(실행) 해줌.
+			//executeQuery메소드의 리턴타입이 리절트 셋이니까...
+			//이걸 위에서 만들어둔 rs 변수에다가 넣어줌.
+			rs = ps.executeQuery();
+			
+			if(rs.next()) { //만약에 rs.next()가 true라면...
+							//즉, 결과값이 한줄이 있다면...
+				//위에서 입력한 쿼리의 select한 컬럼들 즉,
+				//CUSTOMER_ID, PWD, CUSTOMER_NAME, BIRTH, EMAIL, ADDR, CONTACT, SIGN_DATE, SELLER 
+				// 1		   2    3              4      5      6     7        8          9 
+				//요것들이 차례대로 들어올 예정임.
+				String id = rs.getString(1); //첫번째=CUSTOMER_ID
+				String pwd = rs.getString(2); //두번째=PWD
+				String customerName = rs.getString(3); //세번째=CUSTOMER_NAME
+				String birth = rs.getString(4); //네번째=BIRTH
+				String email = rs.getString(5); //다섯번째=EMAIL
+				String addr = rs.getString(6); //여섯번째=ADDR
+				String contact = rs.getString(7); //일곱번째=CONTACT
+				String signDate = rs.getString(8); //여덟번째=SIGN_DATE
+				String seller = rs.getString(9); //아홉번째=SELLER
+				
+				//이제 받아온 값들을 아까 위에서 만든 리턴용 커스터머 객체(DTO)에다가 생성자로 넣어줌.
+				customer= new Customer(customerId, pwd, customerName, birth, email, addr,contact, signDate, seller);
+				//이렇게 완성된 커스터머 객체를 이제 리턴만 해주면 됨.
+			}
+			
+			
+		}finally {
+			//메소드 끝내기 전에 만들어둔 con, ps, rs는 닫아줌.
+			DBUtil.dbClose(con, ps, rs);
+		}
+		
+		//위에서 처음에 customer를 만들때 기본적으로 null값을 줬으니까...
+		//쿼리를 실행했을 때 결과값이 없으면 얘가 계속 null 일것이고...
+		//결과값이 있었다면 생성자로 값이 들어가있는 Customer 객체(DTO)가 리턴될거임. 
+		return customer;
+	}
+	
+	/**
 	 * 회원인지 판매자 확인  
 	 * @return seller일 경우 "SELLER"(대문자 유의!) 값 리턴. 아닐 경우 null값 리턴  
 	 **/

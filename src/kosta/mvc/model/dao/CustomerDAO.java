@@ -58,6 +58,11 @@ public interface CustomerDAO {
  * 회원 탈퇴  
  **/
 	int deleteCustomer (String customerId) throws SQLException;
+/**
+ * 회원 정보 확인
+ * (아이디를 넣으면 -> Customer 객체(DTO)를 돌려주는 메소드!)
+ * */
+	Customer selectCustomerByCustomerId(String customerId) throws SQLException;
 
 ////////////////////////////////////////////////////////////
 	/**
