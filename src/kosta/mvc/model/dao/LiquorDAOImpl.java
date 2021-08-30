@@ -46,6 +46,8 @@ public class LiquorDAOImpl implements LiquorDAO {
 			System.out.println("-------------------------------");
 			System.out.println(dao.deleteLiquor(1));
 			*/
+			
+			System.out.println(dao.liquorSelectByLiquorName("∏ÛΩ∫≈Õ"));
 			System.out.println("-------------------------------");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,6 +112,29 @@ public class LiquorDAOImpl implements LiquorDAO {
 		   con = DBUtil.getConnection();
 		   ps= con.prepareStatement(profile.getProperty("liquor.liquorSelectByLiquorNo"));
 		   ps.setInt(1, liquorNo); 
+	       rs = ps.executeQuery();
+	       
+	       if(rs.next()) {
+	        	liquor = new Liquor(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
+	        }
+	       
+		 }finally {
+			 DBUtil.dbClose(con, ps, rs);
+		 }
+		return liquor;
+	}
+	
+	@Override
+	public Liquor liquorSelectByLiquorName(String name) throws SQLException {
+		Connection con=null;
+		  PreparedStatement ps=null;
+		  ResultSet rs=null;
+		  Liquor liquor = null;
+		 
+		 try {
+		   con = DBUtil.getConnection();
+		   ps= con.prepareStatement(profile.getProperty("liquor.liquorSelectByLiquorName"));
+		   ps.setString(1, "%"+name+"%"); 
 	       rs = ps.executeQuery();
 	       
 	       if(rs.next()) {

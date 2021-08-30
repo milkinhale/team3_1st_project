@@ -41,7 +41,15 @@ public class LiquorController {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
-
+	
+	public static void liquorSelectByLiquorName(int liquorNo){
+		try {
+			Liquor liquor = liquorService.liquorSelectByLiquorNo(liquorNo);
+			LiquorEndView.printLiquor(liquor);
+		}catch(SQLException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+	}
 	
 	public static void insertLiquor(Liquor liquorDTO) {
 		try {
