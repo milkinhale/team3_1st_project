@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Properties;
 
 import kosta.mvc.model.dto.Coupon;
-import kosta.mvc.model.dto.CouponTable;
 import util.DBUtil;
 
 public class CouponDAOImpl implements CouponDAO {
@@ -88,9 +87,13 @@ public class CouponDAOImpl implements CouponDAO {
 			int seq = getSeq(con);
 			
 			if(result!=0) {
-				if(salePercent == 10) {
+				if (salePercent == 10) {
 					LocalDate now = LocalDate.now();
-					if(couponSelectBySysdate(con, customerId)) {
+					if (now.getDayOfWeek().equals("MONDAY")) {
+						if (couponSelectBySysdate(con, customerId)) {
+							return result;
+						}
+					}else {
 						return result;
 					}
 				}
