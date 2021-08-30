@@ -2,6 +2,7 @@ package kosta.mvc.model.service;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dao.CouponDAO;
@@ -23,7 +24,7 @@ public class CustomerService {
 	public Customer customerLogin(String customerId, String customerPwd)throws NotFoundException , SQLException{
 		Customer customer=customerDao.customerLogin(customerId, customerPwd);
 		if(customer==null) {
-			throw new NotFoundException("정보를 다시 확인해주세요.");
+			throw new NotFoundException("----------*****정보를 다시 확인해주세요.*****----------");
 		}
 		
 		String seller = customer.getSeller();
@@ -55,13 +56,13 @@ public class CustomerService {
 			age--;
 		}
 		if(age >= 19) {
-			if(customerIdDuplicationCheck(customer.getCustomerId()) ) throw new SQLException("아이디가 중복되었습니다.");
+			if(customerIdDuplicationCheck(customer.getCustomerId()) ) throw new SQLException("----------*****아이디가 중복되었습니다.*****----------");
 			
 			int result =  customerDao.insertCustomer(customer);
-		    if(result==0)throw new SQLException("회원가입에 실패하였습니다.");
+		    if(result==0)throw new SQLException("----------*****회원가입에 실패하였습니다.*****----------");
 		    coupon.insertCouponTable(customer.getCustomerId(), 15);
 		} else {
-			throw new SQLException("애들은 가라");
+			throw new SQLException("----------*****애들은 가라*****----------");
 		}
 		
 	}	
@@ -87,7 +88,7 @@ public class CustomerService {
  **/
 	public String findCustomerId(String email) throws NotFoundException, SQLException {
 		String id  =customerDao.findCustomerId(email);
-		if(id == null) throw new NotFoundException("정보를 다시 확인해주세요.");
+		if(id == null) throw new NotFoundException("----------*****정보를 다시 확인해주세요.*****----------");
 			return id;			
 	}
 	
@@ -96,7 +97,7 @@ public class CustomerService {
  **/
 	public String findCustomerPwd(String customerId, String email ) throws NotFoundException, SQLException {
 		String pwd = customerDao.findCustomerPwd(customerId, email); 
-		if(pwd == null) throw new NotFoundException("정보를 다시 확인해주세요.");
+		if(pwd == null) throw new NotFoundException("----------*****정보를 다시 확인해주세요.*****----------");
 		return pwd;
 		
 	}
@@ -106,7 +107,7 @@ public class CustomerService {
  **/
 	public int updateCustomerEmail(String customerId, String email ) throws SQLException {
 		int result = customerDao.updateCustomerEmail(customerId, email); 
-		if(result == 0) throw new SQLException("정보를 다시 확인해주세요.");
+		if(result == 0) throw new SQLException("----------*****정보를 다시 확인해주세요.*****----------");
 		return result;
 		
 	}
@@ -116,7 +117,7 @@ public class CustomerService {
  **/
 	public int updateCustomerPwd(String customerId, String email ) throws SQLException {
 		int result = customerDao.updateCustomerPwd(customerId, email); 
-		if(result == 0) throw new SQLException("정보를 다시 확인해주세요.");
+		if(result == 0) throw new SQLException("----------*****정보를 다시 확인해주세요.*****----------");
 		return result;
 		
 	}
@@ -128,7 +129,7 @@ public class CustomerService {
 	
 	public int updateCustomerAddr(String customerId, String Addr ) throws SQLException {
 		int result = customerDao.updateCustomerAddr(customerId, Addr); 
-		if(result == 0) throw new SQLException("정보를 다시 확인해주세요.");
+		if(result == 0) throw new SQLException("----------*****정보를 다시 확인해주세요.*****----------");
 		return result;
 		
 	}
@@ -137,10 +138,12 @@ public class CustomerService {
  **/
 	public int deleteCustomer(String customerId) throws SQLException{
 		int result = customerDao.deleteCustomer(customerId);
-		if(result == 0) throw new SQLException("정보를 다시 확인해주세요");
+		if(result == 0) throw new SQLException("----------*****정보를 다시 확인해주세요*****----------");
 		return result;
 	}
 	
+	
+//////////////////////////////////////////////////////////////////////	
 	/**
 	 * 회원인지 판매자 확인  
 	 * @return seller일 경우 "SELLER"(대문자 유의!) 값 리턴. 아닐 경우 null값 리턴  
@@ -150,5 +153,17 @@ public class CustomerService {
 		
 		return seller;
 	}
+	
+	/**
+	 * 관리자 - 전체회원 리스트 보기
+	 **/
+	public List<Customer> selectCustomerListAll() throws SQLException {
+		List<Customer> CustomerList = customerDao.selectCustomerListAll();
+		if(CustomerList == null || CustomerList.isEmpty()) {
+			throw new SQLException("----------*****회원정보 불러오기 실패*****----------");
+		}
+		return CustomerList;
+	}
+	
 	
 }
