@@ -1,11 +1,16 @@
 package kosta.mvc.view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import kosta.mvc.controller.CustomerController;
 import kosta.mvc.controller.LiquorController;
+import kosta.mvc.controller.OrderController;
+import kosta.mvc.controller.ReviewController;
 import kosta.mvc.model.dto.Customer;
 import kosta.mvc.model.dto.Liquor;
+import kosta.mvc.model.dto.Orders;
+import kosta.mvc.model.dto.Review;
 
 public class AdminMenuView {
 	private static Scanner sc = new Scanner(System.in);
@@ -134,24 +139,27 @@ public class AdminMenuView {
 	 * */
 	public static void orderAdminMenu() {
 		System.out.println("-- 주문 관리 메뉴 --");
-		System.out.println("1.전체 주문 리스트  |  2.회원번호로 주문 검색  |  3.주문 수정  |  4.주문 삭제  |  0.나가기");
+		System.out.println("1.전체 주문 리스트  |  2.회원번호로 주문 검색  |  3.주문 상태 수정  |  4.주문 삭제  |  0.나가기");
 		int menu =Integer.parseInt( sc.nextLine());
 		switch(menu) {
 			//전체 주문 리스트 
 			case 1:
-				
+				OrderController.orderSelectAll();
 				break;
 				
 			//회원번호로 주문 검색 
 			case 2:
+				selectOrdersByUserId();
 				break;
 				
 			//주문 수정 
 			case 3:
+				updateOrder();
 				break;
 				
 			//주문 삭제 
 			case 4:
+				deleteOrder();
 				break;
 			
 			//나가기
@@ -161,6 +169,38 @@ public class AdminMenuView {
 			default:
 				System.out.println("번호를 다시 확인해주세요.");
 		}
+	}
+	
+	/**
+	 * 회원별 주문 조회
+	 * */
+	public static void selectOrdersByUserId() {
+		System.out.print("주문 조회하려는 회원의 아이디를 입력해주세요: ");
+		String id = sc.nextLine();
+		
+		OrderController.selectOrdersByUserId(id);
+	}
+	
+	/**
+	 * 주문 상태 수정
+	 * */
+	public static void updateOrder() {
+		System.out.print("상태를 수정하려는 주문 번호를 입력해주세요: ");
+		int orderNo = Integer.parseInt(sc.nextLine());
+		System.out.print("상태를 입력해주세요: ");
+		String status = sc.nextLine();
+		
+		OrderController.updateOrder(orderNo, status);
+	}
+	
+	/**
+	 * 주문 삭제
+	 * */
+	public static void deleteOrder() {
+		System.out.print("취소하려는 주문 번호를 입력해주세요: ");
+		int orderNo = Integer.parseInt(sc.nextLine());
+		
+		OrderController.deleteOrder(orderNo);
 	}
 	
 	/**
@@ -196,19 +236,22 @@ public class AdminMenuView {
 		switch(menu) {
 			//전체 리뷰 조회  
 			case 1:
-				
+				ReviewController.reviewSelectAll();
 				break;
 				
 			//회원별 리뷰 조회 
 			case 2:
+				reviewSelectByCustomerId();
 				break;
 				
 			//양주번호별 리뷰 조회 
 			case 3:
+				reviewSelectByLiquorNo();
 				break;
 				
 			//리뷰 수정 
 			case 4:
+				updateReivew();
 				break;
 			
 			//리뷰 삭제 
@@ -219,6 +262,49 @@ public class AdminMenuView {
 			case 9:
 				System.exit(0);
 		}
+	}
+	
+	/**
+	 * 회원별 리뷰 조회
+	 * */
+	public static void reviewSelectByCustomerId() {
+		System.out.print("조회하려는 회원의 아이디를 입력해주세요: ");
+		String id = sc.nextLine();
+		
+		ReviewController.reviewSelectByCustomerId(id);
+	}
+	
+	/**
+	 * 양주별 리뷰 조회
+	 * */
+	public static void reviewSelectByLiquorNo() {
+		System.out.print("조회하려는 양주의 번호를 입력해주세요: ");
+		int no = Integer.parseInt(sc.nextLine());
+		
+		ReviewController.reviewSelectByLiquorNo(no);
+	}
+	
+	/**
+	 * 리뷰 수정
+	 * */
+	public static void updateReivew() {
+		System.out.println("리뷰를 변경하려는 리뷰의 번호를 입력하세요: ");
+		int reviewNo = Integer.parseInt(sc.nextLine()); 
+		System.out.println("새로운 리뷰 내용을 입력하세요: ");
+		String content = sc.nextLine();
+		
+		Review review = new Review(content, reviewNo);
+		ReviewController.updateReview(review);
+	}
+	
+	/**
+	 * 리뷰 삭제
+	 * */
+	public static void deleteReivew() {
+		System.out.println("삭제하려는 리뷰의 번호를 입력하세요: ");
+		int reviewNo = Integer.parseInt(sc.nextLine()); 
+		
+		ReviewController.deleteReview(reviewNo);
 	}
 	
 }

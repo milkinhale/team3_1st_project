@@ -27,7 +27,7 @@ public interface OrderDAO {
 	 * 주문 수정
 	 * 		판매자가 주문상태 수정할때 사용함.
 	 * */
-	int updateOrder(Orders order, String orderStatusMessage)throws SQLException;
+	int updateOrder(int orderNo, String orderStatusMessage)throws SQLException;
 	
 	/**
 	 * 주문 삭제
@@ -35,7 +35,7 @@ public interface OrderDAO {
 	 * 		구매자가 주문취소에서 삭제
 	 * 		(주문상태에따라 취소 가능 여부 체크!)
 	 * */
-	int deleteOrder(Orders order)throws SQLException;
+	int deleteOrder(int orderNo)throws SQLException;
 	
 	 /**
 	   * 주문하기

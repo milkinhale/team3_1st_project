@@ -11,22 +11,22 @@ import kosta.mvc.model.dto.Orders;
 
 public class OrderEndView {
 ////////////////////////TEST/////////////////////////////////////////
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null,0, 12);
-		 OrderDetail orderDetail1 = new OrderDetail(0, 21, 0, 1, 0);
-		 OrderDetail orderDetail2 = new OrderDetail(0, 22, 0, 1, 0);
-		 OrderDetail orderDetail3 = new OrderDetail(0, 23, 0, 1, 0);
-		 
-		 orders.getOrderDetailList().add(orderDetail1);
-		 orders.getOrderDetailList().add(orderDetail2);
-		 orders.getOrderDetailList().add(orderDetail3);
-		 
-		 List<Orders> orderList = new ArrayList<Orders>();
-		 orderList.add(orders);
-		 
-		 printOrders(orderList, "김아무개");
-	}
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//		Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null,0, 12);
+//		 OrderDetail orderDetail1 = new OrderDetail(0, 21, 0, 1, 0);
+//		 OrderDetail orderDetail2 = new OrderDetail(0, 22, 0, 1, 0);
+//		 OrderDetail orderDetail3 = new OrderDetail(0, 23, 0, 1, 0);
+//		 
+//		 orders.getOrderDetailList().add(orderDetail1);
+//		 orders.getOrderDetailList().add(orderDetail2);
+//		 orders.getOrderDetailList().add(orderDetail3);
+//		 
+//		 List<Orders> orderList = new ArrayList<Orders>();
+//		 orderList.add(orders);
+//		 
+//		 printOrders(orderList, "김아무개");
+//	}
 ////////////////////////TEST/////////////////////////////////////////
 
 	/**

@@ -131,14 +131,12 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public int updateOrder(Orders order, String orderStatusMessage) throws SQLException {
+	public int updateOrder(int orderNo, String orderStatusMessage) throws SQLException {
 		int result = 0;
 		
 		Connection con = null;
 		PreparedStatement ps = null;
-		
-		int orderNo = order.getOrderNo();
-		
+				
 		String sql = profile.getProperty("order.update");
 		
 		try {
@@ -170,13 +168,12 @@ public class OrderDAOImpl implements OrderDAO {
 	 * 		(주문상태에따라 취소 가능 여부 체크!)
 	 * */
 	@Override
-	public int deleteOrder(Orders order) throws SQLException {
+	public int deleteOrder(int orderNo) throws SQLException {
 		int result = 0;
 		
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		int orderNo = order.getOrderNo();
 		
 		Orders orderActual = this.selectOrderByOrderNo(orderNo);
 		String orderStatus = orderActual.getOrderStatus();

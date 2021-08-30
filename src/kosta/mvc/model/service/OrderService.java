@@ -36,8 +36,8 @@ public class OrderService {
 		 * 주문 수정
 		 * 		판매자가 주문상태 수정할때 사용함.
 		 * */
-	public void updateOrder(Orders order, String orderStatusMessage)throws SQLException{
-		int result =  orderDao.updateOrder(order, orderStatusMessage);
+	public void updateOrder(int orderNo, String orderStatusMessage)throws SQLException{
+		int result =  orderDao.updateOrder(orderNo, orderStatusMessage);
 		if(result==0)throw new SQLException("주문 수정을 실패하였습니다.");
 	}
 	
@@ -47,12 +47,10 @@ public class OrderService {
 	 * 		구매자가 주문취소에서 삭제
 	 * 		(주문상태에따라 취소 가능 여부 체크!)
 	 * */
-	public void deleteOrder(Orders order)throws SQLException{
-		
-		int orderNo = order.getOrderNo();
+	public void deleteOrder(int orderNo)throws SQLException{
 		
 		if(checkOrderStatus(orderNo)) {
-			int result =  orderDao.deleteOrder(order);
+			int result =  orderDao.deleteOrder(orderNo);
 			if(result==0)throw new SQLException("주문 삭제에 실패하였습니다.");
 		}else {
 			throw new SQLException("현재 주문 상태에서는 주문 취소가 불가능합니다.");

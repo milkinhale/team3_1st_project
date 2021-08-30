@@ -55,9 +55,9 @@ public class OrderController {
 	 * 주문 수정
 	 * 		판매자가 주문상태 수정할때 사용함.
 	 * */
-	public static void updateOrder(Orders order, String orderStatusMessage) {
+	public static void updateOrder(int orderNo, String orderStatusMessage) {
 		try {
-			orderService.updateOrder(order, orderStatusMessage);
+			orderService.updateOrder(orderNo, orderStatusMessage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
@@ -70,9 +70,9 @@ public class OrderController {
 	 * 		구매자가 주문취소에서 삭제
 	 * 		(주문상태에따라 취소 가능 여부 체크!)
 	 * */
-	public static void deleteOrder(Orders order){
+	public static void deleteOrder(int orderNo){
 		try {
-			orderService.deleteOrder(order);
+			orderService.deleteOrder(orderNo);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());

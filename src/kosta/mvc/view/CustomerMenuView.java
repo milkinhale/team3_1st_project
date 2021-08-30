@@ -6,6 +6,8 @@ import kosta.mvc.controller.CustomerController;
 import kosta.mvc.controller.OrderController;
 import kosta.mvc.controller.LiquorController;
 import kosta.mvc.model.dto.Customer;
+import kosta.mvc.model.dto.OrderDetail;
+import kosta.mvc.model.dto.Orders;
 import kosta.mvc.session.Session;
 import kosta.mvc.session.SessionSet;
 
@@ -48,7 +50,7 @@ public class CustomerMenuView {
 					
 				//주문하기
 				case 4 :
-					//printInputOrder(customerId);
+					printInputOrder(customerId);
 					break;
 				
 				//장바구니 담기
@@ -68,7 +70,7 @@ public class CustomerMenuView {
 				
 				//마이페이지 
 				case 8 : 
-					myPageMenu();
+					myPageMenu(customerId);
 					break;
 					
 				//로그아웃 (다시 메뉴로)
@@ -86,17 +88,19 @@ public class CustomerMenuView {
 	/**
 	 * 마이페이지 
 	 * */
-	public static void myPageMenu() {
+	public static void myPageMenu(String customerId) {
 		System.out.println("1.주문내역 확인   |  2.주문 취소   |  3.장바구니 비우기  |  4.쿠폰리스트 확인  |  5.회원정보 수정  |  6.회원 탈퇴  |  0. 나가기");  
 		int menu =Integer.parseInt( sc.nextLine());
 		
 		switch(menu) {
 			//주문내역 확인 
 			case 1:
+				OrderController.selectOrdersByUserId(customerId);
 				break;
 				
 			//주문 취소 
 			case 2:
+				deleteOrder();
 				break;
 				
 			//장바구니 비우기 
@@ -125,28 +129,40 @@ public class CustomerMenuView {
 	}
 	
 	
-	
 	/**
 	 * 주문하기
 	 * */
-    public static void printInputOrder(String userId) {
+    public static void printInputOrder(String customerId) {
     	System.out.print("주문상품번호 : ");
-		 String goodsId = sc.nextLine();
+		 int liquorNo =Integer.parseInt(sc.nextLine());
 		 
 		 System.out.print("주문수량 : ");
-		 int qty = Integer.parseInt(sc.nextLine());
+		 int count = Integer.parseInt(sc.nextLine());
 		 
 		 System.out.print("배송주소 : ");
-		 String address = sc.nextLine();
+		 String orderAddr = sc.nextLine();
+
+	     System.out.print("쿠폰 코드 입력 : ");
+		 int couponNo =Integer.parseInt(sc.nextLine());
 		 
 		
-		 /*Orders orders = new Orders(0, null, userId, address, 0);
-		 OrderLine orderLine = new OrderLine(0, 0, goodsId, 0, qty, 0);
+		 Orders orders = new Orders(0, customerId, null, orderAddr, null, 0, 0);
+		 OrderDetail orderDetail = new OrderDetail(0, liquorNo, 0, count, 0);
 		 
-		 orders.getOrderLineList().add(orderLine);
+		 orders.getOrderDetailList().add(orderDetail);
 		 
-		 OrderController.insertOrders(orders);*/	 
+		 OrderController.insertOrders(orders, couponNo);	 
     }
+    
+    /**
+	 * 주문 삭제
+	 * */
+	public static void deleteOrder() {
+		System.out.print("취소하려는 주문 번호를 입력해주세요: ");
+		int orderNo = Integer.parseInt(sc.nextLine());
+		
+		OrderController.deleteOrder(orderNo);
+	}
     
     /**
      * 장바구니 담기
