@@ -35,9 +35,9 @@ public class LiquorTable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("종류 번호 =");
+		builder.append("*종류 번호: ");
 		builder.append(liquorTableNo);
-		builder.append("종류=");
+		builder.append("굏*양주 종류: ");
 		builder.append(liquorType);
 		return builder.toString();
 	}

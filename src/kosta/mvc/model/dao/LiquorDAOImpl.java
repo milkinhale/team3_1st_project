@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Properties;
 
 import kosta.mvc.model.dto.Liquor;
+import kosta.mvc.model.dto.LiquorTable;
 import kosta.mvc.model.dto.Orders;
 import util.DBUtil;
 
@@ -49,7 +50,11 @@ public class LiquorDAOImpl implements LiquorDAO {
 			
 			System.out.println(dao.liquorSelectByLiquorName("몬스터"));
 			System.out.println("-------------------------------");
+			
+			
+			System.out.println(dao.selectLiquorTable());
 			*/
+			System.out.println(dao.liquorSelectByLiquorName("몬스터"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,6 +84,26 @@ public class LiquorDAOImpl implements LiquorDAO {
 		return list;
 	}
 
+	@Override
+	public List<LiquorTable> selectLiquorTable() throws SQLException {
+		Connection con=null;
+		  PreparedStatement ps=null;
+		  ResultSet rs=null;
+		  List<LiquorTable> list = new ArrayList<>();
+		 try {
+		   con = DBUtil.getConnection();
+		   ps= con.prepareStatement(profile.getProperty("liqourTable.selectLiquorTable"));
+	       rs = ps.executeQuery(); 
+	       while(rs.next()) {
+	        	LiquorTable liquorTable = new LiquorTable(rs.getInt(1), rs.getString(2));
+	        	list.add(liquorTable);
+	        }
+	       
+		 }finally {
+			 DBUtil.dbClose(con, ps, rs);
+		 }
+		return list;
+	}
 	
 	@Override
 	public List<Liquor> liquorsSelectByLiquorType(int liquorTableNo) throws SQLException {
