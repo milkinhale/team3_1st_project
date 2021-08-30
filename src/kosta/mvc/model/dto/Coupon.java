@@ -11,9 +11,12 @@ public class Coupon {
 		super();
 		this.salePersent = salePersent;
 	}
-	public Coupon(int couponNo, int couponTableNo, int salePersent) {
+	public Coupon(int couponNo, int salePersent) {
 		this(salePersent);
 		this.couponNo = couponNo;
+	}
+	public Coupon(int couponNo, int couponTableNo, int salePersent) {
+		this(couponNo, salePersent);
 		this.couponTableNo = couponTableNo;
 	}
 	public Coupon(int couponNo, int couponTableNo, int salePersent, String used) {
@@ -49,15 +52,10 @@ public class Coupon {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Coupon [couponNo=");
+		builder.append("쿠폰 번호 =");
 		builder.append(couponNo);
-		builder.append(", couponTableNo=");
-		builder.append(couponTableNo);
-		builder.append(", salePersent=");
+		builder.append(", 할인율 =");
 		builder.append(salePersent);
-		builder.append(", used=");
-		builder.append(used);
-		builder.append("]");
 		return builder.toString();
 	}
 }

@@ -38,7 +38,7 @@ public class CouponDAOImpl implements CouponDAO {
 			ps.setString(1, customerId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Coupon coupon = new Coupon(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+				Coupon coupon = new Coupon(rs.getInt(2), rs.getInt(1), rs.getInt(3));
 				couponList.add(coupon);
 			}
 		} finally {
