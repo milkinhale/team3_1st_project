@@ -28,6 +28,10 @@ public class CustomerService {
 		
 		String seller = customer.getSeller();
 		
+		if(!seller.equals("SELLER")) {
+			coupon.insertCouponTable(customerId, 10);
+		}
+		
 		//로그인 된 정보 저장하기
 		Session session = new Session(customerId, seller);
 		
