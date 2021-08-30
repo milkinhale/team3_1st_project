@@ -91,6 +91,7 @@ public static void printselectCustomerListAll(List<Customer> customerList) {
 	System.out.println("----------*****전체 회원 목록 ▶ " + customerList );
 	for(Customer customer : customerList ) {
 		System.out.println(customer);
+		//System.out.println(customer.getSignDate());
 	}
 	System.out.println();
 	

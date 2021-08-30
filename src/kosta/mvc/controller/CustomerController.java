@@ -7,6 +7,7 @@ import kosta.mvc.model.dto.Customer;
 import kosta.mvc.model.dto.Liquor;
 import kosta.mvc.model.service.CustomerService;
 import kosta.mvc.view.AdminMenuView;
+import kosta.mvc.view.CustomerEndView;
 import kosta.mvc.view.CustomerMenuView;
 import kosta.mvc.view.EndView;
 import kosta.mvc.view.FailView;
@@ -159,7 +160,7 @@ public class CustomerController {
 	public static void selectCustomerListAll(){
 		try {
 			List<Customer> customerList = customerService.selectCustomerListAll();
-			
+			CustomerEndView.printselectCustomerListAll(customerList);
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
 		}

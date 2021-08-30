@@ -383,13 +383,28 @@ public class CustomerDAOImpl implements CustomerDAO {
 		ResultSet rs = null;
 		List<Customer>customerList = new ArrayList<Customer>();
 		String sql = proFile.getProperty("customer.selectCustomerListAll" );
+		//select customer_id, pwd, customer_name, birth, email, addr, contact, sign_date, seller from customer 
+
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 	
 			while(rs.next()) {
-				Customer customerDto= new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+				
+				String customerId = rs.getString(1);
+				String pwd = rs.getString(2);
+				String customerName = rs.getString(3);
+				String birth = rs.getString(4);
+				String email = rs.getString(5);
+				String addr = rs.getString(6);
+				String contact = rs.getString(7);
+				String signDate = rs.getString(8);
+				String seller = rs.getString(9);
+				
+				Customer customerDto= new Customer(customerId, pwd, customerName, birth, email, addr, contact, signDate, seller);
+								
+				//Customer customerDto= new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
 				customerList.add(customerDto);
 			}
 		}catch(Exception e ) {
