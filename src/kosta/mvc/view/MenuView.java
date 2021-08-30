@@ -80,10 +80,10 @@ public class MenuView {
 		}
 		
 	}
-	//ID랑 pwd sub menu에 들어가나?
+	
 	
 	public static void printSubMenu() {
-		System.out.println("1. 수정   |  2.탈퇴   | 9. 나가기");
+		System.out.println("1. 수정   |  2.탈퇴   | 9. 나가기");  //아이디&비번찾기
 		
 		//이메일 수정 
 		System.out.print("아이디: ");
@@ -92,7 +92,17 @@ public class MenuView {
 		String customerEmail = sc.nextLine();
 		
 		System.out.print("변경할 이메일 입력: ");
-		String customerEmail1 = sc.nextLine();
+		String customerEmail = sc.nextLine();
+		
+		// 주소 수정 
+		
+		//비밀번호 수정 
+		
+		//회원탈퇴
+		System.out.print("아이디");
+		String customerId = sc.nextLine();
+		
+		
 	}
 	
 	public static void printAdminMenu() {

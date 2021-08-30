@@ -45,7 +45,7 @@ public class CustomerController {
     public static void findCustomerId(String customerId) {
     	try {
     		String id = customerService.findCustomerId(customerId);
-    		MenuView.printUserMenu(customerId);
+    		MenuView.printSubMenu(customerId);
     		MenuView.menu();
     		
     	}catch(Exception e) {
@@ -61,7 +61,7 @@ public class CustomerController {
     public static void findcustomerPwd(String customerId, String email) {
     	try {
     		String pwd = customerService.findCustomerPwd(customerId, email);
-    		MenuView.printUserMenu(pwd);
+    		MenuView.printSubMenu(pwd);
     		MenuView.menu();
     	
     	}catch(Exception e) {
@@ -75,7 +75,7 @@ public class CustomerController {
     public static void updateCustomerEmail(String customerId, String email) {
     	try {
     		int result = customerService.updateCustomerEmail(customerId,email);
-    		MenuView.printUserMenu(email);  ////////////////////////sub menu 아닌가 usermenu하면 오류 안뜸 
+    		MenuView.printSubMenu(email);  ////////////////////////sub menu 아닌가 usermenu하면 오류 안뜸 
     		MenuView.menu();
     	}catch(Exception e) {
     		e.printStackTrace();
@@ -90,7 +90,7 @@ public class CustomerController {
     public static void updateCustomerPwd(String customerId, String email) {
     	try {
     		int result = customerService.updateCustomerPwd(customerId, email);    
-    		MenuView.printUserMenu(email); ///////////////////////////////////////
+    		MenuView.printSubMenu(email); ///////////////////////////////////////
     		MenuView.menu();
     	}catch(Exception e) {
     		e.printStackTrace();
@@ -105,7 +105,7 @@ public class CustomerController {
     public static void updateCustomerAddr(String customerId, String Addr) {
     	try {
     		int result = customerService.updateCustomerAddr(customerId, Addr);
-    		MenuView.printUserMenu(Addr);//////////////////////////////////Usermenu로 해야하나? Submenu로 해야하나
+    		MenuView.printSubMenu(Addr);/////////////////////////////////Submenu로 해야하나
     		MenuView.menu();
     	}catch(Exception e) {
     		e.printStackTrace();
@@ -119,4 +119,17 @@ public class CustomerController {
     /**
      * 회원탈퇴
      **/
+    
+    public static void deleteCustomer(String customerId) {
+    	try {
+    		String id = customerService.deleteCustomer(customerId);
+    		MenuView.printSubMenu(customerId);
+    		MenuView.menu();
+    		
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		FailView.errorMessage(e.getMessage());
+    		
+    	}
+    }//관리자는?
 }

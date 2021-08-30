@@ -9,15 +9,16 @@ import kosta.mvc.model.service.CustomerService;
 **/
 public class CustomerEndView {
 	public static void printcustomerlogin(String customerId, String customerPwd) {
-		if()
-		System.out.print(message);
+		System.out.print("로그인완료");
 	}
 	
 
 /*
  * 회원가입 
  **/
-public static void printregister( Customer customer) {
+public static void printregister(Customer customer) {
+	System.out.print("회원가입완료");
+}
 	
 	
 	
@@ -33,6 +34,11 @@ public static void printcustomerDupicationCheck(boolean customerId) {
 /*
  * 회원정보찾기(아이디)
  **/
+public static void printfindCustomerId(String cusomerId) {
+	
+}
+
+
 
 /*
  * 회원정보찾기(비밀번호)
@@ -52,5 +58,10 @@ public static void printcustomerDupicationCheck(boolean customerId) {
 
 /*
  * 회원탈퇴
+ **/
+
+
+/**
+ * 관리자
  **/
 }
