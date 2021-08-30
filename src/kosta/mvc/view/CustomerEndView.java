@@ -1,7 +1,6 @@
 package kosta.mvc.view;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import kosta.mvc.model.dto.Customer;
 import kosta.mvc.model.service.CustomerService;
@@ -53,7 +52,7 @@ public static void printfindCustomerPwd(String customerPwd) {
 /**
  * 회원정보수정(이메일)
  **/
-public static void printupdateCustomerEmail(String customerEmail) {
+public static void updateCustomerEmail(String customerEmail) {
 	System.out.print("----------***** 이메일 ▶ " + customerEmail +" 수정 완료*****----------");
 }
 
@@ -62,7 +61,7 @@ public static void printupdateCustomerEmail(String customerEmail) {
  * 회원정보수정(비번)
  **/
 
-public static void printupdateCustomerPwd(String customerPwd) {
+public static void updateCustomerPwd(String customerPwd) {
 	System.out.print("----------***** 비밀번호 ▶ " + customerPwd + "수정완료*****----------" );
 }
 
@@ -70,7 +69,7 @@ public static void printupdateCustomerPwd(String customerPwd) {
 /**
  * 회원정보수정(주소)
  **/
-public static void printupdateCustomerAddr(String customerAddr) {
+public static void updateCustomerAddr(String customerAddr) {
 	System.out.print("----------***** 주소 ▶ " + customerAddr + "수정완료*****----------" );
 }
 
@@ -78,23 +77,13 @@ public static void printupdateCustomerAddr(String customerAddr) {
 /**
  * 회원탈퇴
  **/
-public static void printdeleteCustomer(String customerId) {
+public static void deleteCustomer(String customerId) {
 	System.out.print("----------***** 탈퇴되었습니다 *****----------");
 	}
 
-////////////////////////////
-
 /**
- *  관리자 - 전체회원 리스트 보기 
+ * 종료 
  **/
-public static void printselectCustomerListAll(List<Customer> customerList) {
-	System.out.println("----------*****전체 회원 목록 ▶ " + customerList );
-	for(Customer customer : customerList ) {
-		System.out.println(customer);
-	}
-	System.out.println();
-	
-}
 
 }
 

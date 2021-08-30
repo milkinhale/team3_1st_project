@@ -31,7 +31,7 @@ INSERT INTO CUSTOMER VALUES('ADMIN', '1234', '판매자','1991-05-15', 'seller@nave
 
 
 
-commit
+
 
 --확인용
 SELECT * FROM CUSTOMER;
