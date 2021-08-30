@@ -15,17 +15,21 @@ import kosta.mvc.view.MenuView;
 
 public class CustomerController {
 	static CustomerService customerService = new CustomerService();
+	
+	/////////////////////테스트//////////////////////
+	/*public static void main(String[] args) {
+		//login("YOO", "2222");
+		//login("ADMIN", "1234");
+		//findCustomerId("DDD444@naver.com");
+	}*/
+	////////////////////////////////////////////////
+	
  /**
   * 로그인
   * */
-	public static void main(String[] args) {
-		//login("깃", "1234");
-		//findCustomerId("DDD444@naver.com");
-	}
-	
 	public static void login(String customerId, String customerPwd) {
 		try {
-			Customer customer = customerService.customerLogin(customerId, customerPwd);
+			Customer customer = customerService.customerLogin(customerId, customerPwd); 
 			sellerCheck(customerId);
 		}catch (Exception e) {
 			FailView.errorMessage("로그인에 실패했어요.");
@@ -48,26 +52,30 @@ public class CustomerController {
     /**
      * 회원정보찾기 (아이디) 
      **/
-    public static void findCustomerId(String customerEmail) {
+    public static String findCustomerId(String customerEmail) {
+    	String id = null;
     	try {
-    		customerService.findCustomerId(customerEmail);
+    		id = customerService.findCustomerId(customerEmail);
+    		return id;
     	}catch(Exception e) {
-    		e.printStackTrace();
     		FailView.errorMessage(e.getMessage());
-    	}	
+    	}
+    	return null;
     }
 
 
     /**
      * 회원정보찾기 (비번) 
      **/
-    public static void findcustomerPwd(String customerId, String email) {
+    public static String findcustomerPwd(String customerId, String email) {
+    	String pwd = null;
     	try {
-    		String pwd = customerService.findCustomerPwd(customerId, email);
-    		
+    		pwd = customerService.findCustomerPwd(customerId, email);
+    		return pwd;
     	}catch(Exception e) {
     		FailView.errorMessage(e.getMessage());
     	}
+    	return null;
     }
 
     /**										 
@@ -132,6 +140,11 @@ public class CustomerController {
 	 **/
 	public static void sellerCheck (String customerId){
 		try {
+			//seller가 지금 null이 나와서 nullPointerException 
+			//-> seller가 null이 안나오면 된다!
+			//-> seller를 null로 안넣고, customer라는 값을 부여했다. 
+			//만들어놓은 레코드들을 다 삭제를 한 후에, 테이블에 있는 default값 자체를 null -> customer로 기본값을 변경하고
+			//그 후에 레코드들을 다시 넣었다. 
 			String seller = customerService.sellerCheck(customerId);
 			if(seller.equals("SELLER")) {
 				AdminMenuView.sellerMenu(customerId);
@@ -139,7 +152,7 @@ public class CustomerController {
 				CustomerMenuView.customerMenu(customerId);
 			}
 		} catch (Exception e) {
-			FailView.errorMessage(e.getMessage());
+			FailView.errorMessage("");
 		}
 	}
 	

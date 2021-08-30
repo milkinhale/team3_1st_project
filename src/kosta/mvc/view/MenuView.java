@@ -106,7 +106,9 @@ public class MenuView {
 	public static void findId() {
 		System.out.print("이메일 : ");
 		String email = sc.nextLine();
-		CustomerController.findCustomerId(email);
+		
+		System.out.println("찾는 아이디는 다음과 같아요: "+ CustomerController.findCustomerId(email));
+		//CustomerController.findCustomerId(email);
 	}
 	
 	
@@ -120,7 +122,7 @@ public class MenuView {
 		System.out.println("이메일: ");
 		String email = sc.nextLine();
 		
-		CustomerController.findcustomerPwd(customerId, email);
+		System.out.println("찾은 비밀번호는 다음과 같아요: " + CustomerController.findcustomerPwd(customerId, email));
 	}
 }
 

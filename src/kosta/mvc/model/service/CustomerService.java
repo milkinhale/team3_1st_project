@@ -18,19 +18,23 @@ public class CustomerService {
 	CouponDAO coupon = new CouponDAOImpl();
 	
 	
-  /**
-   * 로그인
-   * */
-	public static void main(String args[]){
+	///////////////////테스트///////////////////
+	/*public static void main(String args[]){
 		CustomerService cs = new CustomerService();
 		try {
-			//cs.customerLogin("깃", "1234");
-			cs.findCustomerId("DDD444@naver.com");
+			//System.out.println(cs.customerLogin("KIM", "4444"));
+			//System.out.println(cs.findCustomerId("DDD444@naver.com"));
+			//System.out.println(cs.findCustomerPwd("KIM", "DDD444@naver.com"));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
+	///////////////////테스트///////////////////
 	
+	
+  /**
+   * 로그인
+   * */
 	public Customer customerLogin(String customerId, String customerPwd)throws NotFoundException , SQLException{
 		Customer customer=customerDao.customerLogin(customerId, customerPwd);
 		
@@ -38,19 +42,16 @@ public class CustomerService {
 			throw new NotFoundException("----------*****정보를 다시 확인해주세요.*****----------");
 		}
 		
-		//seller라면 SELLER 리턴 
+		//판매자라면 SELLER 리턴 -> String seller에는 SELLER 값을 가짐 
 		String seller = customer.getSeller();
 		
-		
 		//????????????????????????????????????????????????????????????????????????이거 왜 넣은건지 물어보기
-		if(!seller.equals("SELLER")) {
+		/*if(!seller.equals("SELLER")) {
 			coupon.insertCouponTable(customerId, 10);
-		}
+		}*/
 		
 		//로그인 된 정보 저장하기
 		Session session = new Session(customerId, seller);
-		
-		
 		SessionSet sessionSet = SessionSet.getInstance();
 		sessionSet.add(session);
 		
@@ -165,7 +166,7 @@ public class CustomerService {
 	public String sellerCheck (String customerId) throws SQLException{
 		String seller = customerDao.sellerCheck(customerId);
 		
-		return seller;
+		return seller; //null값 혹은 SELLER 리턴 
 	}
 	
 	/**

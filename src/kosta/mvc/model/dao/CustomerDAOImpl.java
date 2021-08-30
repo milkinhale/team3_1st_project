@@ -17,12 +17,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 	private Properties proFile = DBUtil.getProFile();
 
 /////////////////////TEST////////////////////////
-public static void main(String[] args) {
+/*public static void main(String[] args) {
 	CustomerDAOImpl cd = new CustomerDAOImpl();
 	Customer c = null;
 
 	try {
-	/*	
+	
 		c = new Customer("m", "tiger","마스크","00-03-04","masklover@naver.com","경기도 판교","010-3333-3333"); 
 		System.out.println(cd.insertCustomer(c));
 	
@@ -53,11 +53,11 @@ public static void main(String[] args) {
 			for(Customer ct : list) 
 			System.out.print(ct);
 	
-	*/
+	
 		}catch (Exception e) {
 		e.printStackTrace();
 	}
-}
+}*/
 /////////////////////TEST////////////////////////
 
 
@@ -129,6 +129,7 @@ public static void main(String[] args) {
 		  Customer customer=null;
 		 try {
 		   con = DBUtil.getConnection();
+		   //customer.sellerCheck = select seller from customer where customer_id = ?
 		   ps = con.prepareStatement(proFile.getProperty("customer.customerLogin"));
 		   ps.setString(1, customerId);
 		   ps.setString(2, customerpwd);

@@ -160,7 +160,7 @@ public class LiquorDAOImpl implements LiquorDAO {
 		 try {
 		   con = DBUtil.getConnection();
 		   ps= con.prepareStatement(profile.getProperty("liquor.liquorSelectByLiquorName"));
-		   ps.setString(1, "%"+name+"%"); 
+		   ps.setString(1, "%"+name+"%");
 	       rs = ps.executeQuery();
 	       
 	       if(rs.next()) {

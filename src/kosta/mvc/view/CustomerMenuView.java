@@ -144,6 +144,7 @@ public class CustomerMenuView {
 	 * 8. 마이페이지 메뉴
 	 * */
 	public static void myPageMenu(String customerId) {
+		System.out.println("-----마이페이지-----");
 		System.out.println("1.주문내역 확인   |  2.주문 취소   |  3.장바구니 비우기  |  4.쿠폰리스트 확인  |  5.회원정보 수정  |  6.회원 탈퇴  |  0. 나가기");  
 		int menu =Integer.parseInt( sc.nextLine());
 		
@@ -170,9 +171,13 @@ public class CustomerMenuView {
 			case 5:
 				updateCustomer(customerId);
 				break;
+			
+			//회원정보 확인 
+			case 6:
+				
 				
 			//회원 탈퇴 
-			case 6:
+			case 7:
 				CustomerController.deleteCustomer(customerId);
 				break;
 				
@@ -245,7 +250,7 @@ public class CustomerMenuView {
 			case 3:
 				System.out.print("새로운 주소를 입력해주세요: ");
 				String addr = sc.nextLine();
-				CustomerController.updateCustomerEmail(customerId, addr);
+				CustomerController.updateCustomerAddr(customerId, addr);
 				break;
 		
 			//나가기 
@@ -256,6 +261,13 @@ public class CustomerMenuView {
 			default:
 				System.out.println("번호를 다시 확인해주세요.");
 		}
+	}
+	
+	/**
+	 * 6. 회원정보 확인 
+	 * */
+	public static void checkCustomerInfo(String customerId) {
+		
 	}
 
 }
