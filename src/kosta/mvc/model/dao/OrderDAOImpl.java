@@ -51,18 +51,18 @@ public class OrderDAOImpl implements OrderDAO {
 //			e.printStackTrace();
 //		}
 		
-		try {
-
-			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null,0, 12);
-			 OrderDetail orderDetail = new OrderDetail(0, 2, 0, 1, 0);
-
-			 orders.getOrderDetailList().add(orderDetail);
-			 dao.insertOrder(orders);
-			 
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+//		try {
+//
+//			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null,0, 12);
+//			 OrderDetail orderDetail = new OrderDetail(0, 2, 0, 1, 0);
+//
+//			 orders.getOrderDetailList().add(orderDetail);
+//			 dao.insertOrder(orders);
+//			 
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
 		
 //		try {
 //			Orders orders = new Orders(25, null, null, null, null, 0);
@@ -235,7 +235,7 @@ public class OrderDAOImpl implements OrderDAO {
 			 rs = ps.executeQuery();
 			 
 			 if(rs.next()) {
-				 System.out.println("true");
+				// System.out.println("true");
 				 String customerId = rs.getString(1);
 				 String orderDate = rs.getString(2);
 				 String orderAddr = rs.getString(3);
@@ -248,7 +248,7 @@ public class OrderDAOImpl implements OrderDAO {
 				 returnVal = new Orders(orderNo, customerId, orderDate, orderAddr, orderStatus, finalPrice , discount, orderDetailList);
 			 }
 
-			 System.out.println("false");	 
+			 //System.out.println("false");	 
 					 
 		 }finally {
 			 DBUtil.dbClose(con, ps, rs);

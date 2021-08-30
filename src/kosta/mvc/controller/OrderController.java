@@ -30,7 +30,7 @@ public class OrderController {
 			 List<Orders> orderList = orderService.orderSelectAll();
 			 EndView.printAllOrders(orderList);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 	
@@ -45,7 +45,7 @@ public class OrderController {
 			 String customerName = customerDao.findCustomerName(customerId);
              EndView.printOrders(orderList, customerName);
 		}catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 			
 		}
@@ -59,7 +59,7 @@ public class OrderController {
 		try {
 			orderService.updateOrder(orderNo, orderStatusMessage);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 	}
@@ -74,7 +74,7 @@ public class OrderController {
 		try {
 			orderService.deleteOrder(orderNo);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 	}
@@ -86,7 +86,7 @@ public class OrderController {
 		try {
 		orderService.insertOrders(order, couponNo);
 		}catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());			
 		}
 	}
@@ -105,7 +105,7 @@ public class OrderController {
 
 			 EndView.printOrders(orderList, customerName);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());		
 		}
 	 }
@@ -135,7 +135,7 @@ public class OrderController {
 			 //완성된 오더 객체를 서비스의 주문하기 메소드로 날림.	 
 			 orderService.insertOrders(order, couponNo);
 		 } catch (Exception e) {
-			 e.printStackTrace();
+			// e.printStackTrace();
 			 FailView.errorMessage(e.getMessage());	
 		 }
 	 }
