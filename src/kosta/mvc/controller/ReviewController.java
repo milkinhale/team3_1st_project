@@ -4,8 +4,8 @@ import java.util.List;
 
 import kosta.mvc.model.dto.Review;
 import kosta.mvc.model.service.ReviewService;
+import kosta.mvc.view.EndView;
 import kosta.mvc.view.FailView;
-import kosta.mvc.view.ReviewCartEndview;
 
 public class ReviewController {
 	private static ReviewService reviewService = new ReviewService();
@@ -16,7 +16,7 @@ public class ReviewController {
 	public static void reviewSelectAll() {
 		try {
 			List<Review> reviewList = reviewService.reviewSelectAll();
-			ReviewCartEndview.printReivew(reviewList);
+			EndView.printReivew(reviewList);
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
 			
@@ -29,7 +29,7 @@ public class ReviewController {
 	public static void reviewSelectByCustomerId(String customerId) {
 		try {
 			List<Review> reviewList = reviewService.reviewSelectByCustomerId(customerId);
-			ReviewCartEndview.printReviewByCustomerId(reviewList);
+			EndView.printReviewByCustomerId(reviewList);
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
 			
@@ -42,7 +42,7 @@ public class ReviewController {
 	public static void reviewSelectByLiquorNo(int liquorNo) {
 		try {
 			List<Review> reviewList = reviewService.reviewSelectByLiquorNo(liquorNo);
-			ReviewCartEndview.printReviewByCustomerId(reviewList);
+			EndView.printReviewByCustomerId(reviewList);
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
 			
@@ -55,7 +55,7 @@ public class ReviewController {
 	public static void insertReview (Review reviewdto) {
 		try {
 			reviewService.insertReview(reviewdto);
-			ReviewCartEndview.meesegePrint("등록되었습니다.");
+			EndView.meesegePrint("등록되었습니다.");
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
 		}
@@ -67,7 +67,7 @@ public class ReviewController {
 	public static void deleteReview (Review reviewdto) {
 		try {
 			reviewService.insertReview(reviewdto);
-			ReviewCartEndview.meesegePrint("삭제되었습니다.");
+			EndView.meesegePrint("삭제되었습니다.");
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
 		}
