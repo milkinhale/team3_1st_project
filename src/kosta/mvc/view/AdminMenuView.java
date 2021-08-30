@@ -11,6 +11,8 @@ import kosta.mvc.model.dto.Customer;
 import kosta.mvc.model.dto.Liquor;
 import kosta.mvc.model.dto.Orders;
 import kosta.mvc.model.dto.Review;
+import kosta.mvc.session.Session;
+import kosta.mvc.session.SessionSet;
 
 public class AdminMenuView {
 	private static Scanner sc = new Scanner(System.in);
@@ -19,6 +21,12 @@ public class AdminMenuView {
 	 * 판매자용 메뉴
 	 * */
 	public static void sellerMenu(String sellerId) {
+		//세션 정보
+		SessionSet ss = SessionSet.getInstance();
+		System.out.println(ss.getSet()); //Set객체
+		System.out.println("-----" +sellerId+ " 로그인 중 -----");
+		//세션 정보
+		
 		System.out.println("-- 관리자 메뉴 --");
 		System.out.println("1.양주메뉴  |  2.주문메뉴  |  3.회원메뉴  |  4.리뷰메뉴  |  0. 로그아웃");
 		int menu =Integer.parseInt(sc.nextLine());
@@ -45,7 +53,9 @@ public class AdminMenuView {
 			
 			//나가기
 			case 0:
-				CustomerMenuView.logout(sellerId);
+				//CustomerMenuView.logout(sellerId);
+				logout(sellerId);
+				break;
 				
 			default:
 				System.out.println("번호를 다시 확인해주세요.");
@@ -328,6 +338,17 @@ public class AdminMenuView {
 		int reviewNo = Integer.parseInt(sc.nextLine()); 
 		
 		ReviewController.deleteReview(reviewNo);
+	}
+	
+	//////////////////////////////
+	/**
+	 * 0. 로그아웃
+	 * */
+	public static void logout(String customerId) {
+		Session session = new Session(customerId);
+		
+		SessionSet ss = SessionSet.getInstance();
+		ss.remove(session);	
 	}
 	
 }

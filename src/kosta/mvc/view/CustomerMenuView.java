@@ -76,6 +76,7 @@ public class CustomerMenuView {
 				//·Î±×¾Æ¿ô 
 				case 0 : 
 					logout(customerId);
+					MenuView.menu();
 					break;
 					
 				default:
