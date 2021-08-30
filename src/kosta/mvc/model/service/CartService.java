@@ -33,8 +33,8 @@ public class CartService {
 	/**
 	 * 장바구니 삭제하기
 	 * */
-	public void deleteCart(int cartNo) throws SQLException {
-		int result = cartDAO.deleteCart(cartNo);
+	public void deleteCart(String customerId) throws SQLException {
+		int result = cartDAO.deleteCart(customerId);
 		if(result == 0) throw new SQLException("삭제되지 않았습니다.");
 
 	}
