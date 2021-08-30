@@ -6,10 +6,14 @@ import java.util.List;
 import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dao.LiquorDAO;
 import kosta.mvc.model.dao.LiquorDAOImpl;
+import kosta.mvc.model.dao.LiquorTableDAO;
+import kosta.mvc.model.dao.LiquorTableDAOImpl;
 import kosta.mvc.model.dto.Liquor;
+import kosta.mvc.model.dto.LiquorTable;
 
 public class LiquorService {
 	LiquorDAO liquorDao = new LiquorDAOImpl();
+	LiquorTableDAO liquorTableDao = new LiquorTableDAOImpl();
 	
 	/**
 	 * 가격대별 검색 
@@ -21,7 +25,15 @@ public class LiquorService {
 	}
 	
 	/**
-	 * 종류별 검색 
+	 * 양주 카테고리 목록 보여주기 
+	 * */
+	public List<LiquorTable> selectLiquorTable() throws SQLException{
+		List<LiquorTable> list = liquorTableDao.selectLiquorTable();
+		return list;
+	}
+	
+	/**
+	 * 종류별 검색 (양주 종류번호 필요) 
 	 * */
 	public List<Liquor> liquorsSelectByLiquorType(int liqourTableNo) throws NotFoundException, SQLException{
 		List<Liquor> list = liquorDao.liquorsSelectByLiquorType(liqourTableNo);

@@ -22,6 +22,14 @@ public class LiquorController {
 		}
 	}
 	
+	public static void selectLiquorTable() {
+		try {
+			liquorService.selectLiquorTable();
+			LiquorEndView.messagePrint("양주 카테고리 입니다.");
+		}catch(SQLException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+	}
 	
 	public static void liquorsSelectByLiquorType(int liqourTableNo) {
 		try {
@@ -79,4 +87,5 @@ public class LiquorController {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
+	
 }
