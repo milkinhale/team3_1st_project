@@ -6,7 +6,6 @@ import java.util.List;
 import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dao.ReviewDAO;
 import kosta.mvc.model.dao.ReviewDAOImpl;
-import kosta.mvc.model.dto.BoardDTO;
 import kosta.mvc.model.dto.Review;
 
 public class ReviewService {

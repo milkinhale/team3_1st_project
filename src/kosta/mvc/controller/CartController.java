@@ -1,13 +1,11 @@
 package kosta.mvc.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import kosta.mvc.model.dto.Cart;
 import kosta.mvc.model.service.CartService;
+import kosta.mvc.view.EndView;
 import kosta.mvc.view.FailView;
-import kosta.mvc.view.ReviewCartEndview;
-import kosta.mvc.view.SuccessView;
 
 
 public class CartController {
@@ -19,7 +17,7 @@ public class CartController {
   public static void cartSelectByCustomerId(String customerId) {
 	  try {
 			List<Cart> cartList = cartService.cartSelectByCustomerId(customerId);
-			ReviewCartEndview.printCartByCustomerId(cartList);
+			EndView.printCartByCustomerId(cartList);
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
 		}
@@ -31,7 +29,7 @@ public class CartController {
   public static void insertCart(Cart cart) {
 	  try {
 		  cartService.insertCart(cart);
-		  ReviewCartEndview.meesegePrint("등록되었습니다.");
+		  EndView.meesegePrint("등록되었습니다.");
 	  }catch(Exception e) {
 		  FailView.errorMessage(e.getMessage());
 	  }
@@ -43,7 +41,7 @@ public class CartController {
   public static void deleteCart(int cartNo) {
 	  try {
 		  cartService.deleteCart(cartNo);
-		  ReviewCartEndview.meesegePrint("삭제되었습니다.");
+		  EndView.meesegePrint("삭제되었습니다.");
 	  }catch(Exception e) {
 		  FailView.errorMessage(e.getMessage());
 	  }
