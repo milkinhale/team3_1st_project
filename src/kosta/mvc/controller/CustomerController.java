@@ -45,7 +45,7 @@ public class CustomerController {
     public static void findCustomerId(String customerId) {
     	try {
     		String id = customerService.findCustomerId(customerId);
-    		MenuView.printSubMenu(customerId);
+    		MenuView.printSubMenu();
     		MenuView.menu();
     		
     	}catch(Exception e) {
@@ -61,7 +61,7 @@ public class CustomerController {
     public static void findcustomerPwd(String customerId, String email) {
     	try {
     		String pwd = customerService.findCustomerPwd(customerId, email);
-    		MenuView.printSubMenu(pwd);
+    		MenuView.printSubMenu();
     		MenuView.menu();
     	
     	}catch(Exception e) {
@@ -75,7 +75,7 @@ public class CustomerController {
     public static void updateCustomerEmail(String customerId, String email) {
     	try {
     		int result = customerService.updateCustomerEmail(customerId,email);
-    		MenuView.printSubMenu(email);  ////////////////////////sub menu 아닌가 usermenu하면 오류 안뜸 
+    		MenuView.printSubMenu(); 
     		MenuView.menu();
     	}catch(Exception e) {
     		e.printStackTrace();
@@ -90,8 +90,7 @@ public class CustomerController {
     public static void updateCustomerPwd(String customerId, String email) {
     	try {
     		int result = customerService.updateCustomerPwd(customerId, email);    
-    		MenuView.printSubMenu(email); ///////////////////////////////////////
-    		MenuView.menu();
+    		MenuView.printSubMenu();
     	}catch(Exception e) {
     		e.printStackTrace();
     		FailView.errorMessage(e.getMessage());
@@ -105,7 +104,7 @@ public class CustomerController {
     public static void updateCustomerAddr(String customerId, String Addr) {
     	try {
     		int result = customerService.updateCustomerAddr(customerId, Addr);
-    		MenuView.printSubMenu(Addr);/////////////////////////////////Submenu로 해야하나
+    		MenuView.printSubMenu();
     		MenuView.menu();
     	}catch(Exception e) {
     		e.printStackTrace();
@@ -122,8 +121,8 @@ public class CustomerController {
     
     public static void deleteCustomer(String customerId) {
     	try {
-    		String id = customerService.deleteCustomer(customerId);
-    		MenuView.printSubMenu(customerId);
+    		int id = customerService.deleteCustomer(customerId);
+    		MenuView.printSubMenu();
     		MenuView.menu();
     		
     	}catch(Exception e) {
@@ -131,5 +130,5 @@ public class CustomerController {
     		FailView.errorMessage(e.getMessage());
     		
     	}
-    }//관리자는?
+    }
 }
