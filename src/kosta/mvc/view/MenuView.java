@@ -1,6 +1,5 @@
 package kosta.mvc.view;
 
-
 import java.util.Scanner;
 
 import kosta.mvc.controller.CartController;
