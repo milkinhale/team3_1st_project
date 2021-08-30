@@ -51,17 +51,17 @@ public class OrderDetail {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("OrderDetail [orderDetailNo=");
-		builder.append(orderDetailNo);
-		builder.append(", liquorNo=");
+		//builder.append("OrderDetail [orderDetailNo=");
+		//builder.append(orderDetailNo);
+		builder.append(" 양주 번호: ");
 		builder.append(liquorNo);
-		builder.append(", orderNo=");
-		builder.append(orderNo);
-		builder.append(", count=");
+		//builder.append(", orderNo=");
+		//builder.append(orderNo);
+		builder.append(" | 개수: ");
 		builder.append(count);
-		builder.append(", orderPrice=");
+		builder.append(" | 금액: ");
 		builder.append(orderPrice);
-		builder.append("]");
+		//builder.append("]");
 		return builder.toString();
 	}
 	
