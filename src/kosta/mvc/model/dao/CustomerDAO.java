@@ -56,4 +56,10 @@ public interface CustomerDAO {
  * 회원 탈퇴  
  **/
 	int deleteCustomer (String customerId) throws SQLException;
+/**
+ * 회원인지 판매자 확인  
+ * @return seller일 경우 "SELLER"(대문자 유의!) 값 리턴. 아닐 경우 null값 리턴  
+ **/
+	String sellerCheck (String customerId) throws SQLException;
+	
 }

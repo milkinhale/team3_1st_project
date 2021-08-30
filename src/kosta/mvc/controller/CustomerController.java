@@ -1,5 +1,7 @@
 package kosta.mvc.controller;
 
+import java.sql.SQLException;
+
 import kosta.mvc.model.dto.Customer;
 import kosta.mvc.model.service.CustomerService;
 import kosta.mvc.view.EndView;
@@ -131,4 +133,21 @@ public class CustomerController {
     		
     	}
     }
+    
+    /**
+	 * 회원인지 판매자 확인  
+	 **/
+	public static void sellerCheck (String customerId) throws SQLException{
+		try {
+			String seller = customerService.sellerCheck(customerId);
+			if(seller.equals("SELLER")) {
+				MenuView.printAdminMenu();
+			}else {
+				MenuView.printUserMenu(customerId);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
 }
