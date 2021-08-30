@@ -1,8 +1,10 @@
 package kosta.mvc.model.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import kosta.mvc.model.dto.Customer;
+import kosta.mvc.model.dto.LiquorTable;
 
 public interface CustomerDAO {
 
@@ -56,10 +58,17 @@ public interface CustomerDAO {
  * 회원 탈퇴  
  **/
 	int deleteCustomer (String customerId) throws SQLException;
-/**
+
+////////////////////////////////////////////////////////////
+	/**
  * 회원인지 판매자 확인  
  * @return seller일 경우 "SELLER"(대문자 유의!) 값 리턴. 아닐 경우 null값 리턴  
  **/
 	String sellerCheck (String customerId) throws SQLException;
+	
+/**
+ * 	관리자 - 회원메뉴- 전체회원 리스트 보기
+ **/
+	List<CustomerDAO> selectCustomerListAll() throws SQLException;
 	
 }
