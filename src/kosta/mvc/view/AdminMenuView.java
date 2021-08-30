@@ -21,11 +21,11 @@ public class AdminMenuView {
 	 * 판매자용 메뉴
 	 * */
 	public static void sellerMenu(String sellerId) {
-		//세션 정보
+		//세션 정보 (작동 확인 테스트 후 주석처리 하기!!)
 		SessionSet ss = SessionSet.getInstance();
 		System.out.println(ss.getSet()); //Set객체
 		System.out.println("-----" +sellerId+ " 로그인 중 -----");
-		//세션 정보
+		//세션 정보 (작동 확인 테스트 후 주석처리 하기!!)
 		
 		System.out.println("-- 관리자 메뉴 --");
 		System.out.println("1.양주메뉴  |  2.주문메뉴  |  3.회원메뉴  |  4.리뷰메뉴  |  0. 로그아웃");

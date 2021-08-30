@@ -1,9 +1,11 @@
 package kosta.mvc.view;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import kosta.mvc.controller.CustomerController;
 import kosta.mvc.controller.OrderController;
+import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.controller.LiquorController;
 import kosta.mvc.model.dto.Customer;
 import kosta.mvc.model.dto.OrderDetail;
@@ -130,8 +132,38 @@ public class CustomerMenuView {
      * */
 	public static void viewCart(String id) {
 		//CartController.viewCart(id);
+		/*
+		 * 장바구니 보여주고...
+		 * 스캐너 입력 받아서 
+		 * 주문할꺼면 1번 입력, 돌아가기 0번 이런식으로 입력 받아야 할거같아요.
+		 * 
+		 * 참고로,1번 입력 받으면..
+		 * 오더 컨트롤러의 
+		 * OrderCart(String customerId, String addr, int couponNo) <- 요 메소드 사용해야되니까...
+		 * 
+		 * 추가로 배송 주소, 쿠폰 번호 입력 받아주시면 될듯.
+		 * */
+		/*
+		System.out.println("장바구니를 주문하시겠습니까? (예:1 | 뒤로가기:0)");
+		int input = Integer.parseInt(sc.nextLine());
 		
-		
+		if(input == 1) {//입력값이 1이면...
+			System.out.print("배송 주소 :");
+			String addr = sc.nextLine();
+			System.out.println("쿠폰번호 (없으면 0): ");
+			int couponNo = Integer.parseInt(sc.nextLine());
+			
+			//장바구니로 주문하는 오더 컨트롤러의 메소드 호출.
+			OrderController.OrderCart(id, addr, couponNo);
+			//id -> 세션에서 갖고옴
+			//addr -> 스캐너에서 입력 받음
+			//couponNo -> 스캐너에서 입력 받음(없으면 0 입력)
+			
+		}else {//입력값이 1이 아니면...
+			//다시 고객 메뉴 띄우기
+			customerMenu(id);
+		}
+		*/
 		
 	}
     

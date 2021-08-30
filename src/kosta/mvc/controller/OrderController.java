@@ -113,7 +113,7 @@ public class OrderController {
 	 /**
 	  * 장바구니로 주문하기.
 	  * */
-	 public static void OrderCart(String customerId, String addr, int couponNo) throws SQLException, NotFoundException{
+	 public static void OrderCart(String customerId, String addr, int couponNo){
 		 try {
 			 //일단 오더 객체를 하나 만듬.
 			 Orders order = new Orders(0, customerId, null, addr, null, 0, 0);
