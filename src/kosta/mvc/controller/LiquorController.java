@@ -42,9 +42,9 @@ public class LiquorController {
 		}
 	}
 	
-	public static void liquorSelectByLiquorName(int liquorNo){
+	public static void liquorSelectByLiquorName(String liquorName){
 		try {
-			Liquor liquor = liquorService.liquorSelectByLiquorNo(liquorNo);
+			Liquor liquor = liquorService.liquorSelectByLiquorName(liquorName);
 			LiquorEndView.printLiquor(liquor);
 		}catch(SQLException e) {
 			FailView.errorMessage(e.getMessage());

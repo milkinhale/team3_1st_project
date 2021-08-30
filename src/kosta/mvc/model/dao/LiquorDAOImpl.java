@@ -45,10 +45,11 @@ public class LiquorDAOImpl implements LiquorDAO {
 			
 			System.out.println("-------------------------------");
 			System.out.println(dao.deleteLiquor(1));
-			*/
+			
 			
 			System.out.println(dao.liquorSelectByLiquorName("∏ÛΩ∫≈Õ"));
 			System.out.println("-------------------------------");
+			*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

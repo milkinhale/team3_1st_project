@@ -37,6 +37,16 @@ public class LiquorService {
 		if(liquor==null)throw new SQLException(liquorNo + "번에 해당하는 상품이 없어요.");
 		return liquor;
 	}
+	
+	/**
+	 * 양주명으로 정보 검색 
+	 * */
+	public Liquor liquorSelectByLiquorName(String liquorName) throws SQLException{
+		Liquor liquor = liquorDao.liquorSelectByLiquorName(liquorName);
+		if(liquor==null)throw new SQLException(liquorName + "에 해당하는 상품이 없어요.");
+		return liquor;
+	}
+	
 		
 	/**
 	 * 양주 등록하기 
