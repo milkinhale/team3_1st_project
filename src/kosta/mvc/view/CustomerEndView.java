@@ -94,8 +94,7 @@ public static void printselectCustomerListAll(List<Customer> customerList) {
 	}
 	System.out.println();
 	
-}
-
+	}
 }
 
 
