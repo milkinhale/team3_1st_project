@@ -1,11 +1,16 @@
 package kosta.mvc.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import kosta.mvc.model.dto.Customer;
+import kosta.mvc.model.dto.Liquor;
 import kosta.mvc.model.service.CustomerService;
+import kosta.mvc.view.AdminMenuView;
+import kosta.mvc.view.CustomerMenuView;
 import kosta.mvc.view.EndView;
 import kosta.mvc.view.FailView;
+import kosta.mvc.view.LiquorEndView;
 import kosta.mvc.view.MenuView;
 
 public class CustomerController {
@@ -13,15 +18,17 @@ public class CustomerController {
  /**
   * 로그인
   * */
+	public static void main(String[] args) {
+		//login("깃", "1234");
+		//findCustomerId("DDD444@naver.com");
+	}
+	
 	public static void login(String customerId, String customerPwd) {
 		try {
 			Customer customer = customerService.customerLogin(customerId, customerPwd);
-			MenuView.printUserMenu(customerId);
-			//MenuView.menu();
+			sellerCheck(customerId);
 		}catch (Exception e) {
-			//e.printStackTrace();
-			FailView.errorMessage(e.getMessage());
-			
+			FailView.errorMessage("로그인에 실패했어요.");
 		}
 	}
 	
@@ -31,12 +38,9 @@ public class CustomerController {
     public static void register(Customer customer) {
     	try {
 			customerService.register(customer);
-			EndView.printMessage("회원가입에 성공하였습니다.");
-			MenuView.menu();
+			EndView.printMessage("회원가입에 성공했어요.");
 		}catch (Exception e) {
-			e.printStackTrace();
-			FailView.errorMessage(e.getMessage());
-			
+			FailView.errorMessage("회원가입에 실패했어요.");
 		}
     }
     
@@ -44,12 +48,9 @@ public class CustomerController {
     /**
      * 회원정보찾기 (아이디) 
      **/
-    public static void findCustomerId(String customerId) {
+    public static void findCustomerId(String customerEmail) {
     	try {
-    		String id = customerService.findCustomerId(customerId);
-    		MenuView.printMenu();
-    		MenuView.menu();
-    		
+    		customerService.findCustomerId(customerEmail);
     	}catch(Exception e) {
     		e.printStackTrace();
     		FailView.errorMessage(e.getMessage());
@@ -63,9 +64,7 @@ public class CustomerController {
     public static void findcustomerPwd(String customerId, String email) {
     	try {
     		String pwd = customerService.findCustomerPwd(customerId, email);
-    		MenuView.printMenu();
-    		MenuView.menu();
-    	
+    		
     	}catch(Exception e) {
     		FailView.errorMessage(e.getMessage());
     	}
@@ -77,8 +76,7 @@ public class CustomerController {
     public static void updateCustomerEmail(String customerId, String email) {
     	try {
     		int result = customerService.updateCustomerEmail(customerId,email);
-    		MenuView.printSubMenu(); 
-    		MenuView.menu();
+    		EndView.printMessage("이메일이 수정되었어요.");
     	}catch(Exception e) {
     		e.printStackTrace();
     		FailView.errorMessage(e.getMessage());
@@ -89,10 +87,10 @@ public class CustomerController {
     /**
      * 회원정보수정 (비번) 
      **/
-    public static void updateCustomerPwd(String customerId, String email) {
+    public static void updateCustomerPwd(String customerId, String pwd) {
     	try {
-    		int result = customerService.updateCustomerPwd(customerId, email);    
-    		MenuView.printSubMenu();
+    		int result = customerService.updateCustomerPwd(customerId, pwd);    
+    		EndView.printMessage("비밀번호가 수정되었어요.");
     	}catch(Exception e) {
     		e.printStackTrace();
     		FailView.errorMessage(e.getMessage());
@@ -106,8 +104,7 @@ public class CustomerController {
     public static void updateCustomerAddr(String customerId, String Addr) {
     	try {
     		int result = customerService.updateCustomerAddr(customerId, Addr);
-    		MenuView.printSubMenu();
-    		MenuView.menu();
+    		EndView.printMessage("주소가 수정되었어요.");
     	}catch(Exception e) {
     		e.printStackTrace();
     		FailView.errorMessage(e.getMessage());
@@ -124,30 +121,34 @@ public class CustomerController {
     public static void deleteCustomer(String customerId) {
     	try {
     		int id = customerService.deleteCustomer(customerId);
-    		MenuView.printSubMenu();
-    		MenuView.menu();
-    		
+    		EndView.printMessage("탈퇴되었어요. 다음에 또 만나요!");
     	}catch(Exception e) {
-    		e.printStackTrace();
     		FailView.errorMessage(e.getMessage());
-    		
     	}
     }
     
     /**
 	 * 회원인지 판매자 확인  
 	 **/
-	public static void sellerCheck (String customerId) throws SQLException{
+	public static void sellerCheck (String customerId){
 		try {
 			String seller = customerService.sellerCheck(customerId);
 			if(seller.equals("SELLER")) {
-				MenuView.printAdminMenu();
+				AdminMenuView.sellerMenu(customerId);
 			}else {
-				MenuView.printUserMenu(customerId);
+				CustomerMenuView.customerMenu(customerId);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
+		}
+	}
+	
+	public static void selectCustomerListAll(){
+		try {
+			List<Customer> customerList = customerService.selectCustomerListAll();
+			
+		} catch (Exception e) {
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 }

@@ -21,14 +21,28 @@ public class CustomerService {
   /**
    * 로그인
    * */
+	public static void main(String args[]){
+		CustomerService cs = new CustomerService();
+		try {
+			//cs.customerLogin("깃", "1234");
+			cs.findCustomerId("DDD444@naver.com");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Customer customerLogin(String customerId, String customerPwd)throws NotFoundException , SQLException{
 		Customer customer=customerDao.customerLogin(customerId, customerPwd);
+		
 		if(customer==null) {
 			throw new NotFoundException("----------*****정보를 다시 확인해주세요.*****----------");
 		}
 		
+		//seller라면 SELLER 리턴 
 		String seller = customer.getSeller();
 		
+		
+		//????????????????????????????????????????????????????????????????????????이거 왜 넣은건지 물어보기
 		if(!seller.equals("SELLER")) {
 			coupon.insertCouponTable(customerId, 10);
 		}
@@ -42,6 +56,7 @@ public class CustomerService {
 		
 		return customer;
 	}
+	
 
 	/**
 	 * 회원가입
@@ -87,9 +102,9 @@ public class CustomerService {
  * 회원정보찾기 (아이디)
  **/
 	public String findCustomerId(String email) throws NotFoundException, SQLException {
-		String id  =customerDao.findCustomerId(email);
+		String id =customerDao.findCustomerId(email);
 		if(id == null) throw new NotFoundException("----------*****정보를 다시 확인해주세요.*****----------");
-			return id;			
+		return id;
 	}
 	
 /**
@@ -99,7 +114,6 @@ public class CustomerService {
 		String pwd = customerDao.findCustomerPwd(customerId, email); 
 		if(pwd == null) throw new NotFoundException("----------*****정보를 다시 확인해주세요.*****----------");
 		return pwd;
-		
 	}
 
 /**
@@ -115,8 +129,8 @@ public class CustomerService {
 /**	
  * 회원정보수정 (비번)-update
  **/
-	public int updateCustomerPwd(String customerId, String email ) throws SQLException {
-		int result = customerDao.updateCustomerPwd(customerId, email); 
+	public int updateCustomerPwd(String customerId, String pwd) throws SQLException {
+		int result = customerDao.updateCustomerPwd(customerId, pwd); 
 		if(result == 0) throw new SQLException("----------*****정보를 다시 확인해주세요.*****----------");
 		return result;
 		
@@ -164,6 +178,4 @@ public class CustomerService {
 		}
 		return CustomerList;
 	}
-	
-	
 }

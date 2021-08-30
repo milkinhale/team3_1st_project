@@ -153,23 +153,24 @@ public static void main(String[] args) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String Id = null;
+		String id = null;
 		
 		try {
 			con = DBUtil.getConnection();
+			//SELECT CUSTOMER_ID FROM CUSTOMER WHERE EMAIL = ?
 			ps = con.prepareStatement(proFile.getProperty("customer.findCustomerId")) ;
 			
 			ps.setString(1, email);
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				Id = rs.getString(1);
+				id = rs.getString(1);
 			}
 			
 		}finally {
 			DBUtil.dbClose(con, ps ,rs);
 		}
-		return Id;
+		return id;
 	}
 		
 	
@@ -351,6 +352,8 @@ public static void main(String[] args) {
 		
 		try {
 			con = DBUtil.getConnection();
+			
+			//select seller(default null값 줬던거) from customer where customer_id = ?
 			ps = con.prepareStatement(sql) ;
 			ps.setString(1, customerId);
 			rs = ps.executeQuery();
@@ -363,6 +366,8 @@ public static void main(String[] args) {
 		}
 		
 		return seller;
+		//seller == null -> 회원
+		//seller == SELLER -> 판매자 
 	}
 
 	

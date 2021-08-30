@@ -18,43 +18,45 @@ public class AdminMenuView {
 	/**
 	 * 판매자용 메뉴
 	 * */
-	public static void sellerMenu() {
+	public static void sellerMenu(String sellerId) {
 		System.out.println("-- 관리자 메뉴 --");
-		System.out.println("1.양주메뉴  |  2.주문메뉴  |  3.회원메뉴  |  4.리뷰메뉴  |  0. 나가기");
-		int menu =Integer.parseInt( sc.nextLine());
+		System.out.println("1.양주메뉴  |  2.주문메뉴  |  3.회원메뉴  |  4.리뷰메뉴  |  0. 로그아웃");
+		int menu =Integer.parseInt(sc.nextLine());
 		switch(menu) {
 			//양주 메뉴 
 			case 1:
-				liquorAdminMenu();
+				liquorAdminMenu(sellerId);
 				break;
 				
 			//주문 메뉴 
 			case 2:
-				orderAdminMenu();
+				orderAdminMenu(sellerId);
 				break;
 				
 			//회원메뉴 
 			case 3:
-				customerAdminMenu();
+				customerAdminMenu(sellerId);
 				break;
 				
 			//리뷰메뉴
 			case 4:
-				reviewAdminMenu();
+				reviewAdminMenu(sellerId);
 				break;
-				
+			
+			//나가기
 			case 0:
-				System.exit(0);
+				CustomerMenuView.logout(sellerId);
 				
 			default:
 				System.out.println("번호를 다시 확인해주세요.");
 		}
 	}
 	
+	/////////////////////////////////////////////////////////////////////////
 	/**
-	 * 판매자 - 양주 관리 메뉴
+	 * 1. 양주 관리 메뉴
 	 * */
-	public static void liquorAdminMenu() {
+	public static void liquorAdminMenu(String sellerId) {
 		System.out.println("-- 양주 관리 메뉴 --");
 		System.out.println("1.카테고리별 보기  |  2.양주 이름 검색  |  3.양주 추가  |  4.양주 수정  |  5.양주 삭제  |  0.나가기");
 		int menu =Integer.parseInt( sc.nextLine());
@@ -127,17 +129,21 @@ public class AdminMenuView {
 			
 			//나가기
 			case 0:
-				System.exit(0);
+				sellerMenu(sellerId);
+				break;
 			
 			default:
 				System.out.println("번호를 다시 확인해주세요.");
 		}
 	}
 	
+	
+	/////////////////////////////////////////////////////////////////////////
+	
 	/**
-	 * 판매자 - 주문 관리 메뉴
+	 * 2. 주문 관리 메뉴
 	 * */
-	public static void orderAdminMenu() {
+	public static void orderAdminMenu(String sellerId) {
 		System.out.println("-- 주문 관리 메뉴 --");
 		System.out.println("1.전체 주문 리스트  |  2.회원번호로 주문 검색  |  3.주문 상태 수정  |  4.주문 삭제  |  0.나가기");
 		int menu =Integer.parseInt( sc.nextLine());
@@ -164,8 +170,9 @@ public class AdminMenuView {
 			
 			//나가기
 			case 0:
-				System.exit(0);
-				
+				sellerMenu(sellerId);
+				break;
+			
 			default:
 				System.out.println("번호를 다시 확인해주세요.");
 		}
@@ -203,33 +210,45 @@ public class AdminMenuView {
 		OrderController.deleteOrder(orderNo);
 	}
 	
+	/////////////////////////////////////////////////////////////////////////
+	
 	/**
-	 * 판매자 - 회원 관리 메뉴
+	 * 3. 회원 관리 메뉴
 	 * */
-	public static void customerAdminMenu() {
+	public static void customerAdminMenu(String sellerId) {
 		System.out.println("-- 회원 관리 메뉴 --");
 		System.out.println("1.전체회원 리스트  |  2.회원 강퇴  |  0.나가기");
 		int menu =Integer.parseInt( sc.nextLine());
 		switch(menu) {
 			//전체 회원 리스트 
 			case 1:
-				
+				CustomerController.selectCustomerListAll();
 				break;
 				
 			//회원 강퇴 
 			case 2:
+				System.out.print("삭제할 회원 아이디를 입력하세요: ");
+				String customerId = sc.nextLine();
+				CustomerController.deleteCustomer(customerId);
 				break;
 				
 			//나가기
 			case 0:
-				System.exit(0);
+				sellerMenu(sellerId);
+				break;
+			
+			default:
+				System.out.println("번호를 다시 확인해주세요.");
 		}
 	}
 	
+	
+	/////////////////////////////////////////////////////////////////////////
+	
 	/**
-	 * 판매자 - 리뷰 관리 메뉴
+	 * 4. 리뷰 관리 메뉴
 	 * */
-	public static void reviewAdminMenu() {
+	public static void reviewAdminMenu(String sellerId) {
 		System.out.println("-- 리뷰 관리 메뉴 --");
 		System.out.println("1.전체 리뷰 조회  |  2.회원별 리뷰 조회 |  3.양주번호별 리뷰 조회  |  4.리뷰 수정  |  5.리뷰 삭제 |  0.나가기");
 		int menu =Integer.parseInt( sc.nextLine());
@@ -259,8 +278,12 @@ public class AdminMenuView {
 				break;
 			
 			//나가기
-			case 9:
-				System.exit(0);
+			case 0:
+				sellerMenu(sellerId);
+				break;
+			
+			default:
+				System.out.println("번호를 다시 확인해주세요.");
 		}
 	}
 	

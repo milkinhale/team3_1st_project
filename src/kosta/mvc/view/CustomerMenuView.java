@@ -73,9 +73,9 @@ public class CustomerMenuView {
 					myPageMenu(customerId);
 					break;
 					
-				//로그아웃 (다시 메뉴로)
+				//로그아웃 
 				case 0 : 
-					MenuView.menu();
+					logout(customerId);
 					break;
 					
 				default:
@@ -86,7 +86,62 @@ public class CustomerMenuView {
 	}
 	
 	/**
-	 * 마이페이지 
+	 * 4. 주문하기
+	 * */
+    public static void printInputOrder(String customerId) {
+    	System.out.print("주문상품번호 : ");
+		 int liquorNo =Integer.parseInt(sc.nextLine());
+		 
+		 System.out.print("주문수량 : ");
+		 int count = Integer.parseInt(sc.nextLine());
+		 
+		 System.out.print("배송주소 : ");
+		 String orderAddr = sc.nextLine();
+
+	     System.out.print("쿠폰 코드 입력 : ");
+		 int couponNo =Integer.parseInt(sc.nextLine());
+		 
+		
+		 Orders orders = new Orders(0, customerId, null, orderAddr, null, 0, 0);
+		 OrderDetail orderDetail = new OrderDetail(0, liquorNo, 0, count, 0);
+		 
+		 orders.getOrderDetailList().add(orderDetail);
+		 
+		 OrderController.insertOrders(orders, couponNo);	 
+    }
+	
+    /**
+     * 5. 장바구니 담기
+     * */
+    public static void putCart(String id) {
+		System.out.println("--장바구니 담기 작업 --");
+		System.out.print("상품번호 : ");
+		String goodsId = sc.nextLine();
+		System.out.print("수량 : ");
+		int qty = Integer.parseInt(sc.nextLine());
+		
+		//CartController.putCart(id,goodsId,qty);
+	}
+    
+    
+    /**
+     * 6. 장바구니 보기
+     * */
+	public static void viewCart(String id) {
+		//CartController.viewCart(id);
+		
+		
+		
+	}
+    
+	
+	/**
+	 * 7. 리뷰 검색 
+	 * */
+	
+    
+	/**
+	 * 8. 마이페이지 메뉴
 	 * */
 	public static void myPageMenu(String customerId) {
 		System.out.println("1.주문내역 확인   |  2.주문 취소   |  3.장바구니 비우기  |  4.쿠폰리스트 확인  |  5.회원정보 수정  |  6.회원 탈퇴  |  0. 나가기");  
@@ -113,14 +168,17 @@ public class CustomerMenuView {
 				
 			//회원정보 수정 
 			case 5:
+				updateCustomer(customerId);
 				break;
 				
 			//회원 탈퇴 
 			case 6:
+				CustomerController.deleteCustomer(customerId);
 				break;
 				
 			//나가기 
 			case 0:
+				customerMenu(customerId);
 				break;
 
 			default:
@@ -128,34 +186,20 @@ public class CustomerMenuView {
 		}
 	}
 	
-	
 	/**
-	 * 주문하기
+	 * 0. 로그아웃
 	 * */
-    public static void printInputOrder(String customerId) {
-    	System.out.print("주문상품번호 : ");
-		 int liquorNo =Integer.parseInt(sc.nextLine());
-		 
-		 System.out.print("주문수량 : ");
-		 int count = Integer.parseInt(sc.nextLine());
-		 
-		 System.out.print("배송주소 : ");
-		 String orderAddr = sc.nextLine();
-
-	     System.out.print("쿠폰 코드 입력 : ");
-		 int couponNo =Integer.parseInt(sc.nextLine());
-		 
+	public static void logout(String customerId) {
+		Session session = new Session(customerId);
 		
-		 Orders orders = new Orders(0, customerId, null, orderAddr, null, 0, 0);
-		 OrderDetail orderDetail = new OrderDetail(0, liquorNo, 0, count, 0);
-		 
-		 orders.getOrderDetailList().add(orderDetail);
-		 
-		 OrderController.insertOrders(orders, couponNo);	 
-    }
-    
-    /**
-	 * 주문 삭제
+		SessionSet ss = SessionSet.getInstance();
+		ss.remove(session);	
+	}
+	
+	
+	/////////////마이페이지//////////////
+	/**
+	 * 2. 주문 취소
 	 * */
 	public static void deleteOrder() {
 		System.out.print("취소하려는 주문 번호를 입력해주세요: ");
@@ -163,28 +207,55 @@ public class CustomerMenuView {
 		
 		OrderController.deleteOrder(orderNo);
 	}
-    
-    /**
-     * 장바구니 담기
-     * */
-    public static void putCart(String id) {
-		System.out.println("--장바구니 담기 작업 --");
-		System.out.print("상품번호 : ");
-		String goodsId = sc.nextLine();
-		System.out.print("수량 : ");
-		int qty = Integer.parseInt(sc.nextLine());
-		
-		//CartController.putCart(id,goodsId,qty);
-	}
 	
-    /**
-     * 장바구니 보기
-     * */
-	public static void viewCart(String id) {
-		//CartController.viewCart(id);
-		
-		
-		
-	}
+	/**
+	 * 3. 장바구니 비우기
+	 * */
 	
+	
+	/**
+	 * 4. 쿠폰리스트 확인 
+	 * */
+	
+	
+	/**
+	 * 5. 회원정보 수정 
+	 * */
+	public static void updateCustomer(String customerId) {
+		System.out.println("1.비밀번호   |  2.이메일   |  3.주소  |  0. 나가기");
+		System.out.println("수정하실 정보를 선택해주세요: ");
+		int menu =Integer.parseInt( sc.nextLine());
+		
+		switch(menu) {
+			//비밀번호 수정 
+			case 1:
+				System.out.print("새로운 비밀번호를 입력해주세요: ");
+				String pwd = sc.nextLine();
+				CustomerController.updateCustomerPwd(customerId, pwd);
+				break;
+			
+			//이메일 수정 
+			case 2: 
+				System.out.print("새로운 이메일을 입력해주세요: ");
+				String email = sc.nextLine();
+				CustomerController.updateCustomerEmail(customerId, email);
+				break;
+			
+			//주소 수정
+			case 3:
+				System.out.print("새로운 주소를 입력해주세요: ");
+				String addr = sc.nextLine();
+				CustomerController.updateCustomerEmail(customerId, addr);
+				break;
+		
+			//나가기 
+			case 0:
+				myPageMenu(customerId);
+				break;
+				
+			default:
+				System.out.println("번호를 다시 확인해주세요.");
+		}
+	}
+
 }

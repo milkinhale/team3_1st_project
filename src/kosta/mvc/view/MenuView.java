@@ -58,19 +58,19 @@ public class MenuView {
 	
 	
 	/**
-	 * 회원가입
+	 * 1. 회원가입
 	 * */
 	public static void register() {
 		System.out.print("아이디 : ");
 		 String customerId = sc.nextLine();
 		 
 		 System.out.print("비밀번호 : ");
-		 String Pwd = sc.nextLine();
+		 String pwd = sc.nextLine();
 		 
 		 System.out.print("이름 : ");
 		 String customerName = sc.nextLine();
 		 
-		 System.out.print("생일 : ");
+		 System.out.print("생일(년도/월/일) :   예시) 00/08/09");
 		 String birth = sc.nextLine();
 		 
 		 System.out.print("이메일 : ");
@@ -82,12 +82,12 @@ public class MenuView {
 		 System.out.print("연락처 : ");
 		 String contact = sc.nextLine();
 		 
-		 CustomerController.register(new Customer(customerId, Pwd, customerName, birth, email, addr, contact, addr, contact));
+		 CustomerController.register(new Customer(customerId, pwd, customerName, birth, email, addr, contact, addr, contact));
 	}
 	
 	
 	/**
-	 * 로그인 메뉴
+	 * 2. 로그인
 	 * */
 	public static void login() {
 		 System.out.print("아이디 : ");
@@ -101,7 +101,7 @@ public class MenuView {
 	
 	
 	/**
-	 * 아이디 찾기
+	 * 3. 아이디 찾기
 	 * */
 	public static void findId() {
 		System.out.print("이메일 : ");
@@ -111,7 +111,7 @@ public class MenuView {
 	
 	
 	/**
-	 * 비밀번호 찾기
+	 * 4. 비밀번호 찾기
 	 * */
 	public static void findPwd() {
 		System.out.print("아이디: ");
@@ -122,17 +122,6 @@ public class MenuView {
 		
 		CustomerController.findcustomerPwd(customerId, email);
 	}
-	
-	/**
-	 * 로그아웃
-	 * */
-	public static void logout(String customerId) {
-		Session session = new Session(customerId);
-		
-		SessionSet ss = SessionSet.getInstance();
-		ss.remove(session);	
-	}
-	
 }
 
 
