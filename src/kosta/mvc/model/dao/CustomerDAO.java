@@ -53,7 +53,14 @@ public interface CustomerDAO {
  *  회원정보수정(주소) 	
  **/
 	int updateCustomerAddr (String customerId, String addr) throws SQLException;
+	
+	
+/**
+ * 마이페이지 회원 정보 확인	
+ **/
 
+	String checkCustomerInfo(String customer) throws SQLException;
+	
 /**
  * 회원 탈퇴  
  **/
