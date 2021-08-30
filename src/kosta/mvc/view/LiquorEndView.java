@@ -5,6 +5,7 @@ import java.util.List;
 
 import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dto.Liquor;
+import kosta.mvc.model.dto.LiquorTable;
 
 
 public class LiquorEndView {
@@ -12,6 +13,14 @@ public class LiquorEndView {
 		System.out.println("------해당 조건에 따라 " + liquorList.size() + "건의 상품이 조회되었어요.-----");
 		for (Liquor liquor : liquorList) {
 			System.out.println(liquor);
+		}
+		System.out.println();
+	}
+	
+	public static void printLiquorTableList(List<LiquorTable> liquorTableList) {
+		System.out.println("------양주 종류 리스트입니다------");
+		for (LiquorTable liquorTable : liquorTableList) {
+			System.out.println(liquorTable);
 		}
 		System.out.println();
 	}

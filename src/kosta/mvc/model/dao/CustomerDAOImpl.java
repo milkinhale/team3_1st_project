@@ -325,5 +325,34 @@ public static void main(String[] args) {
 		}
 		return result;
 	}	
+	
+	/**
+	 * 회원인지 판매자 확인  
+	 * @return seller일 경우 "SELLER"(대문자 유의!) 값 리턴. 아닐 경우 null값 리턴  
+	 **/
+	public String sellerCheck (String customerId) throws SQLException{
+		String seller = null;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = proFile.getProperty("customer.sellerCheck");
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql) ;
+			ps.setString(1, customerId);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				seller = rs.getString(1);
+			}			
+		} finally {
+			DBUtil.dbClose(con, ps, rs);
+		}
+		
+		return seller;
+	}
 
 }

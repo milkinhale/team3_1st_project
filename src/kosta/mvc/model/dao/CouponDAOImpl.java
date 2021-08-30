@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -17,14 +18,11 @@ public class CouponDAOImpl implements CouponDAO {
 	private Properties proFile = DBUtil.getProFile();
 	
 	/*public static void main(String[] args) {
+		LocalDate now = LocalDate.now();
+		System.out.println(now);
 		CouponDAO dao = new CouponDAOImpl();
-		try {
-			dao.insertCouponTable("JANG", 15);
-			System.out.println("성공");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//dao.insertCouponTable("JANG", 15);
+		System.out.println("성공");
 	}*/
 
 	@Override
@@ -90,6 +88,12 @@ public class CouponDAOImpl implements CouponDAO {
 			int seq = getSeq(con);
 			
 			if(result!=0) {
+				if(salePercent == 10) {
+					LocalDate now = LocalDate.now();
+					if(couponSelectBySysdate(con, customerId)) {
+						return result;
+					}
+				}
 			    int re = insertCoupon(con, salePercent, seq);
 			}
 		} finally {
@@ -119,6 +123,26 @@ public class CouponDAOImpl implements CouponDAO {
 		return result;
 	}
 
+	public boolean couponSelectBySysdate(Connection con, String customerId) throws SQLException{
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		boolean result = false;
+		String sql = proFile.getProperty("coupon.selectBySysdate");
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, customerId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				result = true;
+			}
+		} finally {
+			DBUtil.dbClose(null, ps, rs);
+		}
+		return result;
+	}
+	
 	@Override
 	public int useCoupon(Coupon coupon) throws SQLException {
 		Connection con = null;

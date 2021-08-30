@@ -76,19 +76,18 @@ public class Liquor {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Liquor [liquorNo=");
+		builder.append("상품 번호: ");
 		builder.append(liquorNo);
-		builder.append(", liquorTableNo=");
+		builder.append("/ 종류 번호: ");
 		builder.append(liquorTableNo);
-		builder.append(", liquorName=");
+		builder.append("/ 이름: ");
 		builder.append(liquorName);
-		builder.append(", liquorPrice=");
+		builder.append("/ 가격: ");
 		builder.append(liquorPrice);
-		builder.append(", stock=");
+		builder.append("/ 재고: ");
 		builder.append(stock);
-		builder.append(", addDate=");
+		builder.append("/ 등록일: ");
 		builder.append(addDate);
-		builder.append("]");
 		return builder.toString();
 	}
 	

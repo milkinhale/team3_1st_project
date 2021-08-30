@@ -3,18 +3,16 @@ package kosta.mvc.model.dto;
 public class LiquorTable {
 	private int liquorTableNo;
 	private String liquorType;
-	private String origin;
 	
 	public LiquorTable() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public LiquorTable(int liquorTableNo, String liquorType, String origin) {
+	public LiquorTable(int liquorTableNo, String liquorType) {
 		super();
 		this.liquorTableNo = liquorTableNo;
 		this.liquorType = liquorType;
-		this.origin = origin;
 	}
 
 	public int getLiquorTableNo() {
@@ -33,24 +31,14 @@ public class LiquorTable {
 		this.liquorType = liquorType;
 	}
 
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("LiquorTable [liquorTableNo=");
+		builder.append("종류 번호 =");
 		builder.append(liquorTableNo);
-		builder.append(", liquorType=");
+		builder.append("종류=");
 		builder.append(liquorType);
-		builder.append(", origin=");
-		builder.append(origin);
-		builder.append("]");
 		return builder.toString();
 	}
 	

@@ -29,6 +29,11 @@ public interface CouponDAO {
 	int insertCouponTable(String customerId, int salePercent) throws SQLException;
 	
 	/**
+	 * 현재날짜의 쿠폰 불러오기
+	 * */
+	boolean couponSelectBySysdate(Connection con, String customerId) throws SQLException;
+	
+	/**
 	 * 쿠폰 사용하기
 	 * */
 	int useCoupon(Coupon coupon) throws SQLException;

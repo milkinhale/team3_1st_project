@@ -28,6 +28,10 @@ public class CustomerService {
 		
 		String seller = customer.getSeller();
 		
+		if(!seller.equals("SELLER")) {
+			coupon.insertCouponTable(customerId, 10);
+		}
+		
 		//로그인 된 정보 저장하기
 		Session session = new Session(customerId, seller);
 		
@@ -137,5 +141,14 @@ public class CustomerService {
 		return result;
 	}
 	
+	/**
+	 * 회원인지 판매자 확인  
+	 * @return seller일 경우 "SELLER"(대문자 유의!) 값 리턴. 아닐 경우 null값 리턴  
+	 **/
+	public String sellerCheck (String customerId) throws SQLException{
+		String seller = customerDao.sellerCheck(customerId);
+		
+		return seller;
+	}
 	
 }
