@@ -62,7 +62,13 @@ public class OrderService {
    /**
     * 주문하기
     * */
-	 public void insertOrders(Orders orders) throws SQLException{
+	 public void insertOrders(Orders orders, int couponNo) throws SQLException{
+		//쿠폰 넘버로 몇% 세일하는지 알아내기
+		 int salePercent = orderDao.getSalePercentByCouponNo(couponNo);
+		
+		 //오더 객체게 몇% 세일 받는지 넣어주기
+		orders.setDiscount(salePercent);
+		
 		int result =  orderDao.insertOrder(orders);
 		if(result==0)throw new SQLException("주문하기가 실패하였습니다.");
 	 }

@@ -74,5 +74,10 @@ public interface OrderDAO {
 	  * 해당 회원 번호를 입력하고 장바구니를 오더객체로 만들기
 	  * */
 	List<OrderDetail> convertCartIntoOrderDetailListByCustomerId(String customer_id) throws SQLException, NotFoundException;
+	
+	/**
+	 * 쿠폰 넘버로 할인율 구해오기.
+	 * */
+	int getSalePercentByCouponNo(int couponNo) throws SQLException;
 	 
 }

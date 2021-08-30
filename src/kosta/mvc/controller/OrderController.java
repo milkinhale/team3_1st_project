@@ -82,9 +82,9 @@ public class OrderController {
     /**
 	 * 주문하기
 	 * */
-	public static void insertOrders(Orders order) {
+	public static void insertOrders(Orders order, int couponNo) {
 		try {
-		  orderService.insertOrders(order);
+		orderService.insertOrders(order, couponNo);
 		}catch (Exception e) {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());			
@@ -113,10 +113,10 @@ public class OrderController {
 	 /**
 	  * 장바구니로 주문하기.
 	  * */
-	 public static void OrderCart(String customerId, String addr) throws SQLException, NotFoundException{
+	 public static void OrderCart(String customerId, String addr, int couponNo) throws SQLException, NotFoundException{
 		 try {
 			 //일단 오더 객체를 하나 만듬.
-			 Orders order = new Orders(0, customerId, null, addr, null, 0);
+			 Orders order = new Orders(0, customerId, null, addr, null, 0, 0);
 			 //주문번호 : 0(sql에서 시퀀스로 들어갈꺼임)
 			 //회원번호 : 입력받은 번호 (세션객체에서 가져와야됨)
 			 //주문일자 : null (sql에서 sysdate으로 들어갈꺼임)
@@ -133,7 +133,7 @@ public class OrderController {
 				 order.getOrderDetailList().add(detail);				 
 			 }
 			 //완성된 오더 객체를 서비스의 주문하기 메소드로 날림.	 
-			 orderService.insertOrders(order);
+			 orderService.insertOrders(order, couponNo);
 		 } catch (Exception e) {
 			 e.printStackTrace();
 			 FailView.errorMessage(e.getMessage());	

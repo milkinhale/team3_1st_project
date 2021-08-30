@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dto.Cart;
+import kosta.mvc.model.dto.Coupon;
 import kosta.mvc.model.dto.Liquor;
 import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
@@ -51,7 +52,7 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		try {
 
-			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null, 0);
+			 Orders orders = new Orders(0, "KIM", null, "서울시 송파구", null,0, 12);
 			 OrderDetail orderDetail = new OrderDetail(0, 2, 0, 1, 0);
 
 			 orders.getOrderDetailList().add(orderDetail);
@@ -87,7 +88,7 @@ public class OrderDAOImpl implements OrderDAO {
 	       rs = ps.executeQuery(); 
 	        
 	        while(rs.next()) {
-	        	Orders orders  = new Orders(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+	        	Orders orders  = new Orders(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
 	        	
 	        	//주문번호에 해당하는 상세정보 가져오기
 	        	List<OrderDetail> orderDetailList = selectOrderDetail(orders.getOrderNo());//메소드 호출
@@ -114,7 +115,7 @@ public class OrderDAOImpl implements OrderDAO {
 	       rs = ps.executeQuery(); 
 	        
 	        while(rs.next()) {
-	        	Orders orders  = new Orders(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+	        	Orders orders  = new Orders(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
 	        	
 	        	//주문번호에 해당하는 상세정보 가져오기
 	        	List<OrderDetail> orderDetailList = selectOrderDetail(orders.getOrderNo());//메소드 호출
@@ -244,8 +245,9 @@ public class OrderDAOImpl implements OrderDAO {
 				 int finalPrice = rs.getInt(5);
 				 List <OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
 				 orderDetailList = this.selectOrderDetail(orderNo) ;
+				 int discount = rs.getInt(6);
 				 
-				 returnVal = new Orders(orderNo, customerId, orderDate, orderAddr, orderStatus, finalPrice, orderDetailList);
+				 returnVal = new Orders(orderNo, customerId, orderDate, orderAddr, orderStatus, finalPrice , discount, orderDetailList);
 			 }
 
 			 System.out.println("false");	 
@@ -313,6 +315,7 @@ public class OrderDAOImpl implements OrderDAO {
 		   ps.setString(1, order.getOrderAddr());
 		   ps.setInt(2, this.getTotalAmount(order));//총구매금액구하는 메소드 호출
 		   ps.setString(3, order.getCustomerId());
+		   ps.setInt(4, order.getDiscount());
 		   
 		   result = ps.executeUpdate();
 		   
@@ -340,7 +343,6 @@ public class OrderDAOImpl implements OrderDAO {
 					   throw new SQLException("주문 할수 없습니다....");
 				   }
 			   }
-			   
 			   //주문수량만큼 재고량 감소하기
 			   decrementStock(con, order.getOrderDetailList());
 			   con.commit();
@@ -487,6 +489,9 @@ public class OrderDAOImpl implements OrderDAO {
 	 * 상품 총구매금액 구하기
 	 * */
 	public int getTotalAmount(Orders order) throws SQLException {
+		
+		
+		//할인율 적용 전
 		List<OrderDetail> orderDetailList= order.getOrderDetailList();
 	    int total=0;
 		for(OrderDetail detail : orderDetailList) {
@@ -496,7 +501,42 @@ public class OrderDAOImpl implements OrderDAO {
 			
 	    	total += detail.getCount() * liquor.getLiquorPrice() ;
 	    }
+		
+		//할인율 적용하기!
+		
+		total = total * (100 - order.getDiscount())/100; 
+		
 		return total;
+	}
+	
+	/**
+	 * 쿠폰 넘버로 할인율 구해오기.
+	 * */
+	public int getSalePercentByCouponNo(int couponNo) throws SQLException{
+		int salePercent = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("order.getSalePercentByCouponNo");
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, couponNo);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				salePercent = rs.getInt(1);				
+			}
+			
+		} finally {
+			DBUtil.dbClose(con, ps, rs);
+		}
+		
+		return salePercent;
 	}
 	
 	/**

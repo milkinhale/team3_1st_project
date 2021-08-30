@@ -10,6 +10,7 @@ public class Orders {
 	private String orderAddr;
 	private String orderStatus;
 	private int finalPrice;
+	private int discount;
 	
 	private List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
 	
@@ -19,7 +20,7 @@ public class Orders {
 	}
 
 	public Orders(int orderNo, String customerId, String orderDate, String orderAddr, String orderStatus,
-			int finalPrice) {
+			int finalPrice, int discount) {
 		super();
 		this.orderNo = orderNo;
 		this.customerId = customerId;
@@ -27,12 +28,13 @@ public class Orders {
 		this.orderAddr = orderAddr;
 		this.orderStatus = orderStatus;
 		this.finalPrice = finalPrice;
+		this.discount = discount;
 	}
 	
 	
 
 	public Orders(int orderNo, String customerId, String orderDate, String orderAddr, String orderStatus,
-			int finalPrice, List<OrderDetail> orderDetailList) {
+			int finalPrice, int discount, List<OrderDetail> orderDetailList) {
 		super();
 		this.orderNo = orderNo;
 		this.customerId = customerId;
@@ -40,6 +42,7 @@ public class Orders {
 		this.orderAddr = orderAddr;
 		this.orderStatus = orderStatus;
 		this.finalPrice = finalPrice;
+		this.discount = discount;
 		this.orderDetailList = orderDetailList;
 	}
 
@@ -99,6 +102,14 @@ public class Orders {
 		this.finalPrice = finalPrice;
 	}
 
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -114,11 +125,14 @@ public class Orders {
 		builder.append(orderStatus);
 		builder.append(", finalPrice=");
 		builder.append(finalPrice);
+		builder.append(", discount=");
+		builder.append(discount);
 		builder.append(", orderDetailList=");
 		builder.append(orderDetailList);
 		builder.append("]");
 		return builder.toString();
 	}
 
+	
 	
 }
