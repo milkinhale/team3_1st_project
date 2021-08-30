@@ -40,7 +40,7 @@ public class CartDAOImpl implements CartDAO {
 			
 			
 			System.out.println("****장바구니 삭제하기test *****");
-			System.out.println(dao.deleteCart(4));
+			System.out.println(dao.deleteCart("JANG"));
 
 			
 		}catch (Exception e) {
@@ -131,10 +131,10 @@ public class CartDAOImpl implements CartDAO {
 
 
 	/**
-	 * 장바구니번호를 입력해서 장바구니 삭제하기 
+	 * 회원ID를 입력해서 장바구니 삭제하기 
 	 * */
 	@Override
-	public int deleteCart(int cartNo) throws SQLException {
+	public int deleteCart(String customerId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		int result = 0;
@@ -143,7 +143,7 @@ public class CartDAOImpl implements CartDAO {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			//?값
-			ps.setInt(1, cartNo);
+			ps.setString(1, customerId);
 
 			result = ps.executeUpdate();
 		}finally {
