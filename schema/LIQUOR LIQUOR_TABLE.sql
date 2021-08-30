@@ -38,5 +38,5 @@ INSERT INTO LIQUOR VALUES(LIQUOR_NO.NEXTVAL, 1,  '글렌도워 블랜디드 몰트 위스키'
 SELECT * FROM LIQUOR;
 select * from liquor_table;
 
-
+select * from liquor where liquor_name like '%몬스터%'
 

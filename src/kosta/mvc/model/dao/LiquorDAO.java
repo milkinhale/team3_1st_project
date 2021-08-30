@@ -25,7 +25,11 @@ public interface LiquorDAO {
 	 * 번호(PK)에 해당하는 정보 검색
 	 * */
 	Liquor liquorSelectByLiquorNo(int liquorNo) throws SQLException;
-		
+	
+	/**
+	 * 양주명으로 검색 
+	 * */
+	Liquor liquorSelectByLiquorName(String name) throws SQLException;
 		
 	/**
 	 * 양주 등록하기 

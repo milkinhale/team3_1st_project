@@ -14,67 +14,103 @@ import kosta.mvc.session.SessionSet;
 public class MenuView {
 	private static Scanner sc = new Scanner(System.in);
 	
+	/**
+	 * 첫 화면 기능
+	 * */
 	public static void menu() {
 		while(true) {
 			SessionSet ss = SessionSet.getInstance();
 			System.out.println(ss.getSet());
 			
-			MenuView.printMenu();
+			System.out.println("=== KOSTA liqour Shopping Mall ===");
+			System.out.println("1. 회원가입   |   2. 로그인   |   3. 아이디 찾기   |   4. 비밀번호 찾기   |  9. 종료");
+			
 			int menu = Integer.parseInt(sc.nextLine());
 			switch(menu) {
+			//등록하기
 			case 1 :
-				MenuView.register(); // 가입
+				MenuView.register(); 
 				break;
+			//로그인
 			case 2 :
-				MenuView.login();// 로그인
+				MenuView.login();
 				break;
-			case 3: 
-				MenuView.
+				
+			//아이디 찾기 
+			case 3 :
+				
+				break;
+				
+			//비밀번호 찾기 
+			case 4 :
+				
+				break;
 			
-
+			//종료하기
 			case 9 : 
 				System.exit(0);
 			}
 		}
-
-	}
-	
-
-
-	public static void printMenu() {
-		System.out.println("=== KOSTA liqour Shopping Mall ===");
-		System.out.println("1. 가입   |   2. 로그인   |  9. 종료");
 	}
 	
 	
+	/**
+	 * 유저 로그인 시 출력 
+	 * */
 	public static void printUserMenu(String customerId) {
 		while(true) {
 			SessionSet ss = SessionSet.getInstance();
 			System.out.println(ss.getSet()); //Set객체
 			System.out.println("-----" +customerId+ " 로그인 중 -----");
-			System.out.println(" 1.로그아웃 |  2.상품보기  |  3.주문하기  | 4. 주문내역보기  |  5.장바구니담기  |  6.장바구니보기 ");
+			System.out.println("1.카테고리별 상품보기  |  2.가격대별 상품검색  |  3.상품명 검색  | 4.주문하기  |  5.장바구니 담기  |  6.장바구니 보기  |  7.리뷰 검색  |  8.마이페이지 |  9.로그아웃");
 			int menu =Integer.parseInt( sc.nextLine());
-			/*switch(menu) {
+			
+			/*
+			switch(menu) {
+				//카테고리 상품보기 
 				case 1 :
 					logout(userId);// 
 					return;
 					//break;
-					
+				
+				//가격대별 검색 
 				case 2 :
 					GoodsController.goodsSelect();//전체 상품조회
 					break;
-				case 3 :
+				
+				//상품명 검색 
+				 case 3 :
 					printInputOrder(userId);
 					break;
+					
+				//주문하기
 				case 4 :
+					printInputOrder(userId);
+					break;
+				
+				//장바구니 담기
+				case 5 :
 					OrderController.selectOrdersByUserId(userId);
 					break;
-				case 5 :
+				
+				//장바구니 보기  
+				case 6 :
 					MenuView.putCart(userId);// 
 					break;	
-		
-				case 6 : 
+				
+				//리뷰 검색 
+				case 7 : 
 					viewCart(userId);
+					break;
+				
+				//마이페이지 
+				case 8 : 
+					viewCart(userId);
+					break;
+					
+				//로그아웃 (다시 메뉴로)
+				case 9 : 
+					MenuView.menu();
 					break;
 				}*/
 		}
@@ -83,7 +119,7 @@ public class MenuView {
 	
 	
 	public static void printSubMenu() {
-		System.out.println("1. 수정   |  2.탈퇴   | 9. 나가기");  //아이디&비번찾기
+		System.out.println("1. 수정   |  2.탈퇴   | 9. 나가기");  
 		
 		//이메일 수정 
 		System.out.print("아이디: ");
