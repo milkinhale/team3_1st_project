@@ -53,4 +53,9 @@ public interface LiquorDAO {
 	 * 양주 삭제하기 
 	 * */
 	int deleteLiquor(int liquorNo) throws SQLException;
+	
+	
+	/**
+	 * 양주 수량 변경하기 
+	 * */
 }

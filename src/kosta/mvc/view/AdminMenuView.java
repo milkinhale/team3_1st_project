@@ -113,15 +113,16 @@ public class AdminMenuView {
 					System.out.print("수정할 양주 번호: ");
 					int liquorNo = Integer.parseInt(sc.nextLine());
 					
-					
-
 					System.out.print("수정할 양주 이름: ");
 					liquorName = sc.nextLine();
 					 
 					System.out.print("수정할 양주 가격 : ");
 					liquorPrice = Integer.parseInt(sc.nextLine());
 					
-					LiquorController.updateLiquor(new Liquor(liquorNo, liquorName, liquorPrice));
+					System.out.print("수정할 양주 재고 : ");
+					int stock = Integer.parseInt(sc.nextLine());
+					
+					LiquorController.updateLiquor(new Liquor(liquorNo, liquorName, liquorPrice, stock));
 					break;
 				
 				//양주 삭제 

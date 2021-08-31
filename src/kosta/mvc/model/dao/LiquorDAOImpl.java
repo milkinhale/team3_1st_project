@@ -212,10 +212,11 @@ public class LiquorDAOImpl implements LiquorDAO {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
 
-			//liquor_name = ?, liquor_price = ? where liquor_no = ? 
+			//liquor_name = ?, liquor_price = ?, stock = ? where liquor_no = ? 
 			ps.setString(1, liquorDTO.getLiquorName());
 			ps.setInt(2, liquorDTO.getLiquorPrice());
-			ps.setInt(3, liquorDTO.getLiquorNo());
+			ps.setInt(3, liquorDTO.getStock());
+			ps.setInt(4, liquorDTO.getLiquorNo());
 			
 			result = ps.executeUpdate();
 		}catch (SQLException e) {

@@ -25,6 +25,13 @@ public class Liquor {
 		this.addDate = addDate;
 	}
 	
+	public Liquor(int liquorNo, String liquorName, int liquorPrice, int stock) {
+		this.liquorNo = liquorNo;
+		this.liquorName = liquorName;
+		this.liquorPrice = liquorPrice;
+		this.stock = stock;
+	}
+	
 	
 	public Liquor(int liquorNo, int liquorTableNo, String liquorName, int liquorPrice, int stock, String addDate) {
 		this.liquorNo = liquorNo;
