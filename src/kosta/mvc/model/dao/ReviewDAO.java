@@ -24,9 +24,9 @@ public interface ReviewDAO {
 	List<Review> reviewSelectByLiquorNo(int liquorNo) throws SQLException;
 	
 	/**
-	 * 리뷰 등록하기
+	 * 리뷰 등록
 	 * */
-	int insertReview(Review review) throws SQLException;
+	int insertReview(int liquorNo, String customerId, String content) throws SQLException;
 	
 	
 	/**
@@ -41,6 +41,8 @@ public interface ReviewDAO {
 	 * 해당 리뷰번호에 해당하는 리뷰 삭제
 	 * */
 	int deleteReview(int reviewNo) throws SQLException;
+
+	
 	
 	
 }

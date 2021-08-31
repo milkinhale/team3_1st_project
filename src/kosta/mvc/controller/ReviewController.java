@@ -52,9 +52,9 @@ public class ReviewController {
 	/**
 	 * 리뷰 등록
 	 * */
-	public static void insertReview (Review reviewdto) {
+	public static void insertReview (int liquorNo, String customerId, String content) {
 		try {
-			reviewService.insertReview(reviewdto);
+			reviewService.insertReview(liquorNo, customerId, content);
 			EndView.meesegePrint("등록되었습니다.");
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());

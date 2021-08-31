@@ -269,7 +269,7 @@ public class CustomerMenuView {
 	 * */
 	public static void myPageMenu(String customerId) {
 		System.out.println("-----마이페이지-----");
-		System.out.println("1.주문내역 확인   |  2.주문 취소   |  3.장바구니 비우기  |  4.쿠폰리스트 확인  |  5.회원정보 수정  |  6.회원 탈퇴  |  0. 나가기");  
+		System.out.println("1.주문내역 확인   |  2.리뷰 작성  |   3.주문 취소   |  4.장바구니 비우기  |  5.쿠폰리스트 확인  |  6.회원정보 수정  |  7.회원 탈퇴  |  0. 나가기");  
 		int menu =Integer.parseInt( sc.nextLine());
 		
 		switch(menu) {
@@ -279,33 +279,38 @@ public class CustomerMenuView {
 				myPageMenu(customerId);
 				break;
 				
-			//주문 취소 
+			//2.리뷰작성
 			case 2:
+				putReview(customerId);
+				break;
+				
+			//주문 취소 
+			case 3:
 				deleteOrder();
 				myPageMenu(customerId);
 				break;
 				
 			//장바구니 비우기 
-			case 3:
+			case 4:
 				deleteCart(customerId);
 				break;
 				
 			//쿠폰리스트 확인 
-			case 4:
+			case 5:
 				CouponController.couponSelectAll(customerId);
 				break;
 				
 			//회원정보 수정 
-			case 5:
+			case 6:
 				updateCustomer(customerId);
 				break;
 			
 			//회원정보 확인 
-			case 6:
+			case 7:
 				
 				
 			//회원 탈퇴 
-			case 7:
+			case 8:
 				CustomerController.deleteCustomer(customerId);
 				break;
 				
@@ -332,7 +337,20 @@ public class CustomerMenuView {
 	
 	/////////////마이페이지//////////////
 	/**
-	 * 2. 주문 취소
+	 * 2. 리뷰 작성
+	 * */
+	public static void putReview(String id) {
+		System.out.println("--리뷰 작성하기 --");
+		System.out.println("양주번호 : ");
+		int liquorNo = Integer.parseInt(sc.nextLine());
+		System.out.print("내용을 입력하세요 : ");
+		String content = sc.nextLine();
+		
+		ReviewController.insertReview(liquorNo, id, content);
+	}
+	
+	/**
+	 * 3. 주문 취소
 	 * */
 	public static void deleteOrder() {
 		System.out.print("취소하려는 주문 번호를 입력해주세요: ");
@@ -342,7 +360,7 @@ public class CustomerMenuView {
 	}
 	
 	/**
-	 * 3. 장바구니 비우기
+	 * 4. 장바구니 비우기
 	 * */
 	public static void deleteCart(String id) {
 		//System.out.println("삭제할 장바구니의 회원ID를 입력하세요");

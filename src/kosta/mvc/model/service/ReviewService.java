@@ -47,8 +47,8 @@ public class ReviewService {
 	/**
 	 * 리뷰 등록
 	 * */
-	public void insertReview(Review reviewdto) throws SQLException {
-		int result = reviewDAO.insertReview(reviewdto);
+	public void insertReview(int liquorNo, String customerId, String content) throws SQLException {
+		int result = reviewDAO.insertReview(liquorNo, customerId, content);
 		if(result == 0) throw new SQLException("등록되지 않았습니다.");
 
 	}
