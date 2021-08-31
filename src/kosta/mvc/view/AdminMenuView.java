@@ -113,7 +113,7 @@ public class AdminMenuView {
 					System.out.print("수정할 양주 번호: ");
 					int liquorNo = Integer.parseInt(sc.nextLine());
 					
-					System.out.println(liquorNo + "번의 양주 정보입니다.");
+					
 
 					System.out.print("수정할 양주 이름: ");
 					liquorName = sc.nextLine();
