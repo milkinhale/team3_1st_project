@@ -312,7 +312,7 @@ public class CustomerMenuView {
 			//È¸¿ø Å»Åð 
 			case 7:
 				CustomerController.deleteCustomer(customerId);
-				break;
+				MenuView.menu();
 				
 			//³ª°¡±â 
 			case 0:

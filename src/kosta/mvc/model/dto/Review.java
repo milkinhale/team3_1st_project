@@ -22,11 +22,14 @@ public class Review {
 	}
 	
 	public Review(int liquorNo, String customerId, String content) {
-		// TODO Auto-generated constructor stub
+		this.reviewNo = reviewNo;
+		this.customerId = customerId;
+		this.content = content;
 	}
 
 	public Review(String content, int reviewNo) {
-		// TODO Auto-generated constructor stub
+		this.reviewNo = reviewNo;
+		this.content = content;
 	}
 
 	public int getReviewNo() {
