@@ -46,9 +46,9 @@ public class CustomerService {
 		String seller = customer.getSeller();
 		
 		//????????????????????????????????????????????????????????????????????????이거 왜 넣은건지 물어보기
-		if(!seller.equals("SELLER")) {
+		/*if(!seller.equals("SELLER")) {
 			coupon.insertCouponTable(customerId, 10);
-		}
+		}*/
 		
 		//로그인 된 정보 저장하기
 		Session session = new Session(customerId, seller);
@@ -76,7 +76,7 @@ public class CustomerService {
 			
 			int result =  customerDao.insertCustomer(customer);
 		    if(result==0)throw new SQLException("----------*****회원가입에 실패하였습니다.*****----------");
-		    coupon.insertCouponTable(customer.getCustomerId(), 15);
+		    //coupon.insertCouponTable(customer.getCustomerId(), 15);
 		} else {
 			throw new SQLException("----------*****애들은 가라*****----------");
 		}

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import kosta.mvc.controller.CouponController;
 import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dto.Cart;
 import kosta.mvc.model.dto.Coupon;
@@ -354,7 +355,7 @@ public class OrderDAOImpl implements OrderDAO {
 			   //주문수량만큼 재고량 감소하기
 			   decrementStock(con, order.getOrderDetailList());
 			   if(totalAmount > 200000) {
-				   couponDAO.insertCouponTable(order.getCustomerId(), 20);
+				   CouponController.insertCouponTable(order.getCustomerId(), 20);
 			   }
 			   con.commit();
 		   }

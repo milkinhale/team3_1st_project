@@ -91,7 +91,7 @@ public class CouponDAOImpl implements CouponDAO {
 					LocalDate now = LocalDate.now();
 					if (now.getDayOfWeek().getValue() == 2) {
 						if (couponSelectBySysdate(con, customerId)) {
-							return result;
+							return -10;
 						}
 					}else {
 						return result;

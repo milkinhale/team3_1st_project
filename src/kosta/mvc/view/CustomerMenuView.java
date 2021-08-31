@@ -20,6 +20,7 @@ public class CustomerMenuView {
 	 * 회원 로그인시
 	 * */
 	public static void customerMenu(String customerId) {
+		CouponController.insertCouponTable(customerId, 10);
 		while(true) {
 			SessionSet ss = SessionSet.getInstance();
 			System.out.println(ss.getSet()); //Set객체

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import kosta.mvc.exception.DuplicatedException;
 import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dao.CouponDAO;
 import kosta.mvc.model.dao.CouponDAOImpl;
@@ -34,9 +35,10 @@ public class CouponService {
 	/**
 	 * 쿠폰테이블 등록하기
 	 * */
-	public void insertCouponTable(String customerId, int salePercent) throws SQLException, NotFoundException {
+	public void insertCouponTable(String customerId, int salePercent) throws SQLException, NotFoundException, DuplicatedException {
 		int result = couponDAO.insertCouponTable(customerId, salePercent);
 		if(result == 0) throw new NotFoundException("등록되지 않았습니다");
+		if(result == -10) throw new DuplicatedException();
 	}
 	
 	/**

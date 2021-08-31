@@ -43,6 +43,7 @@ public class CustomerController {
     public static void register(Customer customer) {
     	try {
 			customerService.register(customer);
+			CouponController.insertCouponTable(customer.getCustomerId(), 15);
 			EndView.printMessage("회원가입에 성공했어요.");
 		}catch (Exception e) {
 			FailView.errorMessage("회원가입에 실패했어요.");

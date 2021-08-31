@@ -3,6 +3,7 @@ package kosta.mvc.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import kosta.mvc.exception.DuplicatedException;
 import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dto.Coupon;
 import kosta.mvc.model.service.CouponService;
@@ -43,7 +44,9 @@ public class CouponController {
 	public static void insertCouponTable(String customerId, int salePercent) {
 		try {
 			couponService.insertCouponTable(customerId, salePercent);
-			EndView.printMessage("쿠폰이 등록되었습니다.");
+			EndView.printMessage(salePercent + "% 쿠폰이 등록되었습니다.");
+		} catch(DuplicatedException d){
+			int a = 1;
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
 		}
