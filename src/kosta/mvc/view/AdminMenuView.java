@@ -56,6 +56,7 @@ public class AdminMenuView {
 				case 0:
 					//CustomerMenuView.logout(sellerId);
 					logout(sellerId);
+					MenuView.menu();
 					break;
 					
 				default:
