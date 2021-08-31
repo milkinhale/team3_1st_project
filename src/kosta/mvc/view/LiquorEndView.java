@@ -18,13 +18,13 @@ public class LiquorEndView {
 	}
 	
 	public static void printLiquorTableList(List<LiquorTable> liquorTableList) {
-		System.out.println("------양주 종류 리스트입니다------");
+		System.out.println("------상품종류 목록입니다------");
 		for (LiquorTable liquorTable : liquorTableList) {
 			System.out.println(liquorTable);
 		}
 		System.out.println();
 	}
-	
+
 	public static void printLiquor(Liquor liquorDTO) {
 		System.out.println("해당 상품 정보입니다.");
 		System.out.println(liquorDTO + "굈");

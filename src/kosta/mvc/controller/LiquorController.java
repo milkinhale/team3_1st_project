@@ -5,6 +5,7 @@ import java.util.List;
 
 import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.model.dto.Liquor;
+import kosta.mvc.model.dto.LiquorTable;
 import kosta.mvc.model.service.LiquorService;
 import kosta.mvc.view.FailView;
 import kosta.mvc.view.LiquorEndView;
@@ -24,8 +25,8 @@ public class LiquorController {
 	
 	public static void selectLiquorTable() {
 		try {
-			liquorService.selectLiquorTable();
-			LiquorEndView.messagePrint("양주 카테고리 입니다.");
+			List<LiquorTable> liquorTable = liquorService.selectLiquorTable();
+			LiquorEndView.printLiquorTableList(liquorTable);
 		}catch(SQLException e) {
 			FailView.errorMessage(e.getMessage());
 		}
