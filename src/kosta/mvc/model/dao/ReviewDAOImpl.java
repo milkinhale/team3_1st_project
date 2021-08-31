@@ -61,7 +61,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			ps.setString(1, customerId);
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				Review reviewDto = new Review(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5));
 				reivewList.add(reviewDto);
 			}
@@ -89,7 +89,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			ps.setInt(1, liquorNo);
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				Review reviewDto = new Review(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5));
 				reivewList.add(reviewDto);
 			}
