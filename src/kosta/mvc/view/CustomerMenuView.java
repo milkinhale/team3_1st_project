@@ -306,11 +306,11 @@ public class CustomerMenuView {
 				break;
 			
 			//회원정보 확인 
-			case 7:
-				
+			//case 7:
+			//	break;
 				
 			//회원 탈퇴 
-			case 8:
+			case 7:
 				CustomerController.deleteCustomer(customerId);
 				break;
 				
