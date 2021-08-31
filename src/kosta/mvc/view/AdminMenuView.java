@@ -295,6 +295,7 @@ public class AdminMenuView {
 				
 				//리뷰 삭제 
 				case 5:
+					deleteReivew();
 					break;
 				
 				//나가기
@@ -337,8 +338,8 @@ public class AdminMenuView {
 		System.out.println("새로운 리뷰 내용을 입력하세요: ");
 		String content = sc.nextLine();
 		
-		Review review = new Review(content, reviewNo);
-		ReviewController.updateReview(review);
+		//Review review = new Review(content, reviewNo);
+		ReviewController.updateReview(content, reviewNo);
 	}
 	
 	/**

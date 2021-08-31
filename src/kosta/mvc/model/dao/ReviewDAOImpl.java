@@ -134,7 +134,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	 * */
 	
 	@Override
-	public int updateReview(Review review) throws SQLException {
+	public int updateReview(String content, int reviewNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		int result = 0;
@@ -143,8 +143,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			//?°ª
-			ps.setString(1, review.getContent());
-			ps.setInt(2, review.getReviewNo());
+			ps.setString(1, content);
+			ps.setInt(2, reviewNo);
 
 			result = ps.executeUpdate();
 			

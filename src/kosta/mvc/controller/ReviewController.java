@@ -64,9 +64,9 @@ public class ReviewController {
 	/**
 	 * 리뷰 수정하기
 	 * */
-	public static void updateReview (Review review) {
+	public static void updateReview (String content, int reviewNo) {
 		try {
-			reviewService.updateReview(review);
+			reviewService.updateReview(content, reviewNo);
 			EndView.meesegePrint("수정되었습니다.");
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());

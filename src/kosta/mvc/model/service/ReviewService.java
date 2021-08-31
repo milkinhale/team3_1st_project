@@ -56,8 +56,8 @@ public class ReviewService {
 	/**
 	 * 리뷰 수정
 	 * */
-	public void updateReview(Review review)throws SQLException {
-		int result = reviewDAO.updateReview(review);
+	public void updateReview(String content, int reviewNo)throws SQLException {
+		int result = reviewDAO.updateReview(content, reviewNo);
 		if(result == 0) throw new SQLException("수정되지 않았습니다.");
 	}
 	

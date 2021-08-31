@@ -30,11 +30,10 @@ public interface ReviewDAO {
 	
 	
 	/**
-	 * 리뷰 수정하기 -> 리뷰 번호를 받아서?
-	 * 받은 리뷰번호에 해당하는 리뷰 수정?
-	 *  판매자 메뉴에서 사용
+	 * 리뷰 수정하기
 	 * */
-	int updateReview(Review review) throws SQLException;
+	int updateReview(String content, int reviewNo) throws SQLException;
+
 	
 	/**
 	 * 리뷰 삭제하기  -> 리뷰 번호를 받아서
@@ -42,6 +41,7 @@ public interface ReviewDAO {
 	 * */
 	int deleteReview(int reviewNo) throws SQLException;
 
+	
 	
 	
 	
