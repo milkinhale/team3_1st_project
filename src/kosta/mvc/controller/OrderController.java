@@ -74,6 +74,7 @@ public class OrderController {
 	public static void deleteOrder(int orderNo){
 		try {
 			orderService.deleteOrder(orderNo);
+			EndView.meesegePrint("주문번호" + orderNo + "번이 취소되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());

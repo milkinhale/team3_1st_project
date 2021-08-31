@@ -75,11 +75,12 @@ public class OrderDAOImpl implements OrderDAO {
 //		}
 //
 //		try {
-//			dao.deleteOrder(30);
+//			dao.deleteOrder(35);
 //		} catch (Exception e) {
 //			// TODO: handle exception
 //			e.printStackTrace();
 //		}
+		
 		
 	}
 	/////////////////Test//////////////////////////
@@ -186,37 +187,74 @@ public class OrderDAOImpl implements OrderDAO {
 		Orders orderActual = this.selectOrderByOrderNo(orderNo);
 		String orderStatus = orderActual.getOrderStatus();
 		
-		if(orderStatus.equals("결제확인중")) {
-		
+		if(orderStatus.equals("결제확인중")) {//결제 중이면
+			
 			String sql = profile.getProperty("order.delete");
 			//System.out.println(sql);
 			
 			try {
 				con = DBUtil.getConnection();
+				
+				//일단 오더 밑에 딸린 오더디테일에서 리퀴어 넘버, 카운트 가져와줘야할듯
+				for(OrderDetail orderDetail : orderActual.getOrderDetailList()) {
+					//오더 디테일 한개씩 꺼내서...
+					int liquorNo = orderDetail.getLiquorNo();
+					int count = orderDetail.getCount();
+					//재고량 변경해주는 메소드 호출.
+					int restoreStock = restoreStock(con, liquorNo, count);
+					if(restoreStock==0) throw new SQLException("주문 취소 실패");
+				}
+				
 				ps = con.prepareStatement(sql);
 	
 				ps.setInt(1, orderNo);
-//				System.out.println("orderNo : " + orderNo);
-				
-//				System.out.println(sql);
 				result = ps.executeUpdate();
-//				System.out.println("result: " + result);
 				
-	//			if(result == 0) {
-	//				System.out.println("FAILED");
-	//			}else {
-	//				System.out.println("SUCCESS");
-	//			}
 				
-			}catch(Exception e){
-				e.printStackTrace();
 			}finally {
 				DBUtil.dbClose(con, ps);
 			}
 		}
 		else {
-			System.out.println("결제확인중 아님. 주문 취소 불가.");
+			throw new SQLException("결제확인중 아님. 주문 취소 불가.");
 		}
+		return result;
+	}
+	
+	public int restoreStock(Connection con, int liquorNo, int count) throws SQLException{
+		int result = 0;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = profile.getProperty("orderDetail.selectStockByLiquorNo");
+		
+		int CurrentCount = 0;
+		int updateCount = 0;
+		
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, liquorNo);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				CurrentCount = rs.getInt(1);
+				result = 1;
+				
+				updateCount = CurrentCount + count;
+				LiquorDAO liquorDao = new LiquorDAOImpl();
+				Liquor liquor = new Liquor();
+				liquor.setLiquorNo(liquorNo);
+				liquor.setStock(updateCount);
+				
+				liquorDao.updateStock(liquor);
+				//System.out.println("updateCount:" + updateCount);
+			}
+			
+			
+		}finally {
+			DBUtil.dbClose(null, ps, rs);
+		}
+		
 		return result;
 	}
 
