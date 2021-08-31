@@ -25,7 +25,7 @@ public class CustomerMenuView {
 			SessionSet ss = SessionSet.getInstance();
 			System.out.println(ss.getSet()); //Set객체
 			System.out.println("-----" +customerId+ " 로그인 중 -----");
-			System.out.println("1.카테고리별 상품보기  |  2.가격대별 상품검색  |  3.상품명 검색  | 4.주문하기  |  5.장바구니 담기  |  6.장바구니 보기  |  7.리뷰 검색  |  8.마이페이지 |  0.로그아웃");
+			System.out.println("1.카테고리별 상품보기  |  2.가격대별 상품검색  |  3.상품명 검색  | 4.주문하기  |  5.장바구니 담기  |  6.장바구니 보기  |  7.리뷰페이지  |  8.마이페이지 |  0.로그아웃");
 			int menu =Integer.parseInt( sc.nextLine());
 			
 			
@@ -69,7 +69,7 @@ public class CustomerMenuView {
 				
 				//리뷰 검색 
 				case 7 : 
-					selectReview(customerId);
+					reviewMenu(customerId);
 					break;
 				
 				//마이페이지 
@@ -223,13 +223,45 @@ public class CustomerMenuView {
     
 	
 	/**
-	 * 7. 리뷰 검색 
+	 * 7. 리뷰 메뉴
 	 * */
-	public static void selectReview(String id) {
-		System.out.println("--리뷰 검색--");
-		System.out.println("아이디를 입력하세요 : ");
-		String customerId = sc.nextLine();
-		ReviewController.reviewSelectByCustomerId(customerId);
+	public static void reviewMenu(String customerId) {
+		System.out.println("-----리뷰 페이지-----");
+		System.out.println("1.전체리뷰 조회  |  2.양주별 리뷰조회   |  3.회원별 리뷰조회  |  4.나가기");  
+		int menu =Integer.parseInt(sc.nextLine());
+		
+		switch(menu) {
+		//전체리뷰조회
+		case 1:
+			ReviewController.reviewSelectAll();
+			reviewMenu(customerId);
+			break;
+			
+		//양주별 리뷰 조회
+		case 2:
+			System.out.println("양주번호를 입력하세요 : ");
+			int liquorNo = Integer.parseInt(sc.nextLine());
+			ReviewController.reviewSelectByLiquorNo(liquorNo);
+			reviewMenu(customerId);
+			break;
+			
+		//회원별 리뷰 조회
+		case 3:
+			System.out.println("회원ID를 입력하세요 : ");
+			String id = sc.nextLine();
+			ReviewController.reviewSelectByCustomerId(id);
+			reviewMenu(customerId);
+			break;
+			
+			//나가기 
+		case 4:
+			customerMenu(customerId);
+			break;
+
+		default:
+			System.out.println("번호를 다시 확인해주세요.");
+			
+		}
 	}
     
 	/**

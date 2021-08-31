@@ -42,7 +42,7 @@ public class ReviewController {
 	public static void reviewSelectByLiquorNo(int liquorNo) {
 		try {
 			List<Review> reviewList = reviewService.reviewSelectByLiquorNo(liquorNo);
-			EndView.printReviewByCustomerId(reviewList);
+			EndView.printReviewByLiquorNo(reviewList);
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
 			

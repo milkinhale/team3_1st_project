@@ -56,7 +56,10 @@ public class EndView {
 	 * 고객아이디 해당 리뷰 조회
 	 * */
 	public static void printReviewByCustomerId(List<Review> reviewList){
-		System.out.println(reviewList + "\n");
+		for(Review r : reviewList) {
+			System.out.println(r);
+		}
+		System.out.println();
 		
 	}
 	
@@ -64,7 +67,10 @@ public class EndView {
 	 * 양주종류별 리뷰 검색
 	 * */
 	public static void printReviewByLiquorNo(List<Review> reviewList){
-		System.out.println(reviewList + "\n");
+		for(Review r : reviewList) {
+			System.out.println(r);
+		}
+		System.out.println();
 		
 	}
 	
