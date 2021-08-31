@@ -86,6 +86,7 @@ public class OrderController {
 	public static void insertOrders(Orders order, int couponNo) {
 		try {
 		orderService.insertOrders(order, couponNo);
+		EndView.meesegePrint("주문이 완료되었습니다!");
 		}catch (Exception e) {
 			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());			
