@@ -15,7 +15,7 @@ public interface CartDAO {
 	/**
 	 * 장바구니 담기
 	 * */
-	int insertCart(Cart cart) throws SQLException;
+	//int insertCart(Cart cart) throws SQLException;
 	
 
 	/**
@@ -32,5 +32,10 @@ public interface CartDAO {
 	 * 장바구니번호를 입력해서 장바구니 삭제하기 
 	 * */
 	int deleteCart(String customerId) throws SQLException;
+
+	/**
+	 * 장바구니 담기
+	 * */
+	int insertCart(String customerId, int liquorNo, int cartCount) throws SQLException;
 
 }

@@ -2,10 +2,12 @@ package kosta.mvc.view;
 
 import java.util.Scanner;
 
+import kosta.mvc.controller.CartController;
 import kosta.mvc.controller.CouponController;
 import kosta.mvc.controller.CustomerController;
 import kosta.mvc.controller.LiquorController;
 import kosta.mvc.controller.OrderController;
+import kosta.mvc.controller.ReviewController;
 import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
 import kosta.mvc.session.Session;
@@ -55,17 +57,18 @@ public class CustomerMenuView {
 				
 				//장바구니 담기
 				case 5 :
+					putCart(customerId);
 					//OrderController.selectOrdersByUserId(customerId);
 					break;
 				
 				//장바구니 보기  
 				case 6 :
-					//putCart(userId);
+					viewCart(customerId);
 					break;	
 				
 				//리뷰 검색 
 				case 7 : 
-					//viewCart(userId);
+					selectReview(customerId);
 					break;
 				
 				//마이페이지 
@@ -123,12 +126,14 @@ public class CustomerMenuView {
      * */
     public static void putCart(String id) {
 		System.out.println("--장바구니 담기 작업 --");
-		System.out.print("상품번호 : ");
-		String goodsId = sc.nextLine();
+		System.out.print("아이디를 입력하세요 : ");
+		String customerId = sc.nextLine();
+		System.out.println("양주번호 : ");
+		int liquorNo = Integer.parseInt(sc.nextLine());
 		System.out.print("수량 : ");
-		int qty = Integer.parseInt(sc.nextLine());
+		int cartCount = Integer.parseInt(sc.nextLine());
 		
-		//CartController.putCart(id,goodsId,qty);
+		CartController.insertCart(customerId,liquorNo,cartCount);
 	}
     
     
@@ -136,7 +141,11 @@ public class CustomerMenuView {
      * 6. 장바구니 보기
      * */
 	public static void viewCart(String id) {
-		//CartController.viewCart(id);
+		System.out.println("--장바구니 보기--");
+		System.out.println("아이디를 입력하세요 : ");
+		String customerId = sc.nextLine();
+		CartController.cartSelectByCustomerId(customerId);
+		
 		/*
 		 * 장바구니 보여주고...
 		 * 스캐너 입력 받아서 
@@ -176,7 +185,12 @@ public class CustomerMenuView {
 	/**
 	 * 7. 리뷰 검색 
 	 * */
-	
+	public static void selectReview(String id) {
+		System.out.println("--리뷰 검색--");
+		System.out.println("아이디를 입력하세요 : ");
+		String customerId = sc.nextLine();
+		ReviewController.reviewSelectByCustomerId(customerId);
+	}
     
 	/**
 	 * 8. 마이페이지 메뉴
@@ -201,6 +215,7 @@ public class CustomerMenuView {
 				
 			//장바구니 비우기 
 			case 3:
+				deleteCart(customerId);
 				break;
 				
 			//쿠폰리스트 확인 
@@ -257,7 +272,12 @@ public class CustomerMenuView {
 	/**
 	 * 3. 장바구니 비우기
 	 * */
-	
+	public static void deleteCart(String id) {
+		System.out.println("삭제할 장바구니의 회원ID를 입력하세요");
+		String customerId = sc.nextLine();
+		
+		CartController.deleteCart(customerId);
+	}
 	
 	
 	/**

@@ -109,7 +109,7 @@ public class CartDAOImpl implements CartDAO {
 	 * 장바구니 담기
 	 * */
 	@Override
-	public int insertCart(Cart cart) throws SQLException {
+	public int insertCart(String customerId, int liquorNo, int cartCount) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		int result = 0;
@@ -117,9 +117,9 @@ public class CartDAOImpl implements CartDAO {
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, cart.getCustomerId());
-			ps.setInt(2, cart.getLiquorNo());
-			ps.setInt(3, cart.getCartCount());
+			ps.setString(1, customerId);
+			ps.setInt(2, liquorNo);
+			ps.setInt(3, cartCount);
 		
 			result = ps.executeUpdate();
 		}finally {
@@ -152,5 +152,8 @@ public class CartDAOImpl implements CartDAO {
 		
 		return result;
 	}
+
+
+	
 
 }
