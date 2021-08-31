@@ -513,8 +513,7 @@ public class OrderDAOImpl implements OrderDAO {
 	    	total += detail.getCount() * liquor.getLiquorPrice() ;
 	    }
 		
-		//할인율 적용하기!
-		
+		//할인율 적용하기!		
 		total = total * (100 - order.getDiscount())/100; 
 		
 		return total;
