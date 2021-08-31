@@ -93,13 +93,13 @@ public class AdminMenuView {
 				//양주 추가 
 				case 3:
 					System.out.print("양주종류 번호: ");
-					liquorTableNo = sc.nextInt();
+					liquorTableNo = Integer.parseInt(sc.nextLine());
 					
 					System.out.print("양주 이름: ");
 					String liquorName = sc.nextLine();
 					 
 					System.out.print("양주 가격 : ");
-					int liquorPrice = sc.nextInt();
+					int liquorPrice = Integer.parseInt(sc.nextLine());
 					 
 					System.out.print("등록일자 : ");
 					String addDate = sc.nextLine();
@@ -111,7 +111,7 @@ public class AdminMenuView {
 				//양주 수정 
 				case 4:
 					System.out.print("수정할 양주 번호: ");
-					int liquorNo = sc.nextInt();
+					int liquorNo = Integer.parseInt(sc.nextLine());
 					
 					System.out.println(liquorNo + "번의 양주 정보입니다.");
 					LiquorController.liquorSelectByLiquorNo(liquorNo);
@@ -120,7 +120,7 @@ public class AdminMenuView {
 					liquorName = sc.nextLine();
 					 
 					System.out.print("수정할 양주 가격 : ");
-					liquorPrice = sc.nextInt();
+					liquorPrice = Integer.parseInt(sc.nextLine());
 					
 					LiquorController.updateLiquor(new Liquor(liquorNo, liquorName, liquorPrice));
 					break;
@@ -128,9 +128,9 @@ public class AdminMenuView {
 				//양주 삭제 
 				case 5:
 					System.out.println("삭제할 양주번호: ");
-					liquorNo = sc.nextInt();
+					liquorNo = Integer.parseInt(sc.nextLine());
 					System.out.println("정말 삭제하시겠습니까?   1.Yes   2.No");
-					int select = sc.nextInt();
+					int select = Integer.parseInt(sc.nextLine());
 					switch(select) {
 						case 1:
 							LiquorController.deleteLiquor(liquorNo);
