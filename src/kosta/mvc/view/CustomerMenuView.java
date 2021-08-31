@@ -142,9 +142,8 @@ public class CustomerMenuView {
      * */
 	public static void viewCart(String id) {
 		System.out.println("--장바구니 보기--");
-		System.out.println("아이디를 입력하세요 : ");
-		String customerId = sc.nextLine();
-		CartController.cartSelectByCustomerId(customerId);
+		
+		CartController.cartSelectByCustomerId(id);
 		
 		/*
 		 * 장바구니 보여주고...
@@ -157,7 +156,7 @@ public class CustomerMenuView {
 		 * 
 		 * 추가로 배송 주소, 쿠폰 번호 입력 받아주시면 될듯.
 		 * */
-		/*
+		
 		System.out.println("장바구니를 주문하시겠습니까? (예:1 | 뒤로가기:0)");
 		int input = Integer.parseInt(sc.nextLine());
 		
@@ -177,7 +176,7 @@ public class CustomerMenuView {
 			//다시 고객 메뉴 띄우기
 			customerMenu(id);
 		}
-		*/
+		
 		
 	}
     
