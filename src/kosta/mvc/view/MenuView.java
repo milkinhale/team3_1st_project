@@ -3,12 +3,8 @@ package kosta.mvc.view;
 
 import java.util.Scanner;
 
-import kosta.mvc.controller.CartController;
 import kosta.mvc.controller.CustomerController;
-import kosta.mvc.controller.LiquorController;
-import kosta.mvc.controller.OrderController;
 import kosta.mvc.model.dto.Customer;
-import kosta.mvc.session.Session;
 import kosta.mvc.session.SessionSet;
 
 public class MenuView {
@@ -70,7 +66,7 @@ public class MenuView {
 		 System.out.print("이름 : ");
 		 String customerName = sc.nextLine();
 		 
-		 System.out.print("생일(년도/월/일) :   예시) 00/08/09");
+		 System.out.print("생일(년도/월/일) :   예시) 2000/08/09");
 		 String birth = sc.nextLine();
 		 
 		 System.out.print("이메일 : ");

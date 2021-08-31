@@ -1,13 +1,11 @@
 package kosta.mvc.view;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
+import kosta.mvc.controller.CouponController;
 import kosta.mvc.controller.CustomerController;
-import kosta.mvc.controller.OrderController;
-import kosta.mvc.exception.NotFoundException;
 import kosta.mvc.controller.LiquorController;
-import kosta.mvc.model.dto.Customer;
+import kosta.mvc.controller.OrderController;
 import kosta.mvc.model.dto.OrderDetail;
 import kosta.mvc.model.dto.Orders;
 import kosta.mvc.session.Session;
@@ -93,24 +91,32 @@ public class CustomerMenuView {
 	 * */
     public static void printInputOrder(String customerId) {
     	System.out.print("주문상품번호 : ");
-		 int liquorNo =Integer.parseInt(sc.nextLine());
+		int liquorNo =Integer.parseInt(sc.nextLine());
 		 
-		 System.out.print("주문수량 : ");
-		 int count = Integer.parseInt(sc.nextLine());
+		System.out.print("주문수량 : ");
+		int count = Integer.parseInt(sc.nextLine());
 		 
-		 System.out.print("배송주소 : ");
-		 String orderAddr = sc.nextLine();
+		System.out.print("배송주소 : ");
+		String orderAddr = sc.nextLine();
 
-	     System.out.print("쿠폰 코드 입력 : ");
-		 int couponNo =Integer.parseInt(sc.nextLine());
-		 
-		
-		 Orders orders = new Orders(0, customerId, null, orderAddr, null, 0, 0);
-		 OrderDetail orderDetail = new OrderDetail(0, liquorNo, 0, count, 0);
-		 
-		 orders.getOrderDetailList().add(orderDetail);
-		 
-		 OrderController.insertOrders(orders, couponNo);	 
+		System.out.print("쿠폰을 사용하시겠습니까?(yes or no) : ");
+		String use = sc.nextLine();
+
+		CouponController.couponSelectAll(customerId);
+
+		int couponNo = 0;
+		if (use.equals("yes")) {
+			System.out.print("쿠폰 코드 입력 : ");
+			couponNo = Integer.parseInt(sc.nextLine());
+		}
+
+		Orders orders = new Orders(0, customerId, null, orderAddr, null, 0, 0);
+		OrderDetail orderDetail = new OrderDetail(0, liquorNo, 0, count, 0);
+
+		orders.getOrderDetailList().add(orderDetail);
+
+		OrderController.insertOrders(orders, couponNo);
+		CouponController.useCoupon(couponNo); 
     }
 	
     /**
@@ -200,6 +206,7 @@ public class CustomerMenuView {
 				
 			//쿠폰리스트 확인 
 			case 4:
+				CouponController.couponSelectAll(customerId);
 				break;
 				
 			//회원정보 수정 
@@ -252,10 +259,6 @@ public class CustomerMenuView {
 	 * 3. 장바구니 비우기
 	 * */
 	
-	
-	/**
-	 * 4. 쿠폰리스트 확인 
-	 * */
 	
 	
 	/**

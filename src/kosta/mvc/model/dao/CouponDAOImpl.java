@@ -89,7 +89,7 @@ public class CouponDAOImpl implements CouponDAO {
 			if(result!=0) {
 				if (salePercent == 10) {
 					LocalDate now = LocalDate.now();
-					if (now.getDayOfWeek().equals("MONDAY")) {
+					if (now.getDayOfWeek().equals("TUESDAY")) {
 						if (couponSelectBySysdate(con, customerId)) {
 							return result;
 						}
@@ -147,7 +147,7 @@ public class CouponDAOImpl implements CouponDAO {
 	}
 	
 	@Override
-	public int useCoupon(Coupon coupon) throws SQLException {
+	public int useCoupon(int couponNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -156,7 +156,7 @@ public class CouponDAOImpl implements CouponDAO {
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, coupon.getCouponNo());
+			ps.setInt(1, couponNo);
 			
 			result = ps.executeUpdate();
 		} finally {

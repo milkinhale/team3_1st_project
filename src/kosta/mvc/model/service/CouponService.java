@@ -42,8 +42,8 @@ public class CouponService {
 	/**
 	 * 쿠폰 사용하기
 	 * */
-	public void useCoupon(Coupon coupon) throws SQLException, NotFoundException {
-		int result = couponDAO.useCoupon(coupon);
+	public void useCoupon(int couponNo) throws SQLException, NotFoundException {
+		int result = couponDAO.useCoupon(couponNo);
 		if(result == 0) throw new NotFoundException("사용돠지 않았습니다");
 	}
 }

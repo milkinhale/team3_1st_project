@@ -52,9 +52,9 @@ public class CouponController {
 	/**
 	 * 쿠폰 사용하기
 	 * */
-	public static void useCoupon(Coupon coupon) {
+	public static void useCoupon(int couponNo) {
 		try {
-			couponService.useCoupon(coupon);
+			couponService.useCoupon(couponNo);
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
 		}

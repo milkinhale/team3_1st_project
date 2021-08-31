@@ -36,7 +36,7 @@ public interface CouponDAO {
 	/**
 	 * 쿠폰 사용하기
 	 * */
-	int useCoupon(Coupon coupon) throws SQLException;
+	int useCoupon(int couponNo) throws SQLException;
 	
 	/**
 	 * Connection  입력 받고 현재 시퀀스 번호 가져오기
