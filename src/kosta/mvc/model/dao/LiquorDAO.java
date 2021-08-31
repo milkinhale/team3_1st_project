@@ -58,4 +58,5 @@ public interface LiquorDAO {
 	/**
 	 * 양주 수량 변경하기 
 	 * */
+	int updateStock(Liquor liquorDTO) throws SQLException;
 }

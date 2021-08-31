@@ -12,6 +12,11 @@ public class Liquor {
 		super();
 	}
 	
+	public Liquor(int liquorNo, int stock) {
+		this.liquorNo = liquorNo;
+		this.stock = stock;
+	}
+	
 	public Liquor(int liquorNo, String liquorName, int liquorPrice) {
 		this.liquorNo = liquorNo;
 		this.liquorName = liquorName;
