@@ -114,8 +114,7 @@ public class AdminMenuView {
 					int liquorNo = Integer.parseInt(sc.nextLine());
 					
 					System.out.println(liquorNo + "번의 양주 정보입니다.");
-					LiquorController.liquorSelectByLiquorNo(liquorNo);
-					
+
 					System.out.print("수정할 양주 이름: ");
 					liquorName = sc.nextLine();
 					 

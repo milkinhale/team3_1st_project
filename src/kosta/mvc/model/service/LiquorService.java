@@ -33,7 +33,9 @@ public class LiquorService {
 	 * */
 	public List<Liquor> liquorsSelectByLiquorType(int liqourTableNo) throws NotFoundException, SQLException{
 		List<Liquor> list = liquorDao.liquorsSelectByLiquorType(liqourTableNo);
-		if(list.size()==0)throw new NotFoundException("해당 종류에 해당하는 상품이 없어요.");
+		if(list.size()==0) {
+			throw new NotFoundException("해당 종류에 해당하는 상품이 없어요.");
+		}
 		return list;
 	}
 	
