@@ -163,14 +163,22 @@ public class CustomerMenuView {
 		if(input == 1) {//입력값이 1이면...
 			System.out.print("배송 주소 :");
 			String addr = sc.nextLine();
-			System.out.println("쿠폰번호 (없으면 0): ");
-			int couponNo = Integer.parseInt(sc.nextLine());
+			System.out.print("쿠폰을 사용하시겠습니까?(yes or no) : ");
+			String use = sc.nextLine();
+
+			int couponNo = 0;
+			if (use.equals("yes")) {
+				CouponController.couponSelectAll(id);
+				System.out.print("쿠폰 코드 입력 : ");
+				couponNo = Integer.parseInt(sc.nextLine());
+			}
 			
 			//장바구니로 주문하는 오더 컨트롤러의 메소드 호출.
 			OrderController.OrderCart(id, addr, couponNo);
 			//id -> 세션에서 갖고옴
 			//addr -> 스캐너에서 입력 받음
 			//couponNo -> 스캐너에서 입력 받음(없으면 0 입력)
+			CouponController.useCoupon(couponNo);
 			
 		}else {//입력값이 1이 아니면...
 			//다시 고객 메뉴 띄우기
