@@ -89,7 +89,7 @@ public class CouponDAOImpl implements CouponDAO {
 			if(result!=0) {
 				if (salePercent == 10) {
 					LocalDate now = LocalDate.now();
-					if (now.getDayOfWeek().equals("TUESDAY")) {
+					if (now.getDayOfWeek().getValue() == 2) {
 						if (couponSelectBySysdate(con, customerId)) {
 							return result;
 						}

@@ -78,15 +78,15 @@ public class Liquor {
 		StringBuilder builder = new StringBuilder();
 		builder.append("*상품 번호: ");
 		builder.append(liquorNo);
-		builder.append("굏*종류 번호: ");
+		builder.append("\t종류 번호: ");
 		builder.append(liquorTableNo);
-		builder.append("굏*이름: ");
+		builder.append("\t이름: ");
 		builder.append(liquorName);
-		builder.append("굏*가격: ");
+		builder.append("\t가격: ");
 		builder.append(liquorPrice);
-		builder.append("굏*재고: ");
+		builder.append("\t재고: ");
 		builder.append(stock);
-		builder.append("굏*등록일: ");
+		builder.append("\t등록일: ");
 		builder.append(addDate);
 		return builder.toString();
 	}
