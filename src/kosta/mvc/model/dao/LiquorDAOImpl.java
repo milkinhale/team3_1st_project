@@ -54,9 +54,9 @@ public class LiquorDAOImpl implements LiquorDAO {
 			
 			System.out.println(dao.selectLiquorTable());
 			*/
-			/*System.out.println(dao.liquorSelectByLiquorName("몬스터"));*/
+			/*System.out.println(dao.liquorSelectByLiquorName("몬스터"));
 			Liquor liquor4 = new Liquor(41, 20);
-			System.out.println(dao.updateStock(liquor4));
+			System.out.println(dao.updateStock(liquor4));*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -258,7 +258,7 @@ public class LiquorDAOImpl implements LiquorDAO {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = profile.getProperty("liquor.updateStock");
+		String sql = profile.getProperty("liquor.newStock");
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
