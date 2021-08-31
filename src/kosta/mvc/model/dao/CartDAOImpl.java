@@ -16,7 +16,7 @@ public class CartDAOImpl implements CartDAO {
 	private Properties proFile = DBUtil.getProFile();
 	
 	//테스트
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		CartDAOImpl dao = new CartDAOImpl();
 		try {
 			
@@ -93,7 +93,7 @@ public class CartDAOImpl implements CartDAO {
 			//?값
 			ps.setString(1, customerId);
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				Cart cartDto = new Cart(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
 				cartList.add(cartDto);
 			}

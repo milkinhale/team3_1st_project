@@ -79,7 +79,10 @@ public class EndView {
 	 * 고객아이디별 장바구니 조회
 	 * */
 	public static void printCartByCustomerId(List<Cart> cartList) {
-		System.out.println(cartList);
+		for(Cart r : cartList) {
+			System.out.println(r);
+		}
+		System.out.println();
 	}//Review cart 끝
 	
 	/**
