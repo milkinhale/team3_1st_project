@@ -102,10 +102,9 @@ public class CustomerMenuView {
 		System.out.print("쿠폰을 사용하시겠습니까?(yes or no) : ");
 		String use = sc.nextLine();
 
-		CouponController.couponSelectAll(customerId);
-
 		int couponNo = 0;
 		if (use.equals("yes")) {
+			CouponController.couponSelectAll(customerId);
 			System.out.print("쿠폰 코드 입력 : ");
 			couponNo = Integer.parseInt(sc.nextLine());
 		}
