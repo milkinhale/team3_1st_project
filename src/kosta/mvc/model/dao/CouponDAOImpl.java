@@ -152,17 +152,15 @@ public class CouponDAOImpl implements CouponDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		String sql = proFile.getProperty("coupon.updateUsed");
-		
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, couponNo);
-			
+
 			result = ps.executeUpdate();
 		} finally {
 			DBUtil.dbClose(con, ps);
 		}
-		
 		return result;
 	}
 	
