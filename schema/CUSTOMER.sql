@@ -32,11 +32,15 @@ select customer_id from customer where customer_id =? ;
 INSERT INTO CUSTOMER VALUES('ADMIN', '1234', '판매자','1991-05-15', 'seller@naver.com', '아틀란티스 전북익산', '010-1111-1111', SYSDATE, 'SELLER');
 
 
-
-
+--레코드 삭제
+DELETE FROM CUSTOMER WHERE CUSTOMER_ID = 'Q';
 
 --확인용
 SELECT * FROM CUSTOMER;
+
+
+--커밋
+COMMIT
 
 --로그인
 
