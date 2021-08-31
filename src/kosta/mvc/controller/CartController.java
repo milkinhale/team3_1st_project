@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import kosta.mvc.model.dto.Cart;
 import kosta.mvc.model.dto.Liquor;
@@ -11,6 +12,7 @@ import kosta.mvc.model.service.CartService;
 import kosta.mvc.model.service.LiquorService;
 import kosta.mvc.session.Session;
 import kosta.mvc.session.SessionSet;
+import kosta.mvc.view.CustomerMenuView;
 import kosta.mvc.view.EndView;
 import kosta.mvc.view.FailView;
 
@@ -25,6 +27,15 @@ public class CartController {
 	  try {
 			List<Cart> cartList = cartService.cartSelectByCustomerId(customerId);
 			EndView.printCartByCustomerId(cartList);
+			
+			System.out.println("장바구니를 주문하시겠습니까? (예:1 | 뒤로가기:0)");
+			Scanner sc = new Scanner(System.in);
+			int input = Integer.parseInt(sc.nextLine());
+			if(input == 1) {
+				CustomerMenuView.orderCart(customerId, input);
+			}else if(input == 0) {
+				CustomerMenuView.customerMenu(customerId);
+			}
 		}catch(Exception e) {
 			FailView.errorMessage(e.getMessage());
 		}

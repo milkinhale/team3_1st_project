@@ -127,14 +127,14 @@ public class CustomerMenuView {
      * */
     public static void putCart(String id) {
 		System.out.println("--장바구니 담기 작업 --");
-		System.out.print("아이디를 입력하세요 : ");
-		String customerId = sc.nextLine();
+		//System.out.print("아이디를 입력하세요 : ");
+		//String customerId = sc.nextLine();
 		System.out.println("양주번호 : ");
 		int liquorNo = Integer.parseInt(sc.nextLine());
 		System.out.print("수량 : ");
 		int cartCount = Integer.parseInt(sc.nextLine());
 		
-		CartController.insertCart(customerId,liquorNo,cartCount);
+		CartController.insertCart(id,liquorNo,cartCount);
 	}
     
     
@@ -158,8 +158,42 @@ public class CustomerMenuView {
 		 * 추가로 배송 주소, 쿠폰 번호 입력 받아주시면 될듯.
 		 * */
 		
-		System.out.println("장바구니를 주문하시겠습니까? (예:1 | 뒤로가기:0)");
-		int input = Integer.parseInt(sc.nextLine());
+//		System.out.println("장바구니를 주문하시겠습니까? (예:1 | 뒤로가기:0)");
+//		int input = Integer.parseInt(sc.nextLine());
+//		
+//		if(input == 1) {//입력값이 1이면...
+//			System.out.print("배송 주소 :");
+//			String addr = sc.nextLine();
+//			System.out.print("쿠폰을 사용하시겠습니까?(yes or no) : ");
+//			String use = sc.nextLine();
+//
+//			int couponNo = 0;
+//			if (use.equals("yes")) {
+//				CouponController.couponSelectAll(id);
+//				System.out.print("쿠폰 코드 입력 : ");
+//				couponNo = Integer.parseInt(sc.nextLine());
+//			}
+//			
+//			//장바구니로 주문하는 오더 컨트롤러의 메소드 호출.
+//			OrderController.OrderCart(id, addr, couponNo);
+//			//id -> 세션에서 갖고옴
+//			//addr -> 스캐너에서 입력 받음
+//			//couponNo -> 스캐너에서 입력 받음(없으면 0 입력)
+//			CouponController.useCoupon(couponNo);
+//			
+//		}else {//입력값이 1이 아니면...
+//			//다시 고객 메뉴 띄우기
+//			customerMenu(id);
+//		}
+		
+		
+	}
+	
+	/**
+	 * 장바구니로 주문하기
+	 * */
+	public static void orderCart(String id, int input) {
+		
 		
 		if(input == 1) {//입력값이 1이면...
 			System.out.print("배송 주소 :");
@@ -185,8 +219,6 @@ public class CustomerMenuView {
 			//다시 고객 메뉴 띄우기
 			customerMenu(id);
 		}
-		
-		
 	}
     
 	
@@ -281,10 +313,10 @@ public class CustomerMenuView {
 	 * 3. 장바구니 비우기
 	 * */
 	public static void deleteCart(String id) {
-		System.out.println("삭제할 장바구니의 회원ID를 입력하세요");
-		String customerId = sc.nextLine();
+		//System.out.println("삭제할 장바구니의 회원ID를 입력하세요");
+		//String customerId = sc.nextLine();
 		
-		CartController.deleteCart(customerId);
+		CartController.deleteCart(id);
 	}
 	
 	
