@@ -282,6 +282,7 @@ public class CustomerMenuView {
 			//2.리뷰작성
 			case 2:
 				putReview(customerId);
+				myPageMenu(customerId);
 				break;
 				
 			//주문 취소 
@@ -293,16 +294,19 @@ public class CustomerMenuView {
 			//장바구니 비우기 
 			case 4:
 				deleteCart(customerId);
+				myPageMenu(customerId);
 				break;
 				
 			//쿠폰리스트 확인 
 			case 5:
 				CouponController.couponSelectAll(customerId);
+				myPageMenu(customerId);
 				break;
 				
 			//회원정보 수정 
 			case 6:
 				updateCustomer(customerId);
+				myPageMenu(customerId);
 				break;
 			
 			//회원정보 확인 
